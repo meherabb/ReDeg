@@ -1,0 +1,220 @@
+{
+  "id": "Re-Degradation Reveals Resolution | CVPR 2027 | addendum v8 | registered after run 8 and before run 9",
+  "scope": "Frozen v1.0 and addenda v2-v7 stay exactly as they are and the 88 checkpoints of runs 1-8 are reused unchanged; every rule of v1.0-v7 keeps its verdict in the ledger. Addendum v8 (i) tests the floor-sensitivity index on eight ImageNet classifiers no run has used, with predictions registered from the labelled source before any target image is read (block B27, rules U1-U3), on ImageNet-C archive images no run has used; (ii) replicates the storage-matched plug-in and the storage-matched attribution score on those classifiers and images (U4-U8); (iii) reports how the v1.0 fit check depends on the number of target images (U12); and (iv) registers the claims map v8, in which Claim 5 lists its tests apart from the documented limits, and the order of the paper.",
+  "motivation": [
+    "run 8: the floor-sensitivity index computed on the labelled source predicted 4 of 4 classifiers (W9) and where the floating-point plug-in failed on fresh archive images (W10, 4 of 4), but the four classifiers are the ones whose run-7 behaviour defined the index and its 4 pp threshold, so W9 and W10 confirmed the prediction on new images, not on new models",
+    "run 8: rounding the re-degraded source to 8 bits was registered as negligible (W4) and was not: on the 8-bit targets it lowered the error of all 7 estimators (ATC 4.97 -> 2.31 pp, COTT 2.57 -> 0.98 pp), and the floating-point plug-in failed even there (W3, 0 of 7); at matched blur the confidence-accuracy gap of ConvNeXt-T was +2.4 pp on floating-point images, +9.5 pp on the same images in 8 bits and +13.1 pp as JPEG (Swin-T: +3.2, +13.8, +14.2 pp)",
+    "run 8: on fresh archive images the storage-matched plug-in lowered the error of the five confidence-based estimators, significantly for four (W5 PARTIAL, 4 of 7 with AE-LS and MaNo unchanged); the strongest storage-matched plug-in matched the strongest published estimator there (COT@s_hat v7 2.18 vs NucNorm 1.88 pp, 95% CI of the difference containing 0)",
+    "run 8: the storage-matched attribution score tracked the labelled share on 9 fresh settings (W8: rho 0.98, median |phi_v7 - share_v7| 0.03 vs 0.20 for the floating-point phi)",
+    "run 8: the v1.0 fit check flagged 92-100% of the ImageNet conditions, Gaussian blur included, while the identified level stayed accurate (Spearman rho 1.00 with the PSF variance, median relative error 0.12-0.14); each condition used 2,000 target images, far more than in the blocks where the check was calibrated"
+  ],
+  "unseen_classifiers": {
+    "block": "B27",
+    "models": [
+      "convnext_small.fb_in1k",
+      "swin_small_patch4_window7_224.ms_in1k",
+      "vit_base_patch16_224.augreg2_in21k_ft_in1k",
+      "deit_base_patch16_224.fb_in1k",
+      "efficientnet_b0.ra_in1k",
+      "regnety_040.ra3_in1k",
+      "mobilenetv3_large_100.ra_in1k",
+      "resnet50.a1_in1k"
+    ],
+    "display": {
+      "convnext_small.fb_in1k": "ConvNeXt-S",
+      "swin_small_patch4_window7_224.ms_in1k": "Swin-S",
+      "vit_base_patch16_224.augreg2_in21k_ft_in1k": "ViT-B/16",
+      "deit_base_patch16_224.fb_in1k": "DeiT-B",
+      "efficientnet_b0.ra_in1k": "EfficientNet-B0",
+      "regnety_040.ra3_in1k": "RegNetY-4GF",
+      "mobilenetv3_large_100.ra_in1k": "MobileNetV3-L",
+      "resnet50.a1_in1k": "ResNet-50 (A1)"
+    },
+    "why": "eight public ImageNet-1k classifiers that no run of this notebook has used, chosen for architectural and training diversity (larger ConvNeXt and Swin models, a ViT and a DeiT at base size, an EfficientNet, a RegNet, a MobileNet, and ResNet-50 trained with the A1 recipe); their floor sensitivity is unknown until stage 1 computes it",
+    "preprocessing": "the B18 pipeline (224-px images as stored), normalised with each model's own mean and standard deviation from its timm pretrained configuration; the input of the final linear layer gives the features and the layer gives the logits",
+    "source": "A, the ImageNetV2 labelled half of B18 (same split and bank tag as B24: the same source grids, meta-sets, noise fields and calibration subsample)",
+    "targets": "the ImageNet-C blur archive (defocus, glass, motion, zoom; severities 1-5): per class the validation images ranked 11-15 by the keyed hash of B18 (ranks 1-5 were used in run 7, ranks 6-10 in run 8), the same 5,000 images in every condition; 20 conditions",
+    "temperature": "one temperature per classifier, fitted by NLL on the clean labelled source (as v6)",
+    "estimators": "as B24: the 12 published estimators, the v6 plug-ins (floating-point re-degradation), the v7 plug-ins (storage-matched), phi and phi_v7, both switches and blends, pre-T and post-T"
+  },
+  "registration": {
+    "stage_1": "before any B27 target image is read, for every unseen classifier: the floor-sensitivity index on the labelled source A alone (post-T; the v7 definition, mean over s in {1, 4, 16} px^2 of gap(s, 3 DN) - gap(s, 0)), the temperature and the clean accuracy",
+    "prediction": "FSI >= 4 pp (floor-sensitive): the floating-point plug-in raises the error on the fresh archive images, i.e. the mean over the 7 estimators of MAE(X@s_hat v6) - MAE(X) (post-T) is > 0; FSI < 4 pp: it does not (<= 0)",
+    "record": "the predictions are written to a checkpointed registration record (part 'registration' of B27) with the SHA-256 of their canonical JSON and the time, and printed, before stage 2 reads any target image; a session that resumes B27 reuses the record and never recomputes it",
+    "stage_2": "the identification of the 20 target conditions (pixels only), the fit-check analysis, then one pass per classifier with the full source bank; the bank's FSI must equal the registered value (rule U1)"
+  },
+  "fit_check_n": {
+    "question": "whether the v1.0 fit check flags ImageNet conditions because the blur model is wrong or because 2,000 images give the test enough power to reject a model that is close enough for identification",
+    "design": "Gaussian blur of B at severities 1-5 (the B18 keyed streams, 8-bit, no JPEG) and the five fresh archive defocus conditions; per condition a keyed pool of 2,000 target images; the v1.0 fit check and the identified level on keyed subsamples of n = 125, 250, 500, 1,000 and 2,000 images (five subsamples per n below 2,000)",
+    "reported": "the flag rate and the median relative level error against the Gaussian-equivalent PSF variance, as functions of n (rule U12; not a pass/fail rule)"
+  },
+  "U1": {
+    "block": "B27",
+    "test": "registration integrity: the registration record precedes stage 2 and, for each of the 8 unseen classifiers, the FSI of the stage-2 bank equals the registered FSI within 0.01 pp; PASS when both hold for all 8",
+    "max_abs_pp": 0.01
+  },
+  "U2": {
+    "block": "B27",
+    "test": "primary test of the index on unseen classifiers: the registered prediction agrees with the observed effect of the floating-point plug-in on the fresh archive images (post-T), i.e. the sign of the mean over the 7 estimators of MAE(X@s_hat v6) - MAE(X); PASS >= 7/8 agree with >= 2 classifiers in each predicted class; PARTIAL >= 6/8 agree, or >= 7/8 with fewer than 2 classifiers in a predicted class; FAIL otherwise",
+    "pass_min": 7,
+    "partial_min": 6,
+    "min_per_class": 2
+  },
+  "U3": {
+    "block": "B27",
+    "test": "across the 8 unseen classifiers, Spearman rho between the registered FSI and the observed mean change of U2; PASS rho >= 0.6 with one-sided exact permutation p < 0.05; PARTIAL rho >= 0.3; FAIL otherwise",
+    "min_rho": 0.6,
+    "p_max": 0.05,
+    "partial_rho": 0.3
+  },
+  "U4": {
+    "block": "B27",
+    "test": "the storage-matched plug-in on unseen classifiers and images (the scope of Claim 3): post-T, X@s_hat v7 < X for the five confidence-based estimators (ATC, ATC-NE, DoC, COT, COTT), one-sided Wilcoxon on paired cells (classifier x condition), Holm over the 5; PASS >= 4/5 with p < 0.01, PARTIAL >= 3/5",
+    "estimators": [
+      "ATC",
+      "ATC_NE",
+      "DoC",
+      "COT",
+      "COTT"
+    ],
+    "p_max": 0.01,
+    "pass_min_pairs": 4,
+    "partial_min_pairs": 3
+  },
+  "U5": {
+    "block": "B27",
+    "test": "the W5 form on unseen classifiers and images: post-T, X@s_hat v7 < X for the 7 pairs (with AE-LS and MaNo), one-sided Wilcoxon, Holm over the 7; PASS >= 5/7 with p < 0.01, PARTIAL >= 3/7",
+    "p_max": 0.01,
+    "pass_min_pairs": 5,
+    "partial_min_pairs": 3
+  },
+  "U6": {
+    "block": "B27",
+    "test": "the storage step removes the harm: pooled over the unseen classifiers registered as floor-sensitive (post-T), X@s_hat v7 < X@s_hat v6 for >= 4 of the five confidence-based estimators (one-sided Wilcoxon, Holm, p < 0.01), and for each of them the mean change of v7 over the 7 estimators is <= 0; PARTIAL when one of the two holds; INCONCLUSIVE when fewer than 2 unseen classifiers are registered as floor-sensitive",
+    "p_max": 0.01,
+    "pass_min_pairs": 4,
+    "min_sensitive": 2
+  },
+  "U7": {
+    "block": "B27",
+    "test": "storage-matched attribution on unseen classifiers: settings = (family, classifier) pooled over severities, counting when >= 3 of the 5 cells have a labelled drop > 0.02; (a) Spearman rho between the per-setting median phi_v7 and the median share_v7 >= 0.8 with one-sided p < 0.01; (b) median over settings of |phi_v7 - share_v7| <= 0.10; PASS both, PARTIAL one",
+    "min_rho": 0.8,
+    "p_max": 0.01,
+    "max_mad": 0.1,
+    "min_cells": 3
+  },
+  "U8": {
+    "block": "B27",
+    "test": "storage read-back: every fresh archive condition of B27 is read as JPEG quality 85 with 4:2:0 subsampling, with an exact table match for >= 99% of its files",
+    "min_exact_share": 0.99
+  },
+  "reported": {
+    "U9": "the FSI per level (pre-T and post-T), the temperature and the clean accuracy of every unseen classifier",
+    "U10": "per unseen classifier (post-T): the MAE of X, X@s_hat v6 and X@s_hat v7 for the 7 estimators, the strongest published estimator and the strongest storage-matched plug-in",
+    "U11": "all twelve ImageNet classifiers (the four of B24 on archive ranks 6-10, the eight of B27 on ranks 11-15): the FSI against the observed mean change of the floating-point and of the storage-matched plug-in, with Spearman rho (descriptive: the four of B24 defined the index)",
+    "U12": "the v1.0 fit check against the number of target images (fit_check_n)"
+  },
+  "claims": {
+    "Claim 1": {
+      "statement": "Identification: re-degradation by the exact heat semigroup identifies a calibrated blur level in px^2 without labels (knee law, half-energy law, effective resolution of real 25 vs 50 cm products), on blur the method did not generate (standard corruption PSFs up to ImageNet, real ground-sample-distance and off-nadir shifts) and against blind kernel estimation",
+      "tests": [
+        "R0",
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6",
+        "R10",
+        "K3",
+        "L4",
+        "L6",
+        "V1",
+        "V2",
+        "Q6",
+        "Q12"
+      ],
+      "limits": []
+    },
+    "Claim 2": {
+      "statement": "Attribution: phi says without labels how much of an accuracy drop the identified blur explains; it ranks fresh ImageNet settings, and with the storage-matched re-degradation its level tracks the labelled share, on unseen classifiers too",
+      "tests": [
+        "Q7",
+        "W8",
+        "U7"
+      ],
+      "limits": []
+    },
+    "Claim 3": {
+      "statement": "Plug-in under a matched pipeline: calibrating a confidence-based estimator on the source re-degraded to s_hat lowers its error when the re-degradation reproduces how the target was formed (blur, and the storage step read from the files): official CIFAR-10-C and CIFAR-100-C files, the real fMoW resolution shift, standard corruptions, and ImageNet-C with the storage step matched, on unseen classifiers too",
+      "tests": [
+        "P1",
+        "C1",
+        "K1",
+        "L3",
+        "Q2",
+        "Q3",
+        "Q4",
+        "L7",
+        "W2",
+        "W5",
+        "W6",
+        "W7",
+        "W12",
+        "U4",
+        "U5",
+        "U6",
+        "U8"
+      ],
+      "limits": []
+    },
+    "Claim 4": {
+      "statement": "No harm by construction: the plug-ins are exact identities when no blur is identified, and the switches keep shifts that are not mainly blur unharmed",
+      "tests": [
+        "L1",
+        "Q1",
+        "W1",
+        "L10",
+        "Q9",
+        "W11"
+      ],
+      "limits": []
+    },
+    "Claim 5": {
+      "statement": "Boundaries and their diagnosis: a re-degradation that misses the target's storage step (the 8-bit floor included) fails for floor-sensitive classifiers, which the labelled source alone reveals, on classifiers it has never seen; blur that is a minority of a real shift limits the gain, and distribution-matching estimators do not gain",
+      "tests": [
+        "W9",
+        "W10",
+        "U1",
+        "U2",
+        "U3"
+      ],
+      "limits": [
+        "Q5",
+        "Q8",
+        "Q11",
+        "W3",
+        "W4",
+        "L8",
+        "V3",
+        "Q10",
+        "P4"
+      ],
+      "limits_note": "documented limits: rules registered in v2-v7 as tests of the plug-in that failed or were partial; the v7 map (before run 8) counted seven of them (Q5, Q8, Q11, L8, V3, Q10, P4) as tests of Claim 5 and W3, W4 as tests of Claim 3; the v8 map (before run 9) lists all nine with Claim 5, where they mark the boundary, and does not count them as passed or failed tests"
+    }
+  },
+  "paper_order": [
+    "Fig. 1: identify, attribute, diagnose, calibrate (fig1_overview)",
+    "Fig. 2: the method (fig4_method)",
+    "identify: Fig. 3 theory on real 25 vs 50 cm products (fig2_physics), Fig. 4 identification on blur the method did not generate (fig17_identification), Table 1 identification and KernelGAN (T35_identification), Table 2 identifier ablation (T22_identifier_ablation, or the supplement)",
+    "attribute: Fig. 5 (fig24_attribution)",
+    "why calibration breaks and how to see it from the source: Fig. 6 (fig22_floor), Table 3 (T41_floor_unseen)",
+    "plug-in when the pipeline matches: Table 4 (T36_imagenet_storage)",
+    "the claims and their tests: Table 5 (T42_claims_v8); the full ledger in the appendix"
+  ],
+  "statistics": {
+    "n_boot": 10000,
+    "ci": 0.95,
+    "spearman": "one-sided exact permutation p over the 8 unseen classifiers"
+  }
+}

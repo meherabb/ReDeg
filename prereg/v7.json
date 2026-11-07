@@ -1,0 +1,250 @@
+{
+  "id": "Re-Degradation Reveals Resolution | CVPR 2027 | addendum v7 | registered after run 7 and before run 8",
+  "scope": "Frozen v1.0 and addenda v2-v6 stay exactly as they are and the 83 checkpoints of runs 1-7 are reused unchanged; every rule of v1.0-v6 keeps its verdict in the ledger. Addendum v7 (i) re-scopes the paper: the title and the claims lead with label-free identification and attribution, the plug-in claim is narrowed to targets whose formation pipeline the re-degradation reproduces, and the claims are reorganised into five (claims map below; the v6 map stays reported); (ii) defines the storage-matched re-degradation (the source passes through the target's storage step, read from the target files without labels) and the plug-ins X@s_hat v7, the attribution score phi_v7 and the switch on it; (iii) defines the floor-sensitivity index of a classifier, computed on its labelled source alone; (iv) adds block B24 (ImageNet: the B18 blur targets regenerated without and with the JPEG step, and the ImageNet-C blur archive on images no run has used), block B25 (ImageNet with the two halves swapped: new generated JPEG targets) and block B26 (the three real remote-sensing pairs whose targets are JPEG files, with the storage-matched plug-ins); and (v) registers rules W1-W12 and the reported analyses W13-W18.",
+  "motivation": [
+    "run 7 (block B18, fresh ImageNet data): the v6 plug-ins lowered the error on 0 of 7 estimators on the generated ImageNet-C blur targets (Q5 FAIL; ATC 2.5 -> 7.1 pp, COTT 2.1 -> 4.4 pp post-T) and the phi switch did not keep a gain (Q8 FAIL), while the same classifiers, images and identified levels gave ATC 6.4 -> 0.55 pp on the floating-point synthetic blur targets",
+    "run 7, exploratory and post hoc (raw cells of the B18 checkpoint): identification was accurate on those targets (Gaussian blur: 1.2, 4.1, 8.7, 15.0 and 31.5 px^2 for true 1, 4, 9, 16 and 36; the noise level sigma5 was 0 in 24 of the 25 generated blur conditions), so neither the identification nor the noise step caused the failure",
+    "run 7, exploratory and post hoc: the failure is confined to two of the four classifiers. On the same images at the same Gaussian variance (4 and 16 px^2), ConvNeXt-T and Swin-T are 12-15 pp more confident on the JPEG-85 copy than on the floating-point copy while their accuracy differs by 2-6 pp; adding 3 DN white noise to the floating-point copy restores the JPEG copy's confidence-accuracy gap (ConvNeXt-T +9.5 vs +9.4 pp at 4 px^2). The re-degraded source has no high-frequency floor, real and stored targets have one, so confidence-calibrated plug-ins over-predict accuracy for these two classifiers (ATC@s_hat +10.7 and +11.3 pp mean signed error) and not for DeiT-S and ResNet-50 (+2.2 and +2.6 pp)",
+    "run 7, exploratory and post hoc: on DeiT-S and ResNet-50 the v6 plug-ins lowered 5 of 7 errors on the generated targets and on the real archive, and COTT@s_hat beat the strongest published estimator on the generated blur (1.06 vs 1.76 pp)",
+    "run 7, exploratory and post hoc: the change of the source's confidence-accuracy gap when 3 DN noise is added at the same blur (1-16 px^2), measured on the synthetic copies of B, was 6.5-10.4 pp for ConvNeXt-T and Swin-T and at most 2.0 pp for DeiT-S and ResNet-50; phi exceeded the labelled share by 0.47 and 0.41 for the first two and by 0.09 and -0.01 for the others",
+    "run 7: clean ImageNetV2 images re-stored as JPEG 85 lost 2.3-4.7 pp of accuracy while the identified level stayed 0, and the published estimators tracked that drop to about 1 pp"
+  ],
+  "rescope": {
+    "title": "Re-Degradation Reveals Resolution: Label-Free Identification and Attribution of Blur Shift",
+    "title_rule": "this title is used when no rule of Claim 1 fails and Q7 passes; otherwise 'Re-Degradation Reveals Resolution: Label-Free Identification of Blur Shift'",
+    "claim_3": "narrowed from 'the plug-in lowers the error under blur' to 'the plug-in lowers the error of confidence-based estimators when the re-degradation reproduces the target's formation pipeline'; the non-circular evidence is the official CIFAR-10-C and CIFAR-100-C files and the real fMoW resolution shift; ImageNet-C enters through the storage-matched form only",
+    "table_1": "identification and the comparison with blind kernel estimation (KernelGAN), not the plug-in headline",
+    "ledger": "every rule of v1.0-v7 with its verdict, the registering addendum, its v6 claim and its v7 claim (or 'appendix')"
+  },
+  "storage_plugin": {
+    "level": "the v6 level (s5, sigma5)",
+    "store": "the storage step of the target set, read from its files without labels: 'jpeg' with quality q and chroma subsampling c when the targets are JPEG files (q = the IJG quality whose Pillow quantisation tables equal the files' tables, the nearest one by L1 distance of the luminance table when none is equal; c from the files' sampling factors; the modal (q, c) over the set); 'lossless8' when the targets are 8-bit images without lossy compression; 'float' when they are floating-point arrays (images re-degraded in memory)",
+    "re_degradation": "D(x) = decode(JPEG_{q,c}(Q8(T_{s5} x + sigma5 xi))) for 'jpeg', Q8(T_{s5} x + sigma5 xi) for 'lossless8' and T_{s5} x + sigma5 xi for 'float' (the v6 form); Q8 rounds to the nearest integer and clips to [0, 255]; JPEG with Pillow (optimize=True), decoding with Pillow; the noise field xi is the one of the v6 level",
+    "plugins": "X@s_hat v7 for ATC, ATC-NE, DoC, COT, COTT (the v5 forms), AE-LS and MaNo (the v6 bias transfer) and PT, with the source re-degraded by D instead of the floating-point re-degradation",
+    "phi_v7": "phi_v7 = (c_src(0) - c_src(D)) / (c_src(0) - c_tgt) with c the mean maximum softmax probability (post-T); undefined when |c_src(0) - c_tgt| < 0.005",
+    "labelled_share_v7": "share_v7 = (A_src(0) - A_src(D)) / (A_src(0) - A_tgt) on cells with A_src(0) - A_tgt > 0.02 (evaluation only)",
+    "switch_v7": "X_sw7 = X@s_hat v7 when phi_v7 >= 0.5, else X; blend X_bl7 = X + clip(phi_v7, 0, 1) (X@s_hat v7 - X) (reported)",
+    "identity": "X@s_hat v7 = X and X_sw7 = X exactly when s5 = sigma5 = 0 and the store is 'lossless8' or 'float'; for 'jpeg' targets the source passes through the JPEG step even at s5 = sigma5 = 0 (by design)"
+  },
+  "floor_sensitivity": {
+    "definition": "FSI = mean over s in {1, 4, 16} px^2 of [gap(s, 3 DN) - gap(s, 0)], gap = mean maximum softmax probability minus accuracy of the classifier on the labelled source A2 re-degraded to s by the exact semigroup, with and without 3 DN white noise (the A2 grids every bank computes), in pp, post-T; pre-T reported",
+    "threshold_pp": 4.0,
+    "meaning": "a classifier with FSI >= 4 pp is floor-sensitive: its confidence on a blurred image depends on the image's high-frequency floor (sensor noise, compression), so a re-degradation without that floor mis-calibrates its confidence-based estimators; it needs no target data and no target label"
+  },
+  "imagenet_v7": {
+    "B24": {
+      "source": "A, the ImageNetV2 labelled half of B18 (same split, preprocessing and four timm classifiers)",
+      "lossless": "the B18 generated targets of the five blur families (Gaussian, defocus, motion, zoom, glass) at severities 1-5 and clean B, regenerated with the B18 keyed streams and kept as 8-bit arrays (no JPEG step)",
+      "jpeg": "the same 26 sets stored as JPEG quality 85 (Pillow, optimize=True), i.e. the B18 targets regenerated (not fresh; used for the post hoc analysis W14 and the reproduction check W16)",
+      "fresh_real": "the ImageNet-C blur archive (defocus, glass, motion, zoom; severities 1-5): per class the validation images ranked 6-10 by the keyed hash of B18 (ranks 1-5 were used in run 7), the same 5,000 images in every condition",
+      "pixel": "identification as in B18 (keyed subsample of at most 2,000 images per condition, calibrated on 2,000 images of A); the store of every condition read from its files"
+    },
+    "B25": {
+      "source": "B, the B18 target half, as the labelled source (its labels were never used to calibrate anything)",
+      "targets": "A corrupted with the five blur families at severities 1, 3 and 5, and clean A, each image with its own keyed stream (keys new to this block), stored as JPEG quality 85; 16 conditions",
+      "pixel": "as B24, calibrated on 2,000 images of B"
+    },
+    "models": [
+      "resnet50.tv2_in1k",
+      "convnext_tiny.fb_in1k",
+      "swin_tiny_patch4_window7_224.ms_in1k",
+      "deit_small_patch16_224.fb_in1k"
+    ],
+    "temperature": "one temperature per classifier and source, fitted by NLL on the clean labelled source (as v6)",
+    "estimators": "the 12 published estimators, the v6 plug-ins (floating-point re-degradation), the v7 plug-ins, phi, phi_v7, both switches and blends, pre-T and post-T"
+  },
+  "rs_pairs_v7": {
+    "block": "B26",
+    "pairs": [
+      [
+        "ucm",
+        "resisc45"
+      ],
+      [
+        "patternnet",
+        "resisc45"
+      ],
+      [
+        "resisc45",
+        "patternnet"
+      ]
+    ],
+    "content": "the B23 conditions, data, splits, six encoders, probes and random streams, with the identification stored in the B17 checkpoints; the store read from the target split's image files; conditions with an added floating-point blur (s0 > 0) are 'float' targets, where the v7 forms equal the v6 forms",
+    "fsi": "the floor-sensitivity index of every encoder's probe on its source (reported)"
+  },
+  "W1": {
+    "test": "identity: every cell of B24, B25 and B26 with s5 = sigma5 = 0 and a 'lossless8' or 'float' store has X@s_hat v7 = X and X_sw7 = X exactly for the 7 estimators, pre-T and post-T",
+    "max_violations": 0
+  },
+  "W2": {
+    "test": "storage read-back (label-free): every JPEG target condition of B24 and B25 is read as quality 85 with 4:2:0 subsampling, with an exact table match for at least 99% of its files, and every lossless set as 'lossless8'",
+    "min_exact_share": 0.99
+  },
+  "W3": {
+    "block": "B24",
+    "set": "lossless",
+    "families": [
+      "gaussian_blur",
+      "defocus_blur",
+      "motion_blur",
+      "zoom_blur",
+      "glass_blur"
+    ],
+    "test": "post-T: X@s_hat v6 (floating-point re-degradation) < X for the 7 pairs, one-sided Wilcoxon on paired cells (classifier x condition), Holm over the 7 pairs, (a) pooled over the four classifiers and (b) pooled over the floor-sensitive classifiers (FSI >= 4 pp in this run); PASS both, PARTIAL one",
+    "p_max": 0.01,
+    "pass_min_pairs": 5,
+    "partial_min_pairs": 3
+  },
+  "W4": {
+    "block": "B24",
+    "set": "lossless",
+    "test": "rounding is negligible: |pooled MAE(X@s_hat v7) - pooled MAE(X@s_hat v6)| <= 0.3 pp for each of the 7 estimators (post-T, four classifiers, the 25 blur conditions); PASS 7/7, PARTIAL >= 5/7",
+    "margin_pp": 0.3
+  },
+  "W5": {
+    "block": "B24",
+    "set": "fresh_real",
+    "test": "primary confirmatory test on images no run has used: post-T, X@s_hat v7 < X for the 7 pairs, one-sided Wilcoxon on paired cells, Holm over the 7 pairs, pooled over the four classifiers and the 20 conditions",
+    "p_max": 0.01,
+    "pass_min_pairs": 5,
+    "partial_min_pairs": 3
+  },
+  "W6": {
+    "block": "B24",
+    "set": "fresh_real",
+    "test": "post-T: X@s_hat v7 < X@s_hat v6 for the 7 estimators, one-sided Wilcoxon on paired cells, Holm over the 7",
+    "p_max": 0.01,
+    "pass_min_pairs": 5,
+    "partial_min_pairs": 3
+  },
+  "W7": {
+    "block": "B25",
+    "test": "post-T, the 15 blur conditions: (a) X@s_hat v7 < X for the 7 pairs (one-sided Wilcoxon, Holm, p < 0.01, >= 5/7) and (b) the pooled MAE of the strongest v7 plug-in is at most that of the strongest of the 12 published estimators; PASS (a) and (b), PARTIAL (a) only or >= 3/7 with (b)",
+    "p_max": 0.01,
+    "pass_min_pairs": 5,
+    "partial_min_pairs": 3
+  },
+  "W8": {
+    "blocks": [
+      "B24 fresh_real",
+      "B25"
+    ],
+    "settings": "(set, family) pooled over severities and classifiers; a setting counts when at least 4 of its cells have a labelled drop > 0.02",
+    "test": "post-T: (a) Spearman rho between the per-setting median phi_v7 and the per-setting median share_v7 >= 0.8 with one-sided p < 0.01, and (b) the median over settings of |phi_v7 - share_v7| <= that of |phi - share| (v6); PASS both, PARTIAL one",
+    "min_rho": 0.8,
+    "p_max": 0.01
+  },
+  "W9": {
+    "block": "B24",
+    "test": "the floor-sensitivity index on the labelled source A (post-T) is >= 4 pp for ConvNeXt-T and Swin-T and < 4 pp for DeiT-S and ResNet-50 (the prediction of run 7's exploratory analysis on B); PASS 4/4 as predicted, PARTIAL 3/4",
+    "threshold_pp": 4.0
+  },
+  "W10": {
+    "block": "B24",
+    "set": "fresh_real",
+    "test": "the source-only index predicts where the floating-point plug-in fails on fresh data: per classifier, the mean over the 7 estimators of MAE(X@s_hat v6) - MAE(X) (post-T) is > 0 exactly for the classifiers with FSI >= 4 pp; PASS 4/4 classifiers, PARTIAL 3/4",
+    "threshold_pp": 4.0
+  },
+  "W11": {
+    "block": "B26",
+    "regime": "real pairs without added blur (s0 = 0)",
+    "test": "no harm: upper 95% hierarchical bootstrap bound of the pooled X_sw7 - X <= +0.5 pp for at least 6 of the 7 estimators, pooled over the three pairs (post-T); PARTIAL >= 4",
+    "margin_pp": 0.5,
+    "min_pairs": 6,
+    "partial_pairs": 4
+  },
+  "W12": {
+    "block": "B24",
+    "set": "fresh_real",
+    "test": "post-T: X_sw7 < X for the 7 pairs, one-sided Wilcoxon on paired cells, Holm over the 7",
+    "p_max": 0.01,
+    "pass_min_pairs": 5,
+    "partial_min_pairs": 3
+  },
+  "reported": {
+    "W13": "same-image storage analysis: per classifier, accuracy, mean confidence and their gap on B at matched Gaussian variance (1, 4, 16 px^2): floating-point (B18 synthetic, sigma 0 and 3 DN), lossless 8-bit and JPEG-85 ImageNet-C Gaussian blur (B24)",
+    "W14": "the v6 and v7 plug-ins on the regenerated B18 JPEG targets (post hoc, not fresh), per classifier",
+    "W15": "identification on lossless vs JPEG targets: levels and the fit-check flag rates",
+    "W16": "reproduction: the regenerated JPEG targets against B18 (truth and published estimators per cell)",
+    "W17": "the v7 plug-in matrix across B24, B25 and B26 (pre-T and post-T) and the strongest estimator per set",
+    "W18": "the floor-sensitivity index of the B25 classifiers (source B) and of the B26 probes"
+  },
+  "claims": {
+    "Claim 1": {
+      "statement": "Identification: re-degradation by the exact heat semigroup identifies a calibrated blur level in px^2 without labels (knee law, half-energy law, effective resolution of real 25 vs 50 cm products), on blur the method did not generate (standard corruption PSFs up to ImageNet, real ground-sample-distance and off-nadir shifts) and against blind kernel estimation",
+      "rules": [
+        "R0",
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6",
+        "R10",
+        "K3",
+        "L4",
+        "L6",
+        "V1",
+        "V2",
+        "Q6",
+        "Q12"
+      ]
+    },
+    "Claim 2": {
+      "statement": "Attribution: phi says without labels how much of an accuracy drop the identified blur explains; it ranks fresh ImageNet settings, and with the storage-matched re-degradation its level tracks the labelled share",
+      "rules": [
+        "Q7",
+        "W8"
+      ]
+    },
+    "Claim 3": {
+      "statement": "Plug-in under a matched pipeline: calibrating a confidence-based estimator on the source re-degraded to s_hat lowers its error when the re-degradation reproduces how the target was formed: official CIFAR-10-C and CIFAR-100-C files, the real fMoW resolution shift, standard corruptions, and ImageNet-C once the storage step is matched",
+      "rules": [
+        "P1",
+        "C1",
+        "K1",
+        "L3",
+        "Q2",
+        "Q3",
+        "Q4",
+        "L7",
+        "W2",
+        "W3",
+        "W4",
+        "W5",
+        "W6",
+        "W7",
+        "W12"
+      ]
+    },
+    "Claim 4": {
+      "statement": "No harm by construction: the plug-ins are exact identities when no blur is identified, and the switches keep shifts that are not mainly blur unharmed",
+      "rules": [
+        "L1",
+        "Q1",
+        "W1",
+        "L10",
+        "Q9",
+        "W11"
+      ]
+    },
+    "Claim 5": {
+      "statement": "Boundaries and their diagnosis: a re-degradation that misses the target's storage step fails for floor-sensitive classifiers, which the labelled source alone reveals; blur that is a minority of a real shift limits the gain, and distribution-matching estimators do not gain",
+      "rules": [
+        "Q5",
+        "Q8",
+        "Q11",
+        "W9",
+        "W10",
+        "L8",
+        "V3",
+        "P4",
+        "Q10"
+      ]
+    }
+  },
+  "statistics": {
+    "n_boot": 10000,
+    "ci": 0.95
+  }
+}

@@ -1,0 +1,124 @@
+{
+  "id": "Re-Degradation Reveals Resolution | CVPR 2027 | addendum v3 | registered after run 2 and before run 3",
+  "scope": "Frozen v1.0, addendum v2 and every rule registered so far stay exactly as they are, and the run-2 checkpoints are reused unchanged. Addendum v3 only adds three experiments (blocks B9-B11) and the rules below; it changes no earlier constant, step, threshold or estimator.",
+  "motivation": [
+    "run 2: every win is on Gaussian heat blur, which matches the method's forward model",
+    "run 2: on real cross-dataset shifts the identified level is about 0 (no resolution change), so re-degradation has nothing to correct there",
+    "run 2: the real 25 -> 50 cm change costs only about 2 pp of accuracy, too little to separate estimators",
+    "run 2: classic no-reference blur metrics were not compared as identification baselines"
+  ],
+  "corruptions": {
+    "block": "B9",
+    "definition": "ImageNet-C corruption functions and parameters (Hendrycks and Dietterich, ICLR 2019), re-implemented in numpy/scipy and checked in Cell 5.6; motion blur follows the numpy re-implementation of the ImageNet-C motion blur used by the imagecorruptions package; outputs are not JPEG re-encoded",
+    "families": {
+      "gaussian_psf": [
+        "gaussian_blur",
+        "defocus_blur"
+      ],
+      "other_blur": [
+        "motion_blur",
+        "zoom_blur",
+        "glass_blur"
+      ],
+      "resolution_compression": [
+        "pixelate",
+        "jpeg_compression"
+      ],
+      "noise": [
+        "gaussian_noise"
+      ],
+      "control": [
+        "contrast"
+      ]
+    },
+    "severities": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "data": "the ten evaluation datasets, seed 0, A2 and B each capped at 400 images (keyed subsample), the six method encoders",
+    "estimators": "the 11 baselines; the six plug-ins at the v1.0 and v2 levels; ATC@NR = ATC calibrated on A2 re-degraded to the level identified by the variance of the Laplacian (the most widely used classic no-reference blur metric, fixed in advance); known-corruption oracles = ATC, DoC, ATC-NE, PT, COT and COTT calibrated on A2 corrupted with the true family and severity (not label-free)"
+  },
+  "mvoi": {
+    "block": "B11",
+    "data": "SpaceNet MVOI (Atlanta, WorldView-2, one pass, 27 views from 7 to 54 degrees off-nadir, all resampled to a 0.5 m grid; public AWS bucket, no credentials); 48 tiles present in every view, 16 crops of 224 px per tile",
+    "physics": "source = nadir-7 crops of 32 tiles (A2 role), target = crops of the other 16 tiles in each of the 27 views (panchromatic band); identified level per view",
+    "min_frac": 0.02,
+    "accuracy": "building presence (footprint fraction >= 2% of the crop) from the public footprints; probe on nadir-7 crops of 16 tiles (A1), calibration on 16 other tiles (A2), targets = the 16 remaining tiles in 9 views (7 to 53 degrees); the six method encoders and every estimator of B9 except the oracles"
+  },
+  "id_baselines": {
+    "block": "B10",
+    "metrics": [
+      "variance of the Laplacian normalised by the image variance",
+      "spectral slope of the radially averaged power spectrum (log power vs log frequency, 0.05 <= lambda <= 2)"
+    ],
+    "calibration": "median metric of A2 re-degraded over CAL_GRID, inverted like CAL1 (label-free, encoder-free)",
+    "conditions": "the seed-0 within-dataset conditions of B3 (recomputed bit-for-bit from the keyed streams)"
+  },
+  "C1": {
+    "families": "gaussian_psf",
+    "test": "X@s_hat (v2 level) < X for the 6 plug-in pairs, one-sided Wilcoxon on paired cells (dataset x encoder x family x severity), Holm over the 6 pairs",
+    "p_max": 0.01,
+    "pass_min_pairs": 5,
+    "partial_min_pairs": 3
+  },
+  "C2": {
+    "families": "other_blur + resolution_compression",
+    "test": "as C1",
+    "p_max": 0.01,
+    "pass_min_pairs": 4,
+    "partial_min_pairs": 2
+  },
+  "C3": {
+    "families": "noise",
+    "test": "ATC_v2 < ATC, one-sided Wilcoxon on paired cells",
+    "p_max": 0.01
+  },
+  "C4": {
+    "families": "control (contrast, severities 1-3)",
+    "statistic": "share of conditions (dataset x severity) whose v2 level is <= 0.5 px^2, and pooled |MAE(ATC_v2) - MAE(ATC)|",
+    "max_level_px2": 0.5,
+    "min_share": 0.8,
+    "max_abs_diff_pp": 1.0
+  },
+  "C5": {
+    "families": "each family group",
+    "status": "EXCEEDED / MATCHED / BELOW from the hierarchical 95% CI of (ATC_v2 - strongest baseline of the group)",
+    "verdict": "REPORTED"
+  },
+  "C6": {
+    "comparison": "pooled MAE of ATC_v2 minus the known-corruption oracle ATC, per family",
+    "verdict": "REPORTED"
+  },
+  "V1": {
+    "statistic": "Spearman rho between the identified level and the off-nadir angle over the 26 off-nadir views",
+    "min_rho": 0.8,
+    "p_max": 0.01
+  },
+  "V2": {
+    "control": "nadir-7 target tiles against the nadir-7 source tiles",
+    "max_level_px2": 0.5
+  },
+  "V3": {
+    "test": "ATC_v2 < ATC on the 8 off-nadir accuracy views x 6 encoders, one-sided Wilcoxon on paired cells",
+    "p_max": 0.05
+  },
+  "V4": {
+    "comparison": "ATC_v2 vs the strongest baseline on the off-nadir accuracy views",
+    "verdict": "REPORTED"
+  },
+  "I1": {
+    "comparison": "median relative identification error of v1.0, the v2 level and every identification baseline, per regime (clean, noisy, label shift)",
+    "verdict": "REPORTED"
+  },
+  "I2": {
+    "test": "noisy regime: relative error of the v2 level < that of the better no-reference metric, one-sided Wilcoxon on paired conditions",
+    "p_max": 0.01
+  },
+  "statistics": {
+    "n_boot": 10000,
+    "ci": 0.95
+  }
+}

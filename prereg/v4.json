@@ -1,0 +1,115 @@
+{
+  "id": "Re-Degradation Reveals Resolution | CVPR 2027 | addendum v4 | registered after run 3 and before run 4",
+  "scope": "Frozen v1.0, addenda v2 and v3 and every rule registered so far stay exactly as they are, and the checkpoints of runs 1-3 are reused unchanged. Addendum v4 adds block B12 (the official CIFAR-10-C benchmark with six standard CIFAR-10 classifiers) with rules K1-K4, and four exploratory analyses X1-X4 of checkpoints that already exist (no pass/fail).",
+  "motivation": [
+    "run 3: the plug-ins were tested on ImageNet-C corruptions re-created on our ten datasets with frozen encoders, while label-free accuracy estimation is usually reported on the official CIFAR-10-C files with classifiers trained on CIFAR-10",
+    "run 3 (observed after the fact): the plug-in applied to COTT, the strongest baseline on the corruption suite, improved COTT on the corruption suite and on SpaceNet; B12 tests this no-harm property on an independent benchmark with a rule fixed in advance",
+    "run 3: on SpaceNet MVOI the identified level grows with the off-nadir angle (V1) but ATC@s_hat does not beat ATC (V3); X2 measures how much of the off-nadir accuracy drop the identified blur explains"
+  ],
+  "cifar10c": {
+    "block": "B12",
+    "data": "CIFAR-10-C (Hendrycks and Dietterich, ICLR 2019; Zenodo record 2535967, CIFAR-10-C.tar, md5 56bf5dcef84df0e2308c6dcbcbbd8499, CC BY 4.0) and the CIFAR-10 test set (Krizhevsky, 2009, binary version)",
+    "corruptions": {
+      "gaussian_psf": [
+        "gaussian_blur",
+        "defocus_blur"
+      ],
+      "other_blur": [
+        "motion_blur",
+        "zoom_blur",
+        "glass_blur"
+      ],
+      "resolution_compression": [
+        "pixelate",
+        "jpeg_compression"
+      ],
+      "noise": [
+        "gaussian_noise",
+        "shot_noise",
+        "impulse_noise",
+        "speckle_noise"
+      ],
+      "weather_digital": [
+        "fog",
+        "frost",
+        "snow",
+        "spatter",
+        "brightness",
+        "contrast",
+        "saturate",
+        "elastic_transform"
+      ]
+    },
+    "severities": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "split": "A2 = clean test images 0-4999 (source calibration); B = test images 5000-9999, one target set per corruption and severity (5,000 images); the known-corruption oracles use the corrupted copies of images 0-4999",
+    "order_check": "the CIFAR-10-C labels must equal the test labels in every severity block",
+    "models": [
+      "cifar10_resnet20",
+      "cifar10_resnet56",
+      "cifar10_vgg16_bn",
+      "cifar10_mobilenetv2_x1_4",
+      "cifar10_shufflenetv2_x2_0",
+      "cifar10_repvgg_a2"
+    ],
+    "model_source": "torch.hub chenyaofo/pytorch-cifar-models (BSD-3-Clause; trained on the CIFAR-10 training set; weights from the repository's GitHub releases)",
+    "normalisation": {
+      "mean": [
+        0.4914,
+        0.4822,
+        0.4465
+      ],
+      "std": [
+        0.2023,
+        0.1994,
+        0.201
+      ]
+    },
+    "predictions": "the classifier's own softmax; features for the AutoEval family, NucNorm and the feature regressor = the input of its final linear layer; no probe is trained",
+    "source_grids": "the source accuracy grid S_ACC and the AutoEval meta-set blur range are scaled by (32/224)^2 = 1/49, the same scene-relative blur as on 224-px tiles; the frozen identification (ETA_PIX, S_FIT, CAL_GRID, GOF test), NOISE_DN and the meta-set noise levels are unchanged",
+    "pixel_cap": 2000,
+    "pixel_cap_note": "pixel identification uses a keyed subsample of at most 2,000 images of A2 and of each target set; every estimator uses all 5,000",
+    "truth_level": "empirical Gaussian-equivalent PSF variance per corruption and severity: weighted least squares of log g = a - s lambda / 2 over the DCT modes with 0.05 < g < 1.5, g = per-mode gain between the corrupted and the clean B images (weights = clean power); truth only, never an estimator input"
+  },
+  "K1": {
+    "families": [
+      "gaussian_blur",
+      "defocus_blur"
+    ],
+    "test": "X@s_hat (v2 level) < X for the 6 plug-in pairs, one-sided Wilcoxon on paired cells (model x corruption x severity), Holm over the 6 pairs",
+    "p_max": 0.01,
+    "pass_min_pairs": 5,
+    "partial_min_pairs": 3
+  },
+  "K2": {
+    "statistic": "pooled MAE of COTT@s_hat (v2) minus COTT over all 95 corruption conditions and the six models",
+    "ci": "95% bootstrap, corruptions resampled first, then their severities (models move together)",
+    "max_upper_pp": 0.5
+  },
+  "K3": {
+    "families": [
+      "gaussian_blur",
+      "defocus_blur"
+    ],
+    "statistic": "Spearman rho between the level identified from pixels (v2) and the empirical PSF variance over the ten conditions",
+    "min_rho": 0.9,
+    "p_max": 0.01
+  },
+  "K4": {
+    "comparison": "ATC@s_hat (v2) vs the strongest baseline per corruption group and over all corruptions",
+    "status": "EXCEEDED / MATCHED / BELOW from the 95% bootstrap CI",
+    "verdict": "REPORTED"
+  },
+  "exploratory": {
+    "X1": "plug-in matrix: MAE of X@s_hat (v2) minus MAE of X for the six plug-in pairs in every setting (B3 regimes, real shifts, B9 corruption groups, SpaceNet off-nadir views, CIFAR-10-C groups) with 95% hierarchical bootstrap CIs",
+    "X2": "SpaceNet decomposition: the accuracy drop from the 7-degree view predicted by the measured accuracy of the source re-degraded to each view's identified level (PT, v2), as a share of the true drop (views at 30 degrees or more)",
+    "X3": "fresh-subset numbers of the addendum-v2 rules P1-P4 and N1-N3, reported next to their verdicts",
+    "X4": "identification against the strongest identification method of every kind (re-blur ratio, batch matching, feature regressor, variance of the Laplacian, spectral slope) in the SOTA table",
+    "status": "exploratory: X1-X4 use run-3 checkpoints that were already analysed, so they carry no pass/fail"
+  }
+}

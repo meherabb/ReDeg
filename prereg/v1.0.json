@@ -1,0 +1,210 @@
+{
+  "id": "Re-Degradation Reveals Resolution | CVPR 2027 | single fresh full run | frozen method v1.0",
+  "verdict_semantics": {
+    "values": [
+      "PASS",
+      "FAIL",
+      "PARTIAL",
+      "INCONCLUSIVE"
+    ],
+    "partial_min_frac_datasets": 0.7,
+    "F1_F5_min_datasets": 8,
+    "F1_F5_min_encoders": 5,
+    "M_min_encoders_per_group": 3,
+    "hard_assertions": [
+      "R0",
+      "R2",
+      "R3"
+    ]
+  },
+  "frozen_method_v1_0": {
+    "ETA_PIX": "geomspace(0.25, 1024, 13)",
+    "S_FIT": "geomspace(0.05, 2048, 170)",
+    "G_FIT": "linspace(0.3, 2.2, 39)",
+    "R_FIT": "{0} U geomspace(1e-3, 30, 15)",
+    "CAL_GRID": "{0} U geomspace(0.05, 400, 30)",
+    "lambda_bins": 3000,
+    "GOF_alpha": 0.01,
+    "GOF_test": "one-sided Mann-Whitney U (greater): target SSE vs SSE of A2 attenuated to s_hat",
+    "high_band_lambda_min": 6.0,
+    "primary_estimator": "ATC@s_hat with the max-confidence score",
+    "N_eps": 1e-06,
+    "noise_DN": 3.0,
+    "S_ACC": [
+      0,
+      1,
+      2,
+      4,
+      8,
+      16,
+      32,
+      64,
+      128,
+      256
+    ]
+  },
+  "R0": {
+    "tol": 1e-10
+  },
+  "R1": {
+    "n_tiles": 200,
+    "n_eta": 13,
+    "max_median_rel_err": 0.001
+  },
+  "R2": {
+    "tol": 1e-10
+  },
+  "R3": {
+    "tol_rel": 1e-12,
+    "Lambda": [
+      16,
+      64,
+      256
+    ],
+    "s": "S_ACC"
+  },
+  "R4": {
+    "s0": [
+      1,
+      2,
+      4,
+      8,
+      16
+    ],
+    "target": 1.0,
+    "abs_tol": 0.15,
+    "stratum": "O_x >= median at s0 = 0",
+    "ci": 0.95
+  },
+  "R5": {
+    "s0": [
+      2,
+      4,
+      8,
+      16
+    ],
+    "target": 1.0,
+    "abs_tol": 0.15,
+    "ci": 0.95
+  },
+  "R6": {
+    "target_ratio": 2.0,
+    "abs_tol": 0.2,
+    "fwhm_factor": 2.3548,
+    "gsd_m": [
+      0.25,
+      0.5
+    ],
+    "ci": 0.95
+  },
+  "R7": {
+    "ci": 0.95,
+    "interval": "Newcombe hybrid score, difference of two independent proportions",
+    "min_frac_cells": 0.9
+  },
+  "R8": {
+    "delta": 0.1,
+    "min_coverage": 0.88,
+    "K": 13,
+    "M": 10,
+    "s0": [
+      1,
+      4,
+      16,
+      64
+    ],
+    "n_Q": [
+      25,
+      50,
+      100,
+      200,
+      400,
+      "all"
+    ],
+    "n_rep": 500
+  },
+  "R9": {
+    "s0": [
+      2,
+      8,
+      32
+    ],
+    "p_max": 0.01,
+    "min_datasets": 8
+  },
+  "R10": {
+    "s0": 4,
+    "n_eta": 200,
+    "eta_rel_range": [
+      0.01,
+      100.0
+    ],
+    "max_abs_median_log2": 0.5
+  },
+  "F1": {
+    "min_frac_datasets": 0.7,
+    "pooled_wilcoxon_p_max": 0.01,
+    "regime": "unflagged",
+    "statistic": "per-dataset mean over 6 encoders of per-encoder mean MAE"
+  },
+  "F2": {
+    "min_frac_datasets": 0.7,
+    "regime": "unflagged",
+    "statistic": "max over encoders of per-encoder mean MAE"
+  },
+  "F3": {
+    "p_max": 0.05,
+    "comparison": "ATC@s_hat vs SAC-ATC, all label-shift cells, one-sided Wilcoxon"
+  },
+  "F4": {
+    "max_median_rel_err": 0.15,
+    "conditions": "in-family, sigma = 0, s0 >= 1"
+  },
+  "F5": {
+    "min_flag_noisy": 0.9,
+    "max_flag_clean": 0.1
+  },
+  "F6": {
+    "n_seeds": 3,
+    "min_seed_wins": 2,
+    "n_estimators": 12
+  },
+  "F7": {
+    "min_encoders": 4,
+    "min_drop": 0.1,
+    "s_low": 0,
+    "s_high": 64
+  },
+  "M1": {
+    "aug_median_max": 0.6,
+    "noaug_median_min": 0.8,
+    "p_max": 0.05
+  },
+  "M2": {
+    "min_gap": 0.2,
+    "pairs": [
+      [
+        "deit_s16",
+        "deit3_s16"
+      ],
+      [
+        "deit_b16",
+        "deit3_b16"
+      ]
+    ]
+  },
+  "M3": {
+    "ssl_inv_blur_max": 0.6,
+    "no_blur_min": 0.8
+  },
+  "M4": {
+    "supports_augmentation_if_min": 0.8,
+    "supports_objective_if_max": 0.6
+  },
+  "statistics": {
+    "n_boot": 10000,
+    "ci": 0.95,
+    "holm_family": "11 baselines, per test type",
+    "sign_flip": "exact, all 2^D patterns of per-dataset mean differences"
+  }
+}

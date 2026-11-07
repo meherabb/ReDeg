@@ -1,0 +1,252 @@
+{
+  "id": "Re-Degradation Reveals Resolution | CVPR 2027 | addendum v6 | registered after run 5 and before run 6",
+  "scope": "Frozen v1.0 and addenda v2-v5 stay exactly as they are and the 73 checkpoints of runs 1-5 are reused unchanged. Addendum v6 (i) temperature-scales every label-free estimator and plug-in on the labelled source and reports both versions, (ii) defines a label-free attribution score phi and the phi switch, (iii) replaces the AE-LS adapter by a bias-transfer form and adds MaNo with and without the plug-in, (iv) adds block B18 (ImageNet scale: ImageNetV2 as the labelled source, the ImageNet-C definitions on its other half, and the real ImageNet-C blur archive), block B19 (identification compared with blind kernel estimation by KernelGAN) and blocks B20-B23 (temperature-scaled re-runs of B13, B16, B14 and B17 that also save per-image logits), and (v) registers rules Q1-Q12 and the reported analyses Q13-Q17. The paper's claims are reorganised into six claims (claims map below); every rule of v1.0-v6 stays in the ledger with its verdict.",
+  "motivation": [
+    "run 5: no estimator was temperature-scaled, while ATC (Garg et al., ICLR 2022) and COT (Lu et al., NeurIPS 2023) calibrate every method on source validation data. The CIFAR-100 classifiers are 10.6 pp overconfident on clean A2 and raw COT on CIFAR-100-C has 11.7 pp MAE; the linear probes are 7-15 pp overconfident on the harder datasets",
+    "run 5, exploratory and post hoc: phi = (c_src(0) - c_src(s_hat)) / (c_src(0) - c_tgt) tracked the labelled share of the accuracy drop explained by blur (Spearman 0.97 over 21 settings, 0.89 over 1,217 cells), and switching the plug-in off for phi < 0.5 removed the LandCover.ai 25 -> 50 cm harm while keeping the CIFAR blur gains. Both are confirmed here only on data that no run has touched (block B18)",
+    "run 5: the v5 AE-LS adapter (AE-LS + beta log(1 + s5)) over-corrected on real targets (shifts of -7.8 pp on LandCover.ai and -8.8 pp on fMoW)",
+    "reviewers will expect an ImageNet-scale test, the newest accuracy estimator (MaNo, NeurIPS 2024) and a comparison with blind kernel estimation from cross-scale recurrence (Michaeli and Irani, ICCV 2013; Bell-Kligler, Shocher and Irani, NeurIPS 2019)"
+  ],
+  "temperature_scaling": {
+    "reference": "Guo, Pleiss, Sun and Weinberger, ICML 2017",
+    "fit": "one temperature T per classifier (linear probe or trained head): minimise the mean negative log-likelihood of the clean labelled source calibration split A2 over log T in [log 0.05, log 20] (bounded scalar search, tolerance 1e-4)",
+    "applies_to": "every softmax output of every estimator and plug-in: the source at every level, the meta-sets, every target",
+    "report": "pre-T (T = 1, exactly the v1.0-v5 definitions) and post-T; every Q rule uses post-T unless it says otherwise",
+    "logits": "per-image logits (float16) of the clean source and of every target condition are written to the logits folder next to the outputs (not the resume zip); ImageNet targets keep a keyed subset of 1,000 images per condition"
+  },
+  "plugin_v6": {
+    "level": "as v5: s5 = the v2 level; sigma5 = sigma_v11 only when v1.0 flags the condition and the v2 model check accepts",
+    "ATC, ATC-NE, DoC, COT, COTT": "the v5 forms",
+    "AE-LS": "bias transfer: AE-LS@s_hat v6 = AE-LS - [b(s5, sigma5) - b(0, 0)], b = the AE-LS prediction on A2 re-degraded to the level (its meta-features read from that set) minus the probe's accuracy there; unclipped predictions inside, the result clipped to [0, 1]",
+    "MaNo": "the same bias transfer with the MaNo accuracy prediction",
+    "identity": "X@s_hat v6 = X exactly when s5 = 0 and sigma5 = 0, for ATC, ATC-NE, DoC, COT, COTT, AE-LS and MaNo"
+  },
+  "mano": {
+    "reference": "Xie, Odonnat, Feofanov, Deng, Zhang and An, NeurIPS 2024",
+    "score": "S = (1/(N K) sum_i sum_k Q_ik^p)^(1/p) with p = 4; Q = softmax(q) when Phi > eta, else the second-order Taylor normalisation (1 + q + q^2/2 minus its row minimum, rows summing to 1); Phi = the mean over images and classes of -log softmax(q) (uniform cross-entropy) on the clean labelled source A2, computed once per classifier and temperature, so that every set of a classifier (meta-sets, source levels, targets) uses the same normalisation (the official code also fixes it once per model); eta = 5",
+    "inputs": "the classifier's logits on the whole set (temperature-scaled in the post-T version), frozen model in evaluation mode",
+    "accuracy": "a LinearRegression of accuracy on S over the AutoEval meta-sets, as for NucNorm (the paper reports correlations)"
+  },
+  "attribution": {
+    "phi": "phi = (c_src(0) - c_src(s5, sigma5)) / (c_src(0) - c_tgt), c = mean maximum softmax probability (post-T); undefined when |c_src(0) - c_tgt| < 0.005",
+    "labelled_share": "share = (A_src(0) - A_src(s5, sigma5)) / (A_src(0) - A_tgt), on cells with A_src(0) - A_tgt > 0.02 (evaluation only: it uses target labels)",
+    "switch": "X_sw = X@s_hat v6 when phi >= 0.5, else X (also when phi is undefined)",
+    "blend": "X_bl = X + clip(phi, 0, 1) (X@s_hat v6 - X) (reported)"
+  },
+  "imagenet": {
+    "block": "B18",
+    "source": "ImageNetV2 matched-frequency (Recht, Roelofs, Schmidt and Shankar, ICML 2019; 10,000 images, 10 per class; Hugging Face dataset vaishaal/ImageNetV2, file imagenetv2-matched-frequency.tar.gz; label = the folder name, the ImageNet-1k class index)",
+    "preprocessing": "Pillow bilinear resize of the shorter side to 256 and centre crop to 224 (the ImageNet-C preprocessing)",
+    "split": "per class the 10 images ordered by a keyed hash of the file name: the first 5 form A (labelled source, 5,000 images), the other 5 form B (target base, 5,000 images)",
+    "generated": "the nine ImageNet-C families of block B9 (Hendrycks and Dietterich, ICLR 2019) at severities 1-5 applied to B, each image with its own keyed stream, then stored as JPEG quality 85 as the ImageNet-C files were; plus clean B stored as JPEG 85",
+    "synthetic": "B re-degraded in floating point by the heat semigroup: s in {1, 4, 16, 64} px^2 and sigma in {0, 3} DN (keyed noise blocks shared by the pixel stage and every model)",
+    "real": "the ImageNet-C blur archive (Zenodo record 2235448, blur.tar, md5 2d8e81fdd8e07fef67b9334fa635e45c, CC BY 4.0): defocus, glass, motion and zoom blur at severities 1-5; per class the 5 validation images with the smallest keyed hash of the file name (the same 5,000 images in every condition); label = the WordNet folder (sorted wnids = class index). These are ImageNet validation images, a different sample than ImageNetV2, so this target mixes a natural shift with blur",
+    "models": [
+      "resnet50.tv2_in1k",
+      "convnext_tiny.fb_in1k",
+      "swin_tiny_patch4_window7_224.ms_in1k",
+      "deit_small_patch16_224.fb_in1k"
+    ],
+    "model_source": "timm, weights from the Hugging Face hub (He et al., CVPR 2016; Liu et al., CVPR 2022; Liu et al., ICCV 2021; Touvron et al., ICML 2021); ImageNet mean/std normalisation; logits from each model's own final linear layer",
+    "pixel_cap": 2000,
+    "pixel": "identification on a keyed subsample of at most 2,000 images per condition (all of B for the synthetic conditions), calibrated on a keyed subsample of 2,000 images of A",
+    "psf_truth": "Gaussian-equivalent PSF variance of the Gaussian and defocus families (corruption_equiv_var of block B9)",
+    "omitted": "the identifier ablation and the known-corruption oracles",
+    "fresh": "no ImageNet image entered any earlier run"
+  },
+  "kernelgan": {
+    "block": "B19",
+    "method": "KernelGAN (Bell-Kligler, Shocher and Irani, NeurIPS 2019) re-implemented from the official code (github.com/sefibk/KernelGAN): deep linear generator with layers [7, 5, 3, 1, 1, 1] and 64 channels (13 x 13 kernel, scale 1/2), 7-layer patch discriminator (7 x 7 then 1 x 1, 64 channels, spectral normalisation), L1 GAN loss, the official constraints and schedule (bicubic 5 with its decay, sum-to-one 0.5, boundaries 0.5, centralised 0 -> 1, sparsity 0 -> 5), Adam 2e-4 with beta1 0.5, 3,000 iterations, learning rate divided by 10 every 750, crops drawn from gradient-weighted probability maps, kernel post-processing with n = 40. N images are trained in parallel with grouped convolutions: every image keeps its own parameters, spectral norms, batch statistics and loss weights",
+    "level": "Gaussian-equivalent variance of the post-processed kernel (per-axis second moment); per image and per set (median), mapped to px^2 by a monotone calibration on source images re-degraded to known levels; the same source images calibrate s_hat",
+    "landcoverai": "8 target tiles (B orthophotos) and 8 calibration tiles (A2 orthophotos), each with the added levels {0, 1, 2, 4, 8, 16} px^2 (exact DCT heat semigroup)",
+    "fmow": "8 keyed target views per gsd bin of block B14 and 8 source crops (A2) at the added levels {0, 1, 2, 4, 8} px^2 for the calibration",
+    "comparator": "s_hat (v1.0 per-image knees through the same 8-image calibration, set level = median); s_hat with the method's full source calibration is reported"
+  },
+  "ts_reruns": {
+    "blocks": {
+      "B20": "B13 (CIFAR-100-C, six classifiers)",
+      "B21": "B16 (CIFAR-10-C, six classifiers)",
+      "B22": "B14 (fMoW, six encoders)",
+      "B23": "B17 (the five real pairs, six encoders)"
+    },
+    "content": "the identification stored in the v5 checkpoint (the same pixels, so the same levels), the same data, splits, classifiers, conditions and random streams; every estimator and plug-in pre-T and post-T; the known-corruption oracles, the identifier ablation and the GSD chain are not repeated",
+    "check": "pre-T predictions are compared with the v5 checkpoint (reported, Q17)"
+  },
+  "Q1": {
+    "test": "identity: every cell of B18 and B20-B23 with s5 = 0 and sigma5 = 0 has X@s_hat v6 = X and X_sw = X exactly for ATC, ATC-NE, DoC, COT, COTT, AE-LS and MaNo, pre-T and post-T",
+    "max_violations": 0
+  },
+  "Q2": {
+    "block": "B20",
+    "families": [
+      "gaussian_blur",
+      "defocus_blur"
+    ],
+    "test": "post-T: X@s_hat v6 < X for the 7 pairs, one-sided Wilcoxon on paired cells, Holm over the 7 pairs",
+    "p_max": 0.01,
+    "pass_min_pairs": 5,
+    "partial_min_pairs": 3
+  },
+  "Q3": {
+    "block": "B21",
+    "families": [
+      "gaussian_blur",
+      "defocus_blur"
+    ],
+    "test": "as Q2 on CIFAR-10-C",
+    "p_max": 0.01,
+    "pass_min_pairs": 5,
+    "partial_min_pairs": 3
+  },
+  "Q4": {
+    "block": "B20",
+    "regime": "all 19 corruptions x 5 severities",
+    "test": "post-T: the strongest of the 7 v6 plug-ins against the strongest of the 12 published estimators (the 11 baselines and MaNo), pooled MAE with equal weight per corruption; PASS when the 95% hierarchical bootstrap CI of the difference lies below 0, PARTIAL when it contains 0, FAIL otherwise"
+  },
+  "Q5": {
+    "block": "B18",
+    "families": [
+      "gaussian_blur",
+      "defocus_blur",
+      "motion_blur",
+      "zoom_blur",
+      "glass_blur"
+    ],
+    "test": "post-T, generated targets: X@s_hat v6 < X for the 7 pairs, one-sided Wilcoxon on paired cells (model x condition), Holm over the 7 pairs",
+    "p_max": 0.01,
+    "pass_min_pairs": 5,
+    "partial_min_pairs": 3
+  },
+  "Q6": {
+    "block": "B18",
+    "test": "Spearman rho between the v2 level and the Gaussian-equivalent PSF variance over the generated Gaussian and defocus conditions (10) >= 0.9 with one-sided p < 0.01, and over the five real-archive defocus conditions >= 0.9; PASS both, PARTIAL one",
+    "min_rho": 0.9,
+    "p_max": 0.01
+  },
+  "Q7": {
+    "block": "B18",
+    "settings": "generated family (9), synthetic sigma = 0, synthetic sigma = 3 DN, real-archive family (4), each pooled over severities and models; a setting counts when at least 4 of its cells have a labelled drop > 0.02",
+    "test": "post-T: Spearman rho between the per-setting median phi and the per-setting median labelled share >= 0.8 with one-sided p < 0.01",
+    "min_rho": 0.8,
+    "p_max": 0.01
+  },
+  "Q8": {
+    "block": "B18",
+    "settings": "generated blur families, synthetic conditions and the real-archive blur families",
+    "test": "post-T: retention = (MAE(X) - MAE(X_sw)) / (MAE(X) - MAE(X@s_hat v6)) >= 0.7 for estimators whose plug-in lowers the pooled MAE; an estimator whose plug-in does not lower it counts as retained when X_sw is not worse than X",
+    "min_retention": 0.7,
+    "pass_min_pairs": 5,
+    "partial_min_pairs": 3
+  },
+  "Q9": {
+    "blocks": [
+      "B23",
+      "B22"
+    ],
+    "regimes": "B23 real pairs without added blur (real_plus0); B22 every fMoW condition",
+    "test": "post-T: upper 95% hierarchical bootstrap bound of the pooled X_sw - X <= +0.5 pp for at least 6 of the 7 estimators, on each of the two sets; PASS both, PARTIAL one",
+    "margin_pp": 0.5,
+    "min_pairs": 6
+  },
+  "Q10": {
+    "blocks": [
+      "B22",
+      "B23"
+    ],
+    "test": "post-T, on fMoW (all conditions) and on the real pairs without added blur: AE-LS@s_hat v6 has a lower pooled MAE than the v5 adapter and its upper 95% bound of AE-LS@s_hat v6 - AE-LS is <= +0.5 pp; PASS both sets, PARTIAL one; on FAIL the AE-LS plug-in is reported as a negative result",
+    "margin_pp": 0.5
+  },
+  "Q11": {
+    "settings": [
+      "B20 Gaussian and defocus blur",
+      "B21 Gaussian and defocus blur",
+      "B18 generated blur families"
+    ],
+    "test": "post-T: MaNo@s_hat v6 < MaNo, one-sided Wilcoxon on paired cells, p < 0.01 in each setting; PASS 3/3, PARTIAL 2/3",
+    "p_max": 0.01
+  },
+  "Q12": {
+    "block": "B19",
+    "test": "(a) LandCover.ai: per-image relative level error |level - s0| / s0 over the five non-zero added levels: s_hat lower than KernelGAN, one-sided Wilcoxon on the paired images p < 0.05 and a lower median; (b) fMoW: Spearman rho of the per-image level with the gsd for s_hat >= that of KernelGAN - 0.05; PASS both, PARTIAL one",
+    "p_max": 0.05,
+    "rho_margin": 0.05
+  },
+  "reported": {
+    "Q13": "temperatures, NLL and overconfidence per classifier before and after scaling; pre-T vs post-T MAE of every estimator and plug-in per setting",
+    "Q14": "the v6 plug-in matrix (7 estimators) post-T and pre-T across B18 and B20-B23, and the strongest estimator per setting",
+    "Q15": "ImageNet real-archive targets (natural shift plus blur): plug-in, switch and blend per family",
+    "Q16": "phi against the labelled share on B20-B23 (post-T; not fresh data) and the blend",
+    "Q17": "reproduction: pre-T predictions of B20-B23 against the v5 checkpoints of B13, B16, B14 and B17"
+  },
+  "claims": {
+    "Claim 1": {
+      "statement": "Physics: re-degradation by the exact heat semigroup identifies a calibrated blur level (knee law, half-energy law, effective resolution of real 25 vs 50 cm products)",
+      "rules": [
+        "R0",
+        "R1",
+        "R2",
+        "R3",
+        "R4",
+        "R5",
+        "R6",
+        "R10"
+      ]
+    },
+    "Claim 2": {
+      "statement": "Identification without labels on blur the method did not generate: standard corruption PSFs, real ground-sample-distance and off-nadir shifts, ImageNet scale, and against blind kernel estimation",
+      "rules": [
+        "K3",
+        "L4",
+        "L6",
+        "V1",
+        "V2",
+        "Q6",
+        "Q12"
+      ]
+    },
+    "Claim 3": {
+      "statement": "Plug-in: calibrating a label-free estimator on the source re-degraded to s_hat lowers its error under blur, also after temperature scaling and at ImageNet scale",
+      "rules": [
+        "P1",
+        "C1",
+        "K1",
+        "L3",
+        "Q2",
+        "Q3",
+        "Q4",
+        "Q5",
+        "Q11"
+      ]
+    },
+    "Claim 4": {
+      "statement": "No harm by construction: the plug-in is an exact identity when no blur is identified",
+      "rules": [
+        "L1",
+        "Q1",
+        "L10"
+      ]
+    },
+    "Claim 5": {
+      "statement": "Attribution: phi estimates without labels how much of an accuracy drop blur explains, and the phi switch keeps the blur gains without harming other shifts",
+      "rules": [
+        "Q7",
+        "Q8",
+        "Q9"
+      ]
+    },
+    "Claim 6": {
+      "statement": "Boundaries: on real sensor shifts where blur is a minority of the shift, the plug-in helps confidence-based estimators and not distribution-matching ones",
+      "rules": [
+        "L7",
+        "L8",
+        "V3",
+        "P4",
+        "Q10"
+      ]
+    }
+  },
+  "statistics": {
+    "n_boot": 10000,
+    "ci": 0.95
+  }
+}

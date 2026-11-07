@@ -1,0 +1,148 @@
+{
+  "id": "Re-Degradation Reveals Resolution | CVPR 2027 | addendum v2 | registered after run 1 and before run 2",
+  "scope": "Frozen v1.0 and every R/F/M rule stay exactly as registered and are re-evaluated on run 2. The addendum only adds estimators, real-shift pairs and the rules below; it changes no v1.0 constant, step or threshold.",
+  "motivation": [
+    "run 1: the gain of ATC@s_hat concentrates where the shift is blur",
+    "run 1: the v1.0 joint blur+noise fit fails under sensor noise, while the v1.1 tail fit recovers (s, sigma)",
+    "run 1: on real cross-dataset shifts ATC@s_hat equals ATC and trails COTT",
+    "run 1: the real 25 -> 50 cm change is flagged, because it is a resampling, not a Gaussian blur"
+  ],
+  "plugin": {
+    "pairs": [
+      [
+        "ATC",
+        "ATC_s"
+      ],
+      [
+        "ATC_NE",
+        "ATC_NE_m"
+      ],
+      [
+        "DoC",
+        "DoC_m"
+      ],
+      [
+        "COT",
+        "COT_m"
+      ],
+      [
+        "COTT",
+        "COTT_m"
+      ],
+      [
+        "AE_LS",
+        "AE_LS_s"
+      ]
+    ],
+    "COT_m": "acc_src(level) + COT_err_src(level) - COT_err_target: the COT error calibrated on A2 degraded to the identified level",
+    "COTT_m": "COTT threshold calibrated on A2 degraded to the identified level (true A2 labels), applied to the target",
+    "level": "v1.0 level for the *_m columns; v2 level for the *_v2 columns"
+  },
+  "v2_path": {
+    "unflagged": "identical to v1.0 (s_hat, sigma = 0)",
+    "flagged": "v1.1 tail fit (s_v11, sigma_v11) replaces the v1.0 joint fit",
+    "noise_model_check": "one-sided Mann-Whitney U (greater): target knee-fit SSE vs the SSE of A2 simulated at (s_v11, sigma_v11) with fresh Gaussian noise; a v2 flag needs both checks to fire",
+    "alpha": 0.01,
+    "primary_v2": "ATC_v2 = ATC calibrated on A2 at the v2 level"
+  },
+  "gsd": {
+    "pair": "lcai25_to_lcai50",
+    "chain": "heat blur Delta (25 cm px^2) -> 2x2 area downsample to 50 cm -> 8-bit rounding -> PIL bicubic x2 upsample (the target's own resampling); the GSD ratio 2 comes from the image metadata",
+    "Delta": "label-free knee matching of the chain on A2 over CHAIN_GRID = {0} U geomspace(0.05, 64, 20)",
+    "estimators": [
+      "ATC_g",
+      "DoC_g",
+      "ATC_NE_g",
+      "COT_g",
+      "COTT_g",
+      "PT_g"
+    ]
+  },
+  "real_pairs": [
+    [
+      "resisc45",
+      "ucm"
+    ],
+    [
+      "ucm",
+      "resisc45"
+    ],
+    [
+      "patternnet",
+      "resisc45"
+    ],
+    [
+      "resisc45",
+      "patternnet"
+    ],
+    [
+      "lcai25",
+      "lcai50"
+    ]
+  ],
+  "fresh_data": "seeds 1-2 of ucm, whu_rs19, optimal31, clrs and the two PatternNet pairs were never run before this addendum; every addendum rule is also reported on that fresh subset",
+  "P1": {
+    "regime": "clean blur (syn, sigma = 0), v1.0-unflagged",
+    "test": "X@s_hat < X, one-sided Wilcoxon on paired cells, Holm over the 6 pairs",
+    "p_max": 0.01,
+    "pass_min_pairs": 6,
+    "partial_min_pairs": 4
+  },
+  "P2": {
+    "regime": "blur + label shift (ls), all cells",
+    "test": "as P1",
+    "p_max": 0.01,
+    "pass_min_pairs": 4,
+    "partial_min_pairs": 3
+  },
+  "P3": {
+    "regime": "real pairs, no added blur (real_plus0)",
+    "test": "non-inferiority: upper 95% bound of the pooled paired difference X@s_hat - X <= +1.0 pp (hierarchical bootstrap)",
+    "margin_pp": 1.0,
+    "pass_min_pairs": 5,
+    "partial_min_pairs": 4
+  },
+  "P4": {
+    "regime": "real pairs with added blur (real_plus4, real_plus16)",
+    "test": "X@s_hat < X, one-sided Wilcoxon on paired cells",
+    "p_max": 0.05,
+    "pass_min_pairs": 4,
+    "partial_min_pairs": 3
+  },
+  "N1": {
+    "regime": "noisy in-family (sigma = 3 DN)",
+    "statistic": "median |s_v11 - s0| / s0 per dataset",
+    "max": 0.15,
+    "min_frac_datasets": 0.8
+  },
+  "N2": {
+    "regime": "noisy in-family",
+    "test": "ATC_v2 vs the strongest baseline of the regime, one-sided Wilcoxon on paired cells",
+    "p_max": 0.01
+  },
+  "N3": {
+    "regime": "noisy in-family",
+    "statistic": "v2 flag rate per dataset",
+    "max": 0.1,
+    "min_frac_datasets": 0.8
+  },
+  "G1": {
+    "regime": "LandCover.ai 25 -> 50 cm, real_plus0",
+    "comparison": "MAE of ATC_g vs ATC_s and ATC over the 6 encoders",
+    "verdict": "REPORTED"
+  },
+  "S2": {
+    "regimes": [
+      "clean blur",
+      "noisy blur",
+      "blur + label shift",
+      "real",
+      "real + blur"
+    ],
+    "status": "EXCEEDED / MATCHED / BELOW from the hierarchical 95% CI of (ATC_v2 - strongest baseline of the regime)"
+  },
+  "statistics": {
+    "n_boot": 10000,
+    "ci": 0.95
+  }
+}

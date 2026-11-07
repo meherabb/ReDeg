@@ -1,0 +1,286 @@
+{
+  "id": "Re-Degradation Reveals Resolution | CVPR 2027 | addendum v5 | registered after run 4 (CIFAR-10-C) and before run 5",
+  "scope": "Frozen v1.0 and addenda v2-v4 stay exactly as they are and the checkpoints of runs 1-4 are reused unchanged. Addendum v5 (i) defines the identity-preserving plug-in X@s_hat v5, (ii) adds blocks B13 (CIFAR-100-C), B14 (fMoW: real ground-sample-distance shift, pan-sharpened and multispectral views of the same acquisitions), B15 (the additive-noise semigroup), B16 (CIFAR-10-C with the v5 plug-ins, the identifier ablation and synthetic blur + noise) and B17 (the five real pairs of B4 with the v5 plug-ins), and (iii) registers rules L1-L10 and the reported analyses L11-L13. The contribution is framed as the identified level s_hat: a label-free, physically calibrated blur level that any label-free accuracy estimator can use.",
+  "motivation": [
+    "run 4, P3: the plug-ins were not identities at s_hat = 0. COT@s_hat and AE-LS@s_hat re-calibrate even at zero (UCM->RESISC45 at s_hat = 0, sigma = 0: COT +2.4 and AE-LS +13.5 pp), and the v2 noise path added 3.3 DN of noise where its own model check rejected (PatternNet->RESISC45: ATC +4.9, AE-LS +11.4 pp)",
+    "run 4, K1-K4: on CIFAR-10-C the identified level tracks the PSF variance (K3) and COTT@s_hat does no harm (K2); B13 tests both on a second standard benchmark that no earlier run touched",
+    "runs 3-4: the real-world evidence covers identification (R4-R6, V1) but not estimation; B14 uses fMoW, whose metadata gives each image's ground sample distance and whose multispectral copy of every acquisition is about four times coarser",
+    "run 4, I1/X4: classic metrics identify noise-free blur as well as s_hat; the identifier ablation asks whether the downstream estimate depends on which identifier supplies the level, in particular under noise",
+    "the framework is stated for observation semigroups; B15 tests a second one (additive Gaussian noise: re-noising reveals the noise variance)"
+  ],
+  "plugin_v5": {
+    "level": "s5 = the v2 level (s_v11 when v1.0 flags the condition, else s_hat)",
+    "noise": "sigma5 = sigma_v11 only when v1.0 flags the condition and the v2 model check accepts (flagged2 = False); otherwise 0",
+    "identity": "X@s_hat v5 equals X exactly when s5 = 0 and sigma5 = 0, for ATC, ATC-NE, DoC, COT, COTT and AE-LS",
+    "forms": {
+      "ATC, ATC-NE, DoC, COTT": "calibrated on A2 re-degraded to (s5, sigma5), as in v2 (identities at zero by construction)",
+      "COT": "delta form: COT + [(c(s5) - e(s5)) - (c(0) - e(0))], c = COT transport cost and e = error of the probe on A2 re-degraded to the level",
+      "AE-LS": "delta form: AE-LS + beta log(1 + s5), beta = the level coefficient of the AE-LS+s regressor"
+    }
+  },
+  "identifier_ablation": {
+    "identifiers": {
+      "hat": "the v2 level s_v2",
+      "lap": "variance of the Laplacian (calibrated, as ATC@NR)",
+      "slope": "spectral slope (calibrated)",
+      "feat": "feature severity regressor id_feat"
+    },
+    "estimators": [
+      "ATC",
+      "COT",
+      "COTT"
+    ],
+    "noise": "level only (sigma = 0) for every identifier, so the four plug-ins differ only in the level",
+    "conditions": "Gaussian-PSF and other-blur corruptions and every synthetic condition in B13 and B16; every condition in B14"
+  },
+  "cifar100c": {
+    "block": "B13",
+    "data": "CIFAR-100-C (Hendrycks and Dietterich, ICLR 2019; Zenodo record 3555552, CIFAR-100-C.tar, md5 11f0ed0f1191edbf9fa23466ae6021d3, CC BY 4.0) and the CIFAR-100 test set (Krizhevsky, 2009, binary version, fine labels)",
+    "corruptions": {
+      "gaussian_psf": [
+        "gaussian_blur",
+        "defocus_blur"
+      ],
+      "other_blur": [
+        "motion_blur",
+        "zoom_blur",
+        "glass_blur"
+      ],
+      "resolution_compression": [
+        "pixelate",
+        "jpeg_compression"
+      ],
+      "noise": [
+        "gaussian_noise",
+        "shot_noise",
+        "impulse_noise",
+        "speckle_noise"
+      ],
+      "weather_digital": [
+        "fog",
+        "frost",
+        "snow",
+        "spatter",
+        "brightness",
+        "contrast",
+        "saturate",
+        "elastic_transform"
+      ]
+    },
+    "severities": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "split": "as B12: A2 = clean test images 0-4999 (source calibration); B = test images 5000-9999 (targets); the known-corruption oracles use the corrupted copies of images 0-4999",
+    "order_check": "the CIFAR-100-C labels must equal the fine test labels in every severity block",
+    "models": [
+      "cifar100_resnet20",
+      "cifar100_resnet56",
+      "cifar100_vgg16_bn",
+      "cifar100_mobilenetv2_x1_4",
+      "cifar100_shufflenetv2_x2_0",
+      "cifar100_repvgg_a2"
+    ],
+    "model_source": "torch.hub chenyaofo/pytorch-cifar-models (BSD-3-Clause; trained on the CIFAR-100 training set; weights from the repository's GitHub releases)",
+    "normalisation": {
+      "mean": [
+        0.507,
+        0.4865,
+        0.4409
+      ],
+      "std": [
+        0.2673,
+        0.2564,
+        0.2761
+      ]
+    },
+    "min_clean_accuracy": 0.6,
+    "pixel_cap": 2000,
+    "source_grids": "as B12 (S_ACC and the meta-set blur range scaled by (32/224)^2)"
+  },
+  "synthetic_cifar": {
+    "blocks": [
+      "B13",
+      "B16"
+    ],
+    "s": [
+      0.25,
+      0.5,
+      1.0
+    ],
+    "sigma": [
+      0.0,
+      4.0,
+      8.0
+    ],
+    "images": "the full B split, re-degraded in floating point by the 32-px DCT heat semigroup plus keyed Gaussian noise (the same noise blocks feed the pixel identification and every classifier)",
+    "truth": "the applied level s"
+  },
+  "cifar10c_v5": {
+    "block": "B16",
+    "data": "as B12 (addendum v4)",
+    "models": "the six B12 classifiers",
+    "content": "the v5 plug-ins, the identifier ablation and the synthetic blur + noise conditions on CIFAR-10-C; B12 results are not replaced"
+  },
+  "fmow": {
+    "block": "B14",
+    "data": "fMoW-rgb validation split (Christie, Fendley, Wilson and Mukherjee, CVPR 2018), public AWS bucket spacenet-dataset/Hosted-Datasets/fmow/fmow-rgb (no credentials). Every acquisition has a pan-sharpened RGB image (rgb) and a multispectral RGB image (msrgb) about four times coarser; the metadata give each image's ground sample distance (gsd)",
+    "categories": [
+      "crop_field",
+      "parking_lot_or_garage",
+      "single-unit_residential",
+      "multi-unit_residential",
+      "solar_farm",
+      "storage_tank",
+      "swimming_pool",
+      "golf_course",
+      "road_bridge",
+      "wind_farm",
+      "construction_site",
+      "park",
+      "shopping_mall",
+      "place_of_worship"
+    ],
+    "n_categories": 10,
+    "min_locations": 60,
+    "max_locations_per_category": 300,
+    "max_target_views_per_location": 4,
+    "view_filter": "cloud_cover <= 20, a visible object box, and the 112-m window fits inside the image",
+    "grid": "every image is resampled to 0.5 m per pixel (Pillow bicubic, antialiased when reducing); a 224-px window (112 m) is centred on the first visible object box and shifted to lie inside the image",
+    "split": "locations are split by a keyed hash: 40% source and 60% target. A1 and A2 (alternating by keyed hash) take the sharpest rgb view with gsd <= 0.50 m of each source location; the targets are every eligible rgb view of the target locations (at most 4 per location) and the msrgb image of the same acquisitions",
+    "bins_m": [
+      0.0,
+      0.4,
+      0.5,
+      0.6,
+      0.8,
+      1.2,
+      1.6,
+      2.0,
+      99.0
+    ],
+    "min_bin": 90,
+    "merge": "from the finest bin upwards, a bin with fewer than 90 images merges into the next coarser bin (the last bin into the previous one)",
+    "subsets_per_bin": 3,
+    "encoders": "the six method encoders (frozen) with the linear probe of B11 (trained on A1)"
+  },
+  "noise_semigroup": {
+    "block": "B15",
+    "statement": "additive white Gaussian noise is a semigroup in its variance: adding variance eta to y = x + sigma xi gives variance sigma^2 + eta. The mean power of the orthonormal DCT modes with lambda >= lambda_hi is affine in eta with unit slope. Re-noising the target over an eta grid and fitting the line gives an intercept; its difference to the clean source's intercept identifies sigma^2 (source-relative)",
+    "lambda_hi": 6.0,
+    "eta_grid": [
+      0.0,
+      4.0,
+      16.0,
+      64.0
+    ],
+    "sigma_grid": [
+      1.0,
+      2.0,
+      4.0,
+      8.0,
+      16.0
+    ],
+    "blur_grid_224": [
+      0.0,
+      4.0,
+      16.0
+    ],
+    "blur_scaling_32": "levels at 32 px are the 224-px levels times (32/224)^2",
+    "image_sets": "CIFAR-10 and CIFAR-100 test sets (source = images 0-4999, target = 5000-9999) and the fMoW source crops (source = A2, target = A1)",
+    "subsets": 10,
+    "comparators": "the v2 joint blur + noise fit (sigma_v11), the median-absolute-deviation estimate (Donoho and Johnstone, 1994) on the same DCT band and Immerkaer's (1996) Laplacian-mask estimate; every estimate is source-calibrated (target variance minus source variance)"
+  },
+  "real_v5": {
+    "block": "B17",
+    "pairs": "the five B4 pairs",
+    "content": "the B4 units re-run with the v5 plug-ins (same data, splits, encoders, conditions and random streams)"
+  },
+  "L1": {
+    "test": "identity: every cell of B13, B14, B16 and B17 with s5 = 0 and sigma5 = 0 has X@s_hat v5 = X exactly for the six estimators",
+    "max_violations": 0
+  },
+  "L2": {
+    "block": "B13",
+    "statistic": "pooled MAE of COTT@s_hat v5 minus COTT over the 95 corruption conditions and six models",
+    "ci": "95% bootstrap, corruptions resampled first, then their severities (models move together)",
+    "max_upper_pp": 0.5
+  },
+  "L3": {
+    "block": "B13",
+    "families": [
+      "gaussian_blur",
+      "defocus_blur"
+    ],
+    "test": "X@s_hat v5 < X for the 6 plug-in pairs, one-sided Wilcoxon on paired cells, Holm over the 6 pairs",
+    "p_max": 0.01,
+    "pass_min_pairs": 5,
+    "partial_min_pairs": 3
+  },
+  "L4": {
+    "block": "B13",
+    "families": [
+      "gaussian_blur",
+      "defocus_blur"
+    ],
+    "statistic": "Spearman rho between the v2 level and the empirical Gaussian-equivalent PSF variance (as B12)",
+    "min_rho": 0.9,
+    "p_max": 0.01
+  },
+  "L5": {
+    "blocks": [
+      "B13",
+      "B16"
+    ],
+    "conditions": "synthetic blur + noise with sigma >= 4 DN",
+    "test": "ATC with the s_hat level has a lower error than ATC with the variance-of-the-Laplacian level and than ATC with the spectral-slope level, one-sided Wilcoxon on paired cells, each p < 0.01",
+    "p_max": 0.01
+  },
+  "L6": {
+    "block": "B14",
+    "statistic": "Spearman rho between each target condition's v2 level and its median gsd",
+    "min_rho": 0.8,
+    "p_max": 0.01
+  },
+  "L7": {
+    "block": "B14",
+    "conditions": "target conditions with median gsd >= 0.60 m",
+    "test": "X@s_hat v5 < X for the 6 plug-in pairs, one-sided Wilcoxon on paired cells (encoder x condition)",
+    "p_max": 0.05,
+    "pass_min_pairs": 4,
+    "partial_min_pairs": 3
+  },
+  "L8": {
+    "block": "B14",
+    "statistic": "pooled MAE of COTT@s_hat v5 minus COTT over every target condition",
+    "ci": "95% bootstrap, gsd bins resampled first, then their conditions (encoders move together)",
+    "max_upper_pp": 0.5
+  },
+  "L9": {
+    "block": "B15",
+    "statistic": "median over the 10 keyed target subsets of |sigma_hat^2 - sigma^2| / sigma^2 of the re-noising estimate, without blur, for sigma in {2, 4, 8, 16} DN",
+    "max": 0.15,
+    "pass": "every image set and every sigma"
+  },
+  "L10": {
+    "block": "B17",
+    "regime": "real pairs, no added blur (real_plus0)",
+    "test": "non-inferiority of X@s_hat v5: upper 95% bound of the pooled paired difference X@s_hat v5 - X <= +1.0 pp (hierarchical bootstrap)",
+    "margin_pp": 1.0,
+    "pass_min_pairs": 5,
+    "partial_min_pairs": 4
+  },
+  "reported": {
+    "L11": "CIFAR-100-C per corruption group: ATC@s_hat v2, COTT@s_hat v5, COT@s_hat v5 and the strongest of the 11 baselines",
+    "L12": "fMoW: identified level and accuracy per gsd bin; share of the accuracy drop explained by blur (source re-blurred to the identified level), as X2",
+    "L13": "noise semigroup with blur, and every comparator",
+    "summary": "the v5 plug-in matrix across B13, B14, B16 and B17, and the best label-free estimator per setting"
+  },
+  "statistics": {
+    "n_boot": 10000,
+    "ci": 0.95
+  }
+}
