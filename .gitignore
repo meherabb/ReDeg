@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+
+# outputs of a local notebook run (the results of the paper are tracked in results/ and figures/)
+outputs/
+outputs_dryrun/
+outputs*.zip
+logits/
+*.pkl
+
+# personal strings for scripts/check_anonymity.py: never commit
+.anonymity_names.txt
+
+.DS_Store

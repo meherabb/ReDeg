@@ -1,0 +1,8 @@
+# keep the language statistics on the code, and diffs readable
+*.ipynb            linguist-documentation -diff
+results/**         linguist-generated
+figures/**         linguist-generated
+prereg/*.json      linguist-generated
+tests/fixtures/**  binary
+*.pdf              binary
+*.png              binary
