@@ -1,0 +1,1445 @@
+6.1s 1 0.00s - Debugger warning: It seems that frozen modules are being used, which may
+6.1s 2 0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+6.1s 3 0.00s - to python to disable frozen modules.
+6.1s 4 0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+6.6s 5 0.00s - Debugger warning: It seems that frozen modules are being used, which may
+6.6s 6 0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+6.6s 7 0.00s - to python to disable frozen modules.
+6.6s 8 0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+30.5s 9 /usr/local/lib/python3.13/dist-packages/ot/datasets.py:204: SyntaxWarning: invalid escape sequence '\d'
+30.5s 10 positive floating numbers corresponding to the isotropic variances in the principal subspace, for the source and target distributions, respectively. The same as \delta in :ref:`[1] <references-make_gauss-hd>`, Proposition 2.2
+30.5s 11 
+30.5s 12 /usr/local/lib/python3.13/dist-packages/ot/datasets.py:204: SyntaxWarning: invalid escape sequence '\d'
+30.5s 13 positive floating numbers corresponding to the isotropic variances in the principal subspace, for the source and target distributions, respectively. The same as \delta in :ref:`[1] <references-make_gauss-hd>`, Proposition 2.2
+31.5s 14 pot              present 0.9.7.post1
+40.8s 15 timm             present 1.0.29
+40.8s 16 huggingface_hub  present 1.29.0
+42.0s 17 datasets         present 4.8.5
+42.0s 18 MODE=full | DRY_RUN=False | session budget 11 h (cells after the budget print a skip notice)
+42.2s 19 Detected environment: kaggle. Outputs: /kaggle/working/outputs. Zip target: /kaggle/working/outputs.zip. Data/caches: /tmp/redeg_data
+42.5s 20 Using device: cuda:0 (Tesla T4)
+42.5s 21 timestamp        2026-10-13T22:14:38
+42.5s 22 ENV_NAME         kaggle
+42.5s 23 MODE             full
+42.5s 24 DRY_RUN          False
+42.5s 25 python           3.13.15
+42.5s 26 platform         Linux-6.18.48+-x86_64-with-glibc2.39
+42.5s 27 cpu_count        4
+42.5s 28 cuda             12.8
+42.5s 29 gpu              Tesla T4
+42.5s 30 budget_h         11.0
+42.5s 31 numpy            2.1.3
+42.5s 32 scipy            1.16.3
+42.5s 33 sklearn          1.6.1
+42.5s 34 pandas           2.3.3
+42.5s 35 matplotlib       3.10.0
+42.5s 36 torch            2.11.0+cu128
+42.5s 37 torchvision      0.26.0+cu128
+42.5s 38 timm             1.0.29
+42.5s 39 ot               0.9.7.post1
+42.5s 40 huggingface_hub  1.29.0
+42.5s 41 datasets         4.8.5
+42.5s 42 PIL              12.3.0
+42.5s 43 free disk at /tmp/redeg_data: 1148.7 GB
+42.5s 44 free disk at /kaggle/working/outputs: 20.9 GB
+42.5s 45 REMINDER (Kaggle): the notebook's Settings -> Internet switch must be ON for dataset and weight downloads.
+42.6s 46 plotting library ready: 28 figure renderers; standalone copy at /kaggle/working/outputs/code/plot_figures.py
+42.8s 47 PREREG v1.0 SHA-256 (registered and recomputed): 58594e8ccc059e4827b22061855cf0a139958113e5e114cce963d1b8b6aebfb5
+42.8s 48 Addendum v2 SHA-256 (registered and recomputed): 9e3ab0852200bfaabed8b711ad71453836e2649c981f3f92b84836781c863998
+42.8s 49 Addendum v3 SHA-256 (registered and recomputed): 86ab550b0b1a2024c8dbfee00a6a7cd1014aca3c0993acc13fc9af1b07420faf
+42.8s 50 Self-selected decisions:
+42.8s 51 - Self-selected: R0 and R2 test the lemma's exact standardisation (no epsilon); the pipeline's N keeps eps = 1e-6 from frozen v1.0, and its deviation from N o A = N is printed, not asserted.
+42.8s 52 - Self-selected: target-condition noise is a seeded numpy float32 field in 32-image blocks; the same blocks feed the pixel identification and every encoder. Source-side noise (degraded A2, AutoEval meta-sets) comes from a seeded torch generator on the device, one field per batch shared across blur levels.
+42.8s 53 - Self-selected: pixel DCTs use scipy.fft (type II, orthonormal) and a sparse binning matrix, both asserted equal to the v1.0 matrix and bincount reference (<= 1e-9 relative).
+42.8s 54 - Self-selected: knee fits use the SSE-by-expansion form and the v1.1 tail fit is vectorised by valid-level pattern; both are asserted against the v1.0 reference on random curves (>= 98% identical grid indices).
+42.8s 55 - Self-selected: R1 and R10 use the closed form int_0^eta Var_{pi_u}(lambda) du = E_{pi_0}[lambda] - E_{pi_eta}[lambda] (log-partition identity), so they test the identity rather than quadrature error; O_x keeps the frozen 32-point trapezoid.
+42.8s 56 - Self-selected: pooled statistics weight datasets equally (mean of per-dataset means), matching the hierarchical bootstrap that resamples datasets first; the addendum's regime statistics average a dataset's seeds before pooling.
+42.8s 57 - Self-selected: COT and COTT use the A2 label marginal as the source label distribution and solve the C x n transportation problem, asserted equal to the n x n assignment on random cases; the target transport costs are computed once per condition and shared by the baselines and the plug-ins (same random streams, so COT and COTT equal their run-1 definitions).
+42.8s 58 - Self-selected: NucNorm accuracy comes from a LinearRegression of accuracy on the normalised nuclear norm over the AutoEval meta-sets; the ICML 2023 paper reports correlations only.
+42.8s 59 - Self-selected: predictions from regressions and confidence differences (DoC, the AutoEval family, NucNorm, DoC@s_hat, COT@s_hat, AE-LS+s_hat) are clipped to [0, 1]; this can only lower their error.
+42.8s 60 - Self-selected: PT_anchor weights are fitted once per target subset, because the anchor features at s = 256 px^2 do not depend on a condition's blur or noise.
+42.8s 61 - Self-selected: the mechanism screen runs on the 120 target tiles per dataset only; the knee rho uses no source tiles, which would cost about 45 GPU-minutes without entering any rule.
+42.8s 62 - Self-selected: stress tests (noise sweep, PSF misspecification, JPEG) run on a random subsample of at most 240 B images per dataset; the v1.0 check uses the full A2 calibration split, the v2 noise-model check at most 240 A2 images.
+42.8s 63 - Self-selected: images (and LandCover.ai tiles) whose minimum per-channel std is below 0.5 DN are dropped (logged for images), because a constant channel makes the normalised response undefined.
+42.8s 64 - Self-selected: the six method encoders stay in CPU RAM and move to the GPU one at a time, which avoids about 150 reloads while keeping one encoder on the GPU.
+42.8s 65 - Self-selected: in the certificate experiment an abstention counts as a coverage failure, and n_Q = 'all' is a single repetition on the full B.
+42.8s 66 - Self-selected: in MODE=full a failed check_figure triggers tick thinning and a re-check; a remaining problem is logged in the manifest instead of aborting after the GPU blocks. In DRY_RUN the check is strict.
+42.8s 67 - Self-selected: DRY_RUN writes to outputs_dryrun/ and its checkpoints carry a dry-run flag, so a smoke test can never be resumed into a real run.
+42.8s 68 - Self-selected: one universal session budget (REDEG_BUDGET_H, default 11 h, measured from the first cell) replaces the projection-based dropping of run 1, which dropped all seed replication on a warm-up throughput estimate: units run in a fixed order (B2, B3, B4, B5, B6), each unit part (pixel stage, one encoder pass, one mechanism unit) starts only if its live estimate fits before the compute stop (budget minus a 0.25 h packaging reserve), and nothing is dropped; once the budget is used up an IPython input transformer replaces every later cell by a one-line skip notice, except the cells marked @always-run (inventory, completeness, packaging, final cell).
+42.8s 69 - Self-selected: the analyses (Sections 7-9, marked @needs-complete) run in the session that finishes every compute unit; a session that ends with pending units only packages its checkpoints, so no partial result can be mistaken for the final one.
+42.8s 70 - Self-selected: a session acquires only the datasets its pending units read; data-dependent assumption checks of an earlier session are kept when no dataset is loaded.
+42.8s 71 - Self-selected: throughput measured during the self-check is discarded and a measured rate is trusted only after 2,000 images, because warm-up passes made run 1 overestimate the run by a factor of three.
+42.8s 72 - Self-selected: resume searches every attached input up to 7 folder levels deep for checkpoint folders and zip files (Kaggle may keep or extract an uploaded zip); zips are opened in DATA_DIR and only checkpoint files are read; inputs are reported as anonymous '<input #k>' labels, never by dataset slug or owner.
+42.8s 73 - Self-selected: checkpoints of run 1 (frozen v1.0, no addendum hash) are reused only for units whose computation the addendum leaves unchanged (B1 and the B5 mechanism units); B2 gains the Fig. 1(b) curves, B3, B4 and B6 gain the addendum estimators, and B5_vicreg_r50 is recomputed because run 1 loaded Barlow Twins weights for VICReg.
+42.8s 74 - Self-selected: Barlow Twins and VICReg weights are downloaded under distinct cache names, and every encoder's weight fingerprint (parameter count, sum of |theta|) must differ from every other encoder's.
+42.8s 75 - Self-selected: COT@s_hat = acc_src(level) + COT_err_src(level) - COT_err_target (the COT error calibrated on the re-degraded source, DoC-style); COTT@s_hat refits the COTT threshold on A2 at the level with the true A2 labels.
+42.8s 76 - Self-selected: the v2 noise-model check simulates A2 at (s_v11, sigma_v11) by adding fresh Gaussian noise in the orthonormal DCT domain (equal in distribution to pixel-space white noise) on at most 480 A2 images per condition.
+42.8s 77 - Self-selected: the GSD chain for LandCover.ai 25 -> 50 cm is calibrated on 300 A2 tiles over CHAIN_GRID = {0} U geomspace(0.05, 64, 20) and applied to all A2 tiles per condition; the chain outputs are cached across the six encoder passes of the unit.
+42.8s 78 - Self-selected: the addendum adds PatternNet <-> RESISC45 (shared class names after the I-10 normalisation) to the real shifts; together with seeds 1-2 these are data run 1 never used, and every addendum rule also reports its verdict on that fresh subset.
+42.8s 79 - Self-selected: the lean zip carries unit checkpoints (parts only for unfinished units), figures (PDF + PNG), tables (TeX + CSV), key_results.txt, run_manifest.json and a resume note; logs, figure data and code stay in OUTPUT_DIR. Text outputs pass an anonymity audit (input paths, e-mail addresses, home folders) before zipping.
+42.8s 80 - Self-selected: the zip is embedded (base64) in the output of the final cell, with a script that starts the browser download right after a fresh build; a panel in Cell 1.5 carries snapshots during the run and is reduced to a pointer at the end, so the notebook holds one embedded copy.
+42.8s 81 - Self-selected: PNGs are written as 600-dpi RGB without alpha or software metadata and PDFs without creator or date metadata (smaller, anonymous and byte-stable); the standalone script writes them the same way.
+42.8s 82 - Self-selected: panel labels are regular-weight '(a) caption' titles with a two-to-four-word caption (instead of bold letters), as requested for the camera-ready figures.
+42.8s 83 - Self-selected: the 120 RESISC45 mechanism images are drawn from the seed-0 B split (stream (0, 'mech', 'resisc45')).
+42.8s 84 - Self-selected: efficiency (S7) counts each method's extra forward passes beyond the target features, converted to GPU-seconds with the encoder's measured throughput; zero-cost methods sit at the axis floor.
+42.8s 85 - Self-selected: identification variant id_mean uses the mean in both the source calibration and the target summary; id_raw is the uncalibrated median knee.
+42.8s 86 - Self-selected: Fig. 5(c) is drawn per dataset, sharing the y-axis with (a) and (b), with the pooled SAC-ATC / ATC@s_hat MAE ratio in its caption; S12's fifth panel stacks the high- and low-observability tiles.
+42.8s 87 - Self-selected: Satlas (augmentation unknown) is plotted but excluded from the group tests; I-JEPA counts as non-augmented because its config disables blur.
+42.8s 88 - Self-selected: every figure's constrained layout is computed once and then frozen, so the notebook and code/plot_figures.py write pixel-identical PNGs (compared in Section 10); point labels are placed after the layout is final.
+42.8s 89 - Self-selected: GOF p-values below 1e-30 are drawn at a 1e-30 floor where a figure shows them (labelled with <=); the CSVs keep the exact values.
+42.8s 90 - Self-selected: a mechanism encoder that fails to load leaves no checkpoint, so a later session retries it; in the session of the failure it is reported as missing in the M-rules.
+42.8s 91 - Self-selected: a session without a GPU stops in Cell 1.5 only if GPU units are still pending, so the session that only runs the analyses after a complete set of units needs no GPU.
+42.8s 92 - Self-selected: in T13 the real-shift column marks the registered non-inferiority criterion of P3 (dagger) instead of a significance test; Fig. 7 draws the 95% CIs as thin bars below each row so that they never hide the change arrows, and omits arrows too short to draw.
+42.8s 93 - Self-selected (v3): the nine corruptions are re-implemented in numpy/scipy/PIL (no OpenCV or ImageMagick), and Cell 5.6 compares every family and severity with the reference package imagecorruptions 1.1.2 on the same random draws (identical uint8 outputs required). ImageNet-C's glass-blur 'swap' acts on numpy views and therefore copies x[h', w'] into x[h, w]; the re-implementation keeps exactly that behaviour.
+42.8s 94 - Self-selected (v3): each corrupted image draws from its own keyed stream (dataset, split, family, severity, image), so a corruption is reproducible and independent of the thread pool; the corrupted copies of A2 and B are computed once per dataset, cached outside OUTPUT_DIR for the six encoder passes, and regenerated with a checksum check when a later session resumes a unit.
+42.8s 95 - Self-selected (v3): block B9 caps A2 and B at 400 images per dataset (keyed subsample) so that ten datasets x 46 conditions x six encoders fit one session; A1 (the probe's training split) is the full B3 split.
+42.8s 96 - Self-selected (v3): ATC@NR uses the variance of the Laplacian, fixed in advance as the most widely used classic no-reference blur metric; both no-reference metrics are computed from the DCT spectrum (the 3x3 Laplacian with reflect boundary is diagonalised by the DCT-II), and Cell 5.6 asserts agreement with scipy.ndimage.laplace.
+42.8s 97 - Self-selected (v3): SpaceNet MVOI uses the panchromatic band (all 27 views on one 0.5 m grid), stretched linearly per view between the 0.1 and 99.9 percentiles of its selected tiles and replicated to three channels; 48 tiles whose 16 crops are valid (<= 1% no-data, non-flat) in all 27 views are taken in a keyed order and split 16/16/16 into probe, calibration and target tiles.
+42.8s 98 - Self-selected (v3): building footprints (longitude/latitude) are projected to the tiles' UTM zone with a Krueger-series transverse Mercator (agrees with PROJ to below 0.1 mm) and rasterised on the tile grid read from the GeoTIFF tags; a crop shows a building when footprints cover at least 2% of it. If fewer than 90% of the footprint vertices fall inside their tiles, the accuracy part of B11 is skipped and reported, while the pixel-only part still runs.
+42.8s 99 - Self-selected (v3): B10 rebuilds the B3 seed-0 conditions from the keyed streams and reports whether their median knees equal the B3 checkpoints, so the no-reference metrics are evaluated on exactly the conditions of the published comparison.
+42.8s 100 - Self-selected (v3): addendum-v3 checkpoints carry the v3 hash; v1.0 and v2 checkpoints of runs 1-2 are reused unchanged, and a session downloads LandCover.ai only when a unit that reads it is pending.
+42.8s 101 - Self-selected (v3): Fig. 1(d), Fig. 7 and Fig. S16(c) use log axes that hug the data (no decade floor); Fig. S11 shows the v2 estimator (the primary estimator since run 2); Fig. S13(c) shows the v1.0 and v2 flag shares per JPEG quality instead of per-dataset 0/1 lines.
+43.3s 102 resume: 1 checkpoint source(s), 0 zip(s); copied 43, not usable 0; completed units available: 42
+43.3s 103 run state of earlier sessions found: 45 unit records, 1 session(s)
+43.4s 104 ==============================================================================================================
+43.4s 105 RESUME INVENTORY
+43.4s 106 attached inputs searched: 1 root(s); checkpoint sources: ['<input #1>/…/checkpoints']
+43.4s 107 units in the plan: 63 | complete (reused or earlier session): 42 | to compute: 21 (of which 0 partly done)
+43.4s 108 data this session needs: ['clrs', 'dtd', 'imagenette', 'mvoi', 'optimal31', 'patternnet', 'pets', 'resisc45', 'rsscn7', 'ucm', 'whu_rs19']
+43.4s 109 ==============================================================================================================
+43.5s 110 math core ready: TILE=224, 3000 log-lambda bins (1344 non-empty), lambda in [1.97e-04, 8.000]
+44.2s 111 R0 PASS: {'semigroup': '1.4e-13', 'parseval_rel': '2.9e-16', 'constant': '8.9e-16', 'commutation_rel': '8.8e-16', 'N_of_A_exact': '3.6e-15'} | fast-vs-reference DCT 1.9e-14, binning 7.1e-14
+44.2s 112 documented: pipeline N with eps=1e-6 deviates from N o A = N by at most 3.4e-06 on these fields (bounded by eps|a-1|/(a sd)); not asserted
+44.5s 113 R2 PASS: max ||N T_s x - N T_s' x||_inf over narrowband images = 1.4e-14
+44.6s 114 R3 PASS (synthetic): 180 cases, max drift/bound = 0.393
+44.6s 115 R1 preview (synthetic): median relative error analytic vs finite difference = 3.1e-07
+44.6s 116 assumption                               measured     threshold verdict
+44.6s 117 A1 exact semigroup on finite tiles                                1.4e-13      <= 1e-10    PASS
+44.6s 118 A2 per-image affine radiometry commutes with blur and is removed by N     commutation 8.8e-16; N o A 3.6e-15      <= 1e-10    PASS
+44.6s 119 A5 bounded statistics rho, psi in [0, 1] rho [0.001, 1.000]; psi [0.292, 0.699] within [0, 1]    PASS
+44.7s 120 [progress] 2026-10-13T22:14:41	0.010h	B1_theory	resumed	checkpoint found
+44.7s 121 B1 (power-law study) reused from its checkpoint; R0, R2 and R3 above were re-run in this session.
+47.4s 122 fit equivalence vs v1.0 reference: knee_fit 100.0% identical, knee_fit_noise 100.0% identical (need >= 98%)
+48.1s 123 v1.1 tail-fit equivalence: 100.0% identical (need >= 98%)
+50.4s 124 COT: C x n transportation equals the n x n assignment on 5 random cases
+50.5s 125 baselines and per-condition predictor ready: AC, DoC, ATC, ATC_NE, SAC_ATC, AE, AE_LS, AE_FD, NucNorm, COT, COTT | plug-ins: ATC_s, ATC_NE_m, DoC_m, COT_m, COTT_m, AE_LS_s
+64.7s 126 resisc45    {'status': 'loaded', 'images': 31500, 'classes': 45, 'licence': 'cc-by-nc-4.0 (HF dataset card)', 'seconds': 13.8}
+73.1s 127 ucm         {'status': 'loaded', 'images': 2100, 'classes': 21, 'licence': 'cc0-1.0 (HF dataset card)', 'seconds': 8.4}
+118.4s 128 patternnet  {'status': 'loaded', 'images': 30400, 'classes': 38, 'licence': 'cc-by-4.0 (HF dataset card)', 'seconds': 45.3}
+118.6s 129 Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+118.6s 130 
+118.6s 131 Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+133.6s 132 whu_rs19    {'status': 'loaded', 'images': 1005, 'classes': 19, 'licence': 'cc-by-4.0 (HF dataset card)', 'seconds': 15.2}
+149.6s 133 rsscn7      {'status': 'loaded', 'images': 2800, 'classes': 7, 'licence': 'other (HF dataset card)', 'seconds': 16.1}
+158.4s 134 optimal31   {'status': 'loaded', 'images': 1860, 'classes': 31, 'licence': 'other (HF dataset card)', 'seconds': 8.8}
+262.7s 135 clrs        {'status': 'loaded', 'images': 15000, 'classes': 25, 'licence': 'other (HF dataset card)', 'seconds': 104.3}
+361.9s 136 imagenette  {'status': 'loaded', 'images': 13394, 'classes': 10, 'licence': 'see https://github.com/fastai/imagenette; verify before redistribution', 'seconds': 99.2}
+367.0s 137 0%|          | 0.00/625M [00:00<?, ?B/s]
+367.5s 138 0%|          | 0.00/625M [00:00<?, ?B/s]  0%|          | 32.8k/625M [00:00<1:07:16, 155kB/s]
+367.5s 139 0%|          | 32.8k/625M [00:00<1:07:16, 155kB/s]  0%|          | 65.5k/625M [00:00<1:07:37, 154kB/s]
+367.7s 140 0%|          | 65.5k/625M [00:00<1:07:37, 154kB/s]  0%|          | 98.3k/625M [00:00<1:07:46, 154kB/s]
+367.9s 141 0%|          | 98.3k/625M [00:00<1:07:46, 154kB/s]  0%|          | 197k/625M [00:00<37:53, 275kB/s]
+368.1s 142 0%|          | 197k/625M [00:00<37:53, 275kB/s]     0%|          | 393k/625M [00:01<20:30, 508kB/s]
+368.3s 143 0%|          | 393k/625M [00:01<20:30, 508kB/s]  0%|          | 786k/625M [00:01<10:49, 961kB/s]
+368.5s 144 0%|          | 786k/625M [00:01<10:49, 961kB/s]  0%|          | 1.57M/625M [00:01<05:36, 1.85MB/s]
+368.8s 145 0%|          | 1.57M/625M [00:01<05:36, 1.85MB/s]  1%|          | 3.15M/625M [00:01<02:52, 3.61MB/s]
+369.0s 146 1%|          | 3.15M/625M [00:01<02:52, 3.61MB/s]  1%|          | 6.29M/625M [00:01<01:27, 7.08MB/s]
+369.2s 147 1%|          | 6.29M/625M [00:01<01:27, 7.08MB/s]  2%|▏         | 10.3M/625M [00:02<00:58, 10.6MB/s]
+369.4s 148 2%|▏         | 10.3M/625M [00:02<00:58, 10.6MB/s]  2%|▏         | 14.3M/625M [00:02<00:46, 13.0MB/s]
+369.6s 149 2%|▏         | 14.3M/625M [00:02<00:46, 13.0MB/s]  3%|▎         | 18.4M/625M [00:02<00:41, 14.7MB/s]
+369.8s 150 3%|▎         | 18.4M/625M [00:02<00:41, 14.7MB/s]  4%|▎         | 22.4M/625M [00:02<00:38, 15.8MB/s]
+370.1s 151 4%|▎         | 22.4M/625M [00:02<00:38, 15.8MB/s]  4%|▍         | 26.4M/625M [00:03<00:35, 16.6MB/s]
+370.3s 152 4%|▍         | 26.4M/625M [00:03<00:35, 16.6MB/s]  5%|▍         | 30.5M/625M [00:03<00:34, 17.2MB/s]
+370.5s 153 5%|▍         | 30.5M/625M [00:03<00:34, 17.2MB/s]  6%|▌         | 34.5M/625M [00:03<00:33, 17.6MB/s]
+370.7s 154 6%|▌         | 34.5M/625M [00:03<00:33, 17.6MB/s]  6%|▌         | 38.5M/625M [00:03<00:33, 17.8MB/s]
+370.9s 155 6%|▌         | 38.5M/625M [00:03<00:33, 17.8MB/s]  7%|▋         | 42.6M/625M [00:03<00:32, 18.0MB/s]
+371.2s 156 7%|▋         | 42.6M/625M [00:03<00:32, 18.0MB/s]  7%|▋         | 46.6M/625M [00:04<00:31, 18.1MB/s]
+371.4s 157 7%|▋         | 46.6M/625M [00:04<00:31, 18.1MB/s]  8%|▊         | 50.6M/625M [00:04<00:31, 18.2MB/s]
+371.6s 158 8%|▊         | 50.6M/625M [00:04<00:31, 18.2MB/s]  9%|▊         | 54.7M/625M [00:04<00:31, 18.3MB/s]
+371.8s 159 9%|▊         | 54.7M/625M [00:04<00:31, 18.3MB/s]  9%|▉         | 58.7M/625M [00:04<00:30, 18.3MB/s]
+372.0s 160 9%|▉         | 58.7M/625M [00:04<00:30, 18.3MB/s] 10%|█         | 62.8M/625M [00:04<00:30, 18.3MB/s]
+372.3s 161 10%|█         | 62.8M/625M [00:04<00:30, 18.3MB/s] 11%|█         | 66.7M/625M [00:05<00:30, 18.2MB/s]
+372.5s 162 11%|█         | 66.7M/625M [00:05<00:30, 18.2MB/s] 11%|█▏        | 70.8M/625M [00:05<00:30, 18.3MB/s]
+372.7s 163 11%|█▏        | 70.8M/625M [00:05<00:30, 18.3MB/s] 12%|█▏        | 74.8M/625M [00:05<00:30, 18.3MB/s]
+372.9s 164 12%|█▏        | 74.8M/625M [00:05<00:30, 18.3MB/s] 13%|█▎        | 78.9M/625M [00:05<00:29, 18.4MB/s]
+373.1s 165 13%|█▎        | 78.9M/625M [00:05<00:29, 18.4MB/s] 13%|█▎        | 82.9M/625M [00:06<00:29, 18.5MB/s]
+373.4s 166 13%|█▎        | 82.9M/625M [00:06<00:29, 18.5MB/s] 14%|█▍        | 87.0M/625M [00:06<00:29, 18.4MB/s]
+373.6s 167 14%|█▍        | 87.0M/625M [00:06<00:29, 18.4MB/s] 15%|█▍        | 91.0M/625M [00:06<00:29, 18.2MB/s]
+373.8s 168 15%|█▍        | 91.0M/625M [00:06<00:29, 18.2MB/s] 15%|█▌        | 95.0M/625M [00:06<00:29, 18.3MB/s]
+374.0s 169 15%|█▌        | 95.0M/625M [00:06<00:29, 18.3MB/s] 16%|█▌        | 99.0M/625M [00:06<00:28, 18.4MB/s]
+374.2s 170 16%|█▌        | 99.0M/625M [00:06<00:28, 18.4MB/s] 16%|█▋        | 103M/625M [00:07<00:28, 18.4MB/s]
+374.4s 171 16%|█▋        | 103M/625M [00:07<00:28, 18.4MB/s]  17%|█▋        | 107M/625M [00:07<00:28, 18.5MB/s]
+374.7s 172 17%|█▋        | 107M/625M [00:07<00:28, 18.5MB/s] 18%|█▊        | 111M/625M [00:07<00:27, 18.5MB/s]
+374.9s 173 18%|█▊        | 111M/625M [00:07<00:27, 18.5MB/s] 18%|█▊        | 115M/625M [00:07<00:27, 18.3MB/s]
+375.1s 174 18%|█▊        | 115M/625M [00:07<00:27, 18.3MB/s] 19%|█▉        | 119M/625M [00:08<00:27, 18.4MB/s]
+375.3s 175 19%|█▉        | 119M/625M [00:08<00:27, 18.4MB/s] 20%|█▉        | 123M/625M [00:08<00:27, 18.4MB/s]
+375.5s 176 20%|█▉        | 123M/625M [00:08<00:27, 18.4MB/s] 20%|██        | 127M/625M [00:08<00:27, 18.4MB/s]
+375.8s 177 20%|██        | 127M/625M [00:08<00:27, 18.4MB/s] 21%|██        | 131M/625M [00:08<00:26, 18.5MB/s]
+376.0s 178 21%|██        | 131M/625M [00:08<00:26, 18.5MB/s] 22%|██▏       | 135M/625M [00:08<00:26, 18.3MB/s]
+376.2s 179 22%|██▏       | 135M/625M [00:08<00:26, 18.3MB/s] 22%|██▏       | 139M/625M [00:09<00:26, 18.3MB/s]
+376.4s 180 22%|██▏       | 139M/625M [00:09<00:26, 18.3MB/s] 23%|██▎       | 143M/625M [00:09<00:26, 18.3MB/s]
+376.6s 181 23%|██▎       | 143M/625M [00:09<00:26, 18.3MB/s] 24%|██▎       | 147M/625M [00:09<00:26, 18.4MB/s]
+376.9s 182 24%|██▎       | 147M/625M [00:09<00:26, 18.4MB/s] 24%|██▍       | 151M/625M [00:09<00:25, 18.4MB/s]
+377.1s 183 24%|██▍       | 151M/625M [00:09<00:25, 18.4MB/s] 25%|██▍       | 155M/625M [00:10<00:25, 18.4MB/s]
+377.3s 184 25%|██▍       | 155M/625M [00:10<00:25, 18.4MB/s] 26%|██▌       | 159M/625M [00:10<00:25, 18.3MB/s]
+377.5s 185 26%|██▌       | 159M/625M [00:10<00:25, 18.3MB/s] 26%|██▌       | 163M/625M [00:10<00:25, 18.3MB/s]
+377.7s 186 26%|██▌       | 163M/625M [00:10<00:25, 18.3MB/s] 27%|██▋       | 167M/625M [00:10<00:24, 18.3MB/s]
+378.0s 187 27%|██▋       | 167M/625M [00:10<00:24, 18.3MB/s] 27%|██▋       | 171M/625M [00:10<00:24, 18.3MB/s]
+378.2s 188 27%|██▋       | 171M/625M [00:10<00:24, 18.3MB/s] 28%|██▊       | 176M/625M [00:11<00:24, 18.5MB/s]
+378.4s 189 28%|██▊       | 176M/625M [00:11<00:24, 18.5MB/s] 29%|██▊       | 180M/625M [00:11<00:24, 18.3MB/s]
+378.6s 190 29%|██▊       | 180M/625M [00:11<00:24, 18.3MB/s] 29%|██▉       | 184M/625M [00:11<00:24, 18.3MB/s]
+378.8s 191 29%|██▉       | 184M/625M [00:11<00:24, 18.3MB/s] 30%|███       | 188M/625M [00:11<00:23, 18.4MB/s]
+379.1s 192 30%|███       | 188M/625M [00:11<00:23, 18.4MB/s] 31%|███       | 192M/625M [00:12<00:23, 18.5MB/s]
+379.3s 193 31%|███       | 192M/625M [00:12<00:23, 18.5MB/s] 31%|███▏      | 196M/625M [00:12<00:23, 18.4MB/s]
+379.5s 194 31%|███▏      | 196M/625M [00:12<00:23, 18.4MB/s] 32%|███▏      | 200M/625M [00:12<00:23, 18.5MB/s]
+379.7s 195 32%|███▏      | 200M/625M [00:12<00:23, 18.5MB/s] 33%|███▎      | 204M/625M [00:12<00:23, 18.3MB/s]
+379.9s 196 33%|███▎      | 204M/625M [00:12<00:23, 18.3MB/s] 33%|███▎      | 208M/625M [00:12<00:22, 18.3MB/s]
+380.1s 197 33%|███▎      | 208M/625M [00:12<00:22, 18.3MB/s] 34%|███▍      | 212M/625M [00:13<00:22, 18.4MB/s]
+380.4s 198 34%|███▍      | 212M/625M [00:13<00:22, 18.4MB/s] 35%|███▍      | 216M/625M [00:13<00:22, 18.4MB/s]
+380.6s 199 35%|███▍      | 216M/625M [00:13<00:22, 18.4MB/s] 35%|███▌      | 220M/625M [00:13<00:22, 18.4MB/s]
+380.8s 200 35%|███▌      | 220M/625M [00:13<00:22, 18.4MB/s] 36%|███▌      | 224M/625M [00:13<00:21, 18.4MB/s]
+381.0s 201 36%|███▌      | 224M/625M [00:13<00:21, 18.4MB/s] 36%|███▋      | 228M/625M [00:13<00:21, 18.3MB/s]
+381.2s 202 36%|███▋      | 228M/625M [00:13<00:21, 18.3MB/s] 37%|███▋      | 232M/625M [00:14<00:21, 18.3MB/s]
+381.5s 203 37%|███▋      | 232M/625M [00:14<00:21, 18.3MB/s] 38%|███▊      | 236M/625M [00:14<00:21, 18.4MB/s]
+381.7s 204 38%|███▊      | 236M/625M [00:14<00:21, 18.4MB/s] 38%|███▊      | 240M/625M [00:14<00:20, 18.4MB/s]
+381.9s 205 38%|███▊      | 240M/625M [00:14<00:20, 18.4MB/s] 39%|███▉      | 244M/625M [00:14<00:20, 18.4MB/s]
+382.1s 206 39%|███▉      | 244M/625M [00:14<00:20, 18.4MB/s] 40%|███▉      | 248M/625M [00:15<00:20, 18.5MB/s]
+382.3s 207 40%|███▉      | 248M/625M [00:15<00:20, 18.5MB/s] 40%|████      | 252M/625M [00:15<00:20, 18.4MB/s]
+382.6s 208 40%|████      | 252M/625M [00:15<00:20, 18.4MB/s] 41%|████      | 256M/625M [00:15<00:20, 18.4MB/s]
+382.8s 209 41%|████      | 256M/625M [00:15<00:20, 18.4MB/s] 42%|████▏     | 260M/625M [00:15<00:19, 18.4MB/s]
+383.0s 210 42%|████▏     | 260M/625M [00:15<00:19, 18.4MB/s] 42%|████▏     | 264M/625M [00:15<00:19, 18.4MB/s]
+383.2s 211 42%|████▏     | 264M/625M [00:15<00:19, 18.4MB/s] 43%|████▎     | 268M/625M [00:16<00:19, 18.5MB/s]
+383.4s 212 43%|████▎     | 268M/625M [00:16<00:19, 18.5MB/s] 44%|████▎     | 272M/625M [00:16<00:19, 18.3MB/s]
+383.7s 213 44%|████▎     | 272M/625M [00:16<00:19, 18.3MB/s] 44%|████▍     | 276M/625M [00:16<00:18, 18.4MB/s]
+383.9s 214 44%|████▍     | 276M/625M [00:16<00:18, 18.4MB/s] 45%|████▍     | 280M/625M [00:16<00:18, 18.4MB/s]
+384.1s 215 45%|████▍     | 280M/625M [00:16<00:18, 18.4MB/s] 45%|████▌     | 284M/625M [00:17<00:18, 18.3MB/s]
+384.3s 216 45%|████▌     | 284M/625M [00:17<00:18, 18.3MB/s] 46%|████▌     | 288M/625M [00:17<00:18, 18.4MB/s]
+384.5s 217 46%|████▌     | 288M/625M [00:17<00:18, 18.4MB/s] 47%|████▋     | 292M/625M [00:17<00:17, 18.5MB/s]
+384.7s 218 47%|████▋     | 292M/625M [00:17<00:17, 18.5MB/s] 47%|████▋     | 296M/625M [00:17<00:17, 18.3MB/s]
+385.0s 219 47%|████▋     | 296M/625M [00:17<00:17, 18.3MB/s] 48%|████▊     | 300M/625M [00:17<00:18, 17.7MB/s]
+385.2s 220 48%|████▊     | 300M/625M [00:17<00:18, 17.7MB/s] 49%|████▊     | 304M/625M [00:18<00:17, 17.9MB/s]
+385.4s 221 49%|████▊     | 304M/625M [00:18<00:17, 17.9MB/s] 49%|████▉     | 308M/625M [00:18<00:17, 18.1MB/s]
+385.6s 222 49%|████▉     | 308M/625M [00:18<00:17, 18.1MB/s] 50%|████▉     | 312M/625M [00:18<00:17, 18.2MB/s]
+385.8s 223 50%|████▉     | 312M/625M [00:18<00:17, 18.2MB/s] 51%|█████     | 316M/625M [00:18<00:16, 18.3MB/s]
+386.1s 224 51%|█████     | 316M/625M [00:18<00:16, 18.3MB/s] 51%|█████     | 320M/625M [00:19<00:16, 18.2MB/s]
+386.3s 225 51%|█████     | 320M/625M [00:19<00:16, 18.2MB/s] 52%|█████▏    | 324M/625M [00:19<00:16, 18.3MB/s]
+386.5s 226 52%|█████▏    | 324M/625M [00:19<00:16, 18.3MB/s] 52%|█████▏    | 328M/625M [00:19<00:16, 18.3MB/s]
+386.7s 227 52%|█████▏    | 328M/625M [00:19<00:16, 18.3MB/s] 53%|█████▎    | 332M/625M [00:19<00:15, 18.3MB/s]
+386.9s 228 53%|█████▎    | 332M/625M [00:19<00:15, 18.3MB/s] 54%|█████▍    | 336M/625M [00:19<00:15, 18.4MB/s]
+387.2s 229 54%|█████▍    | 336M/625M [00:19<00:15, 18.4MB/s] 54%|█████▍    | 340M/625M [00:20<00:15, 18.5MB/s]
+387.4s 230 54%|█████▍    | 340M/625M [00:20<00:15, 18.5MB/s] 55%|█████▌    | 344M/625M [00:20<00:15, 18.4MB/s]
+387.6s 231 55%|█████▌    | 344M/625M [00:20<00:15, 18.4MB/s] 56%|█████▌    | 348M/625M [00:20<00:15, 18.4MB/s]
+387.8s 232 56%|█████▌    | 348M/625M [00:20<00:15, 18.4MB/s] 56%|█████▋    | 352M/625M [00:20<00:14, 18.4MB/s]
+388.0s 233 56%|█████▋    | 352M/625M [00:20<00:14, 18.4MB/s] 57%|█████▋    | 356M/625M [00:20<00:14, 18.4MB/s]
+388.2s 234 57%|█████▋    | 356M/625M [00:20<00:14, 18.4MB/s] 58%|█████▊    | 360M/625M [00:21<00:14, 18.5MB/s]
+388.5s 235 58%|█████▊    | 360M/625M [00:21<00:14, 18.5MB/s] 58%|█████▊    | 364M/625M [00:21<00:14, 18.5MB/s]
+388.7s 236 58%|█████▊    | 364M/625M [00:21<00:14, 18.5MB/s] 59%|█████▉    | 368M/625M [00:21<00:14, 18.3MB/s]
+388.9s 237 59%|█████▉    | 368M/625M [00:21<00:14, 18.3MB/s] 60%|█████▉    | 372M/625M [00:21<00:13, 18.4MB/s]
+389.1s 238 60%|█████▉    | 372M/625M [00:21<00:13, 18.4MB/s] 60%|██████    | 376M/625M [00:22<00:13, 18.3MB/s]
+389.3s 239 60%|██████    | 376M/625M [00:22<00:13, 18.3MB/s] 61%|██████    | 380M/625M [00:22<00:13, 18.4MB/s]
+389.6s 240 61%|██████    | 380M/625M [00:22<00:13, 18.4MB/s] 62%|██████▏   | 385M/625M [00:22<00:13, 18.4MB/s]
+389.8s 241 62%|██████▏   | 385M/625M [00:22<00:13, 18.4MB/s] 62%|██████▏   | 389M/625M [00:22<00:12, 18.5MB/s]
+390.0s 242 62%|██████▏   | 389M/625M [00:22<00:12, 18.5MB/s] 63%|██████▎   | 393M/625M [00:22<00:12, 18.3MB/s]
+390.2s 243 63%|██████▎   | 393M/625M [00:22<00:12, 18.3MB/s] 63%|██████▎   | 396M/625M [00:23<00:12, 18.1MB/s]
+390.4s 244 63%|██████▎   | 396M/625M [00:23<00:12, 18.1MB/s] 64%|██████▍   | 400M/625M [00:23<00:12, 18.2MB/s]
+390.7s 245 64%|██████▍   | 400M/625M [00:23<00:12, 18.2MB/s] 65%|██████▍   | 404M/625M [00:23<00:12, 18.3MB/s]
+390.9s 246 65%|██████▍   | 404M/625M [00:23<00:12, 18.3MB/s] 65%|██████▌   | 408M/625M [00:23<00:11, 18.4MB/s]
+391.1s 247 65%|██████▌   | 408M/625M [00:23<00:11, 18.4MB/s] 66%|██████▌   | 412M/625M [00:24<00:11, 18.3MB/s]
+391.3s 248 66%|██████▌   | 412M/625M [00:24<00:11, 18.3MB/s] 67%|██████▋   | 417M/625M [00:24<00:11, 18.3MB/s]
+391.5s 249 67%|██████▋   | 417M/625M [00:24<00:11, 18.3MB/s] 67%|██████▋   | 421M/625M [00:24<00:11, 18.4MB/s]
+391.8s 250 67%|██████▋   | 421M/625M [00:24<00:11, 18.4MB/s] 68%|██████▊   | 425M/625M [00:24<00:10, 18.4MB/s]
+392.0s 251 68%|██████▊   | 425M/625M [00:24<00:10, 18.4MB/s] 69%|██████▊   | 429M/625M [00:24<00:10, 18.5MB/s]
+392.2s 252 69%|██████▊   | 429M/625M [00:24<00:10, 18.5MB/s] 69%|██████▉   | 433M/625M [00:25<00:10, 18.4MB/s]
+392.4s 253 69%|██████▉   | 433M/625M [00:25<00:10, 18.4MB/s] 70%|██████▉   | 437M/625M [00:25<00:10, 18.4MB/s]
+392.6s 254 70%|██████▉   | 437M/625M [00:25<00:10, 18.4MB/s] 70%|███████   | 441M/625M [00:25<00:09, 18.5MB/s]
+392.8s 255 70%|███████   | 441M/625M [00:25<00:09, 18.5MB/s] 71%|███████   | 445M/625M [00:25<00:09, 18.5MB/s]
+393.1s 256 71%|███████   | 445M/625M [00:25<00:09, 18.5MB/s] 72%|███████▏  | 449M/625M [00:26<00:09, 18.6MB/s]
+393.3s 257 72%|███████▏  | 449M/625M [00:26<00:09, 18.6MB/s] 72%|███████▏  | 453M/625M [00:26<00:09, 18.5MB/s]
+393.5s 258 72%|███████▏  | 453M/625M [00:26<00:09, 18.5MB/s] 73%|███████▎  | 457M/625M [00:26<00:09, 18.5MB/s]
+393.7s 259 73%|███████▎  | 457M/625M [00:26<00:09, 18.5MB/s] 74%|███████▎  | 461M/625M [00:26<00:08, 18.4MB/s]
+393.9s 260 74%|███████▎  | 461M/625M [00:26<00:08, 18.4MB/s] 74%|███████▍  | 465M/625M [00:26<00:08, 18.4MB/s]
+394.2s 261 74%|███████▍  | 465M/625M [00:26<00:08, 18.4MB/s] 75%|███████▌  | 469M/625M [00:27<00:08, 18.3MB/s]
+394.4s 262 75%|███████▌  | 469M/625M [00:27<00:08, 18.3MB/s] 76%|███████▌  | 473M/625M [00:27<00:08, 18.4MB/s]
+394.6s 263 76%|███████▌  | 473M/625M [00:27<00:08, 18.4MB/s] 76%|███████▋  | 477M/625M [00:27<00:08, 18.5MB/s]
+394.8s 264 76%|███████▋  | 477M/625M [00:27<00:08, 18.5MB/s] 77%|███████▋  | 481M/625M [00:27<00:07, 18.3MB/s]
+395.0s 265 77%|███████▋  | 481M/625M [00:27<00:07, 18.3MB/s] 78%|███████▊  | 485M/625M [00:27<00:07, 18.3MB/s]
+395.2s 266 78%|███████▊  | 485M/625M [00:27<00:07, 18.3MB/s] 78%|███████▊  | 489M/625M [00:28<00:07, 18.4MB/s]
+395.5s 267 78%|███████▊  | 489M/625M [00:28<00:07, 18.4MB/s] 79%|███████▉  | 493M/625M [00:28<00:07, 18.4MB/s]
+395.7s 268 79%|███████▉  | 493M/625M [00:28<00:07, 18.4MB/s] 80%|███████▉  | 497M/625M [00:28<00:06, 18.5MB/s]
+395.9s 269 80%|███████▉  | 497M/625M [00:28<00:06, 18.5MB/s] 80%|████████  | 501M/625M [00:28<00:06, 18.5MB/s]
+396.1s 270 80%|████████  | 501M/625M [00:28<00:06, 18.5MB/s] 81%|████████  | 505M/625M [00:29<00:06, 18.4MB/s]
+396.3s 271 81%|████████  | 505M/625M [00:29<00:06, 18.4MB/s] 81%|████████▏ | 509M/625M [00:29<00:06, 18.4MB/s]
+396.6s 272 81%|████████▏ | 509M/625M [00:29<00:06, 18.4MB/s] 82%|████████▏ | 513M/625M [00:29<00:06, 18.5MB/s]
+396.8s 273 82%|████████▏ | 513M/625M [00:29<00:06, 18.5MB/s] 83%|████████▎ | 517M/625M [00:29<00:05, 18.5MB/s]
+397.0s 274 83%|████████▎ | 517M/625M [00:29<00:05, 18.5MB/s] 83%|████████▎ | 522M/625M [00:29<00:05, 18.6MB/s]
+397.2s 275 83%|████████▎ | 522M/625M [00:29<00:05, 18.6MB/s] 84%|████████▍ | 526M/625M [00:30<00:05, 18.4MB/s]
+397.4s 276 84%|████████▍ | 526M/625M [00:30<00:05, 18.4MB/s] 85%|████████▍ | 530M/625M [00:30<00:05, 18.5MB/s]
+397.7s 277 85%|████████▍ | 530M/625M [00:30<00:05, 18.5MB/s] 85%|████████▌ | 534M/625M [00:30<00:04, 18.4MB/s]
+397.9s 278 85%|████████▌ | 534M/625M [00:30<00:04, 18.4MB/s] 86%|████████▌ | 538M/625M [00:30<00:04, 18.5MB/s]
+398.1s 279 86%|████████▌ | 538M/625M [00:30<00:04, 18.5MB/s] 87%|████████▋ | 542M/625M [00:31<00:04, 18.4MB/s]
+398.3s 280 87%|████████▋ | 542M/625M [00:31<00:04, 18.4MB/s] 87%|████████▋ | 546M/625M [00:31<00:04, 18.4MB/s]
+398.5s 281 87%|████████▋ | 546M/625M [00:31<00:04, 18.4MB/s] 88%|████████▊ | 549M/625M [00:31<00:04, 17.4MB/s]
+398.7s 282 88%|████████▊ | 549M/625M [00:31<00:04, 17.4MB/s] 88%|████████▊ | 553M/625M [00:31<00:04, 17.6MB/s]
+399.0s 283 88%|████████▊ | 553M/625M [00:31<00:04, 17.6MB/s] 89%|████████▉ | 557M/625M [00:31<00:03, 17.9MB/s]
+399.2s 284 89%|████████▉ | 557M/625M [00:31<00:03, 17.9MB/s] 90%|████████▉ | 561M/625M [00:32<00:03, 18.1MB/s]
+399.4s 285 90%|████████▉ | 561M/625M [00:32<00:03, 18.1MB/s] 90%|█████████ | 565M/625M [00:32<00:03, 18.0MB/s]
+399.6s 286 90%|█████████ | 565M/625M [00:32<00:03, 18.0MB/s] 91%|█████████ | 569M/625M [00:32<00:03, 18.1MB/s]
+399.8s 287 91%|█████████ | 569M/625M [00:32<00:03, 18.1MB/s] 92%|█████████▏| 573M/625M [00:32<00:02, 18.2MB/s]
+400.1s 288 92%|█████████▏| 573M/625M [00:32<00:02, 18.2MB/s] 92%|█████████▏| 577M/625M [00:33<00:02, 18.4MB/s]
+400.3s 289 92%|█████████▏| 577M/625M [00:33<00:02, 18.4MB/s] 93%|█████████▎| 581M/625M [00:33<00:02, 18.4MB/s]
+400.5s 290 93%|█████████▎| 581M/625M [00:33<00:02, 18.4MB/s] 94%|█████████▎| 585M/625M [00:33<00:02, 18.5MB/s]
+400.7s 291 94%|█████████▎| 585M/625M [00:33<00:02, 18.5MB/s] 94%|█████████▍| 589M/625M [00:33<00:01, 18.3MB/s]
+400.9s 292 94%|█████████▍| 589M/625M [00:33<00:01, 18.3MB/s] 95%|█████████▍| 593M/625M [00:33<00:01, 18.3MB/s]
+401.2s 293 95%|█████████▍| 593M/625M [00:33<00:01, 18.3MB/s] 96%|█████████▌| 597M/625M [00:34<00:01, 18.4MB/s]
+401.5s 294 96%|█████████▌| 597M/625M [00:34<00:01, 18.4MB/s] 96%|█████████▌| 601M/625M [00:34<00:01, 16.3MB/s]
+401.6s 295 96%|█████████▌| 601M/625M [00:34<00:01, 16.3MB/s] 97%|█████████▋| 605M/625M [00:34<00:01, 18.1MB/s]
+401.9s 296 97%|█████████▋| 605M/625M [00:34<00:01, 18.1MB/s] 97%|█████████▋| 609M/625M [00:34<00:00, 18.2MB/s]
+402.1s 297 97%|█████████▋| 609M/625M [00:34<00:00, 18.2MB/s] 98%|█████████▊| 613M/625M [00:35<00:00, 18.3MB/s]
+402.3s 298 98%|█████████▊| 613M/625M [00:35<00:00, 18.3MB/s] 99%|█████████▊| 617M/625M [00:35<00:00, 18.4MB/s]
+402.5s 299 99%|█████████▊| 617M/625M [00:35<00:00, 18.4MB/s] 99%|█████████▉| 621M/625M [00:35<00:00, 18.3MB/s]
+402.5s 300 99%|█████████▉| 621M/625M [00:35<00:00, 18.3MB/s]100%|██████████| 625M/625M [00:35<00:00, 17.6MB/s]
+402.7s 301 100%|██████████| 625M/625M [00:35<00:00, 17.6MB/s]
+402.7s 302 
+402.7s 303 
+408.0s 304 dtd         {'status': 'loaded', 'images': 5640, 'classes': 47, 'licence': 'see https://www.robots.ox.ac.uk/~vgg/data/dtd/; verify before redistribution', 'seconds': 46.1}
+412.9s 305 0%|          | 0.00/792M [00:00<?, ?B/s]
+413.1s 306 0%|          | 0.00/792M [00:00<?, ?B/s]  0%|          | 32.8k/792M [00:00<1:24:35, 156kB/s]
+413.3s 307 0%|          | 32.8k/792M [00:00<1:24:35, 156kB/s]  0%|          | 65.5k/792M [00:00<1:25:08, 155kB/s]
+413.6s 308 0%|          | 65.5k/792M [00:00<1:25:08, 155kB/s]  0%|          | 131k/792M [00:00<58:33, 225kB/s]
+413.8s 309 0%|          | 131k/792M [00:00<58:33, 225kB/s]     0%|          | 262k/792M [00:00<34:41, 380kB/s]
+414.0s 310 0%|          | 262k/792M [00:00<34:41, 380kB/s]  0%|          | 426k/792M [00:01<25:16, 522kB/s]
+414.2s 311 0%|          | 426k/792M [00:01<25:16, 522kB/s]  0%|          | 590k/792M [00:01<21:43, 607kB/s]
+414.4s 312 0%|          | 590k/792M [00:01<21:43, 607kB/s]  0%|          | 1.05M/792M [00:01<11:48, 1.12MB/s]
+414.6s 313 0%|          | 1.05M/792M [00:01<11:48, 1.12MB/s]  0%|          | 1.93M/792M [00:01<06:18, 2.09MB/s]
+414.8s 314 0%|          | 1.93M/792M [00:01<06:18, 2.09MB/s]  0%|          | 3.77M/792M [00:01<03:10, 4.14MB/s]
+415.0s 315 0%|          | 3.77M/792M [00:01<03:10, 4.14MB/s]  1%|          | 7.37M/792M [00:02<01:36, 8.10MB/s]
+415.3s 316 1%|          | 7.37M/792M [00:02<01:36, 8.10MB/s]  1%|▏         | 11.4M/792M [00:02<01:08, 11.3MB/s]
+415.5s 317 1%|▏         | 11.4M/792M [00:02<01:08, 11.3MB/s]  2%|▏         | 15.4M/792M [00:02<00:57, 13.6MB/s]
+415.7s 318 2%|▏         | 15.4M/792M [00:02<00:57, 13.6MB/s]  2%|▏         | 19.4M/792M [00:02<00:51, 15.0MB/s]
+415.9s 319 2%|▏         | 19.4M/792M [00:02<00:51, 15.0MB/s]  3%|▎         | 23.5M/792M [00:02<00:47, 16.2MB/s]
+416.1s 320 3%|▎         | 23.5M/792M [00:02<00:47, 16.2MB/s]  3%|▎         | 27.5M/792M [00:03<00:45, 16.8MB/s]
+416.3s 321 3%|▎         | 27.5M/792M [00:03<00:45, 16.8MB/s]  4%|▍         | 31.6M/792M [00:03<00:43, 17.3MB/s]
+416.6s 322 4%|▍         | 31.6M/792M [00:03<00:43, 17.3MB/s]  4%|▍         | 35.6M/792M [00:03<00:42, 17.7MB/s]
+416.8s 323 4%|▍         | 35.6M/792M [00:03<00:42, 17.7MB/s]  5%|▌         | 39.6M/792M [00:03<00:41, 18.0MB/s]
+417.0s 324 5%|▌         | 39.6M/792M [00:03<00:41, 18.0MB/s]  6%|▌         | 43.7M/792M [00:04<00:41, 18.2MB/s]
+417.2s 325 6%|▌         | 43.7M/792M [00:04<00:41, 18.2MB/s]  6%|▌         | 47.7M/792M [00:04<00:40, 18.3MB/s]
+417.4s 326 6%|▌         | 47.7M/792M [00:04<00:40, 18.3MB/s]  7%|▋         | 51.8M/792M [00:04<00:40, 18.4MB/s]
+417.6s 327 7%|▋         | 51.8M/792M [00:04<00:40, 18.4MB/s]  7%|▋         | 55.8M/792M [00:04<00:39, 18.4MB/s]
+417.9s 328 7%|▋         | 55.8M/792M [00:04<00:39, 18.4MB/s]  8%|▊         | 59.8M/792M [00:04<00:39, 18.5MB/s]
+418.1s 329 8%|▊         | 59.8M/792M [00:04<00:39, 18.5MB/s]  8%|▊         | 63.9M/792M [00:05<00:39, 18.5MB/s]
+418.3s 330 8%|▊         | 63.9M/792M [00:05<00:39, 18.5MB/s]  9%|▊         | 67.9M/792M [00:05<00:39, 18.5MB/s]
+418.5s 331 9%|▊         | 67.9M/792M [00:05<00:39, 18.5MB/s]  9%|▉         | 71.9M/792M [00:05<00:38, 18.5MB/s]
+418.7s 332 9%|▉         | 71.9M/792M [00:05<00:38, 18.5MB/s] 10%|▉         | 75.9M/792M [00:05<00:38, 18.4MB/s]
+419.0s 333 10%|▉         | 75.9M/792M [00:05<00:38, 18.4MB/s] 10%|█         | 79.9M/792M [00:06<00:38, 18.4MB/s]
+419.2s 334 10%|█         | 79.9M/792M [00:06<00:38, 18.4MB/s] 11%|█         | 84.0M/792M [00:06<00:38, 18.5MB/s]
+419.4s 335 11%|█         | 84.0M/792M [00:06<00:38, 18.5MB/s] 11%|█         | 88.0M/792M [00:06<00:37, 18.6MB/s]
+419.6s 336 11%|█         | 88.0M/792M [00:06<00:37, 18.6MB/s] 12%|█▏        | 92.1M/792M [00:06<00:37, 18.5MB/s]
+419.8s 337 12%|█▏        | 92.1M/792M [00:06<00:37, 18.5MB/s] 12%|█▏        | 96.1M/792M [00:06<00:37, 18.6MB/s]
+420.0s 338 12%|█▏        | 96.1M/792M [00:06<00:37, 18.6MB/s] 13%|█▎        | 100M/792M [00:07<00:37, 18.6MB/s]
+420.3s 339 13%|█▎        | 100M/792M [00:07<00:37, 18.6MB/s]  13%|█▎        | 104M/792M [00:07<00:36, 18.6MB/s]
+420.5s 340 13%|█▎        | 104M/792M [00:07<00:36, 18.6MB/s] 14%|█▎        | 108M/792M [00:07<00:36, 18.6MB/s]
+420.7s 341 14%|█▎        | 108M/792M [00:07<00:36, 18.6MB/s] 14%|█▍        | 112M/792M [00:07<00:36, 18.7MB/s]
+420.9s 342 14%|█▍        | 112M/792M [00:07<00:36, 18.7MB/s] 15%|█▍        | 116M/792M [00:07<00:36, 18.6MB/s]
+421.1s 343 15%|█▍        | 116M/792M [00:07<00:36, 18.6MB/s] 15%|█▌        | 120M/792M [00:08<00:36, 18.5MB/s]
+421.3s 344 15%|█▌        | 120M/792M [00:08<00:36, 18.5MB/s] 16%|█▌        | 125M/792M [00:08<00:35, 18.6MB/s]
+421.6s 345 16%|█▌        | 125M/792M [00:08<00:35, 18.6MB/s] 16%|█▌        | 129M/792M [00:08<00:35, 18.6MB/s]
+421.8s 346 16%|█▌        | 129M/792M [00:08<00:35, 18.6MB/s] 17%|█▋        | 133M/792M [00:08<00:35, 18.6MB/s]
+422.0s 347 17%|█▋        | 133M/792M [00:08<00:35, 18.6MB/s] 17%|█▋        | 137M/792M [00:09<00:35, 18.6MB/s]
+422.3s 348 17%|█▋        | 137M/792M [00:09<00:35, 18.6MB/s] 18%|█▊        | 141M/792M [00:09<00:34, 18.6MB/s]
+422.4s 349 18%|█▊        | 141M/792M [00:09<00:34, 18.6MB/s] 18%|█▊        | 145M/792M [00:09<00:34, 18.6MB/s]
+422.7s 350 18%|█▊        | 145M/792M [00:09<00:34, 18.6MB/s] 19%|█▉        | 149M/792M [00:09<00:34, 18.6MB/s]
+422.9s 351 19%|█▉        | 149M/792M [00:09<00:34, 18.6MB/s] 19%|█▉        | 153M/792M [00:09<00:34, 18.6MB/s]
+423.1s 352 19%|█▉        | 153M/792M [00:09<00:34, 18.6MB/s] 20%|█▉        | 157M/792M [00:10<00:34, 18.6MB/s]
+423.3s 353 20%|█▉        | 157M/792M [00:10<00:34, 18.6MB/s] 20%|██        | 161M/792M [00:10<00:33, 18.6MB/s]
+423.5s 354 20%|██        | 161M/792M [00:10<00:33, 18.6MB/s] 21%|██        | 165M/792M [00:10<00:33, 18.6MB/s]
+423.7s 355 21%|██        | 165M/792M [00:10<00:33, 18.6MB/s] 21%|██▏       | 169M/792M [00:10<00:33, 18.6MB/s]
+424.0s 356 21%|██▏       | 169M/792M [00:10<00:33, 18.6MB/s] 22%|██▏       | 173M/792M [00:11<00:33, 18.6MB/s]
+424.2s 357 22%|██▏       | 173M/792M [00:11<00:33, 18.6MB/s] 22%|██▏       | 177M/792M [00:11<00:32, 18.7MB/s]
+424.4s 358 22%|██▏       | 177M/792M [00:11<00:32, 18.7MB/s] 23%|██▎       | 181M/792M [00:11<00:32, 18.6MB/s]
+424.6s 359 23%|██▎       | 181M/792M [00:11<00:32, 18.6MB/s] 23%|██▎       | 185M/792M [00:11<00:32, 18.7MB/s]
+424.8s 360 23%|██▎       | 185M/792M [00:11<00:32, 18.7MB/s] 24%|██▍       | 189M/792M [00:11<00:32, 18.7MB/s]
+425.0s 361 24%|██▍       | 189M/792M [00:11<00:32, 18.7MB/s] 24%|██▍       | 193M/792M [00:12<00:32, 18.6MB/s]
+425.3s 362 24%|██▍       | 193M/792M [00:12<00:32, 18.6MB/s] 25%|██▍       | 197M/792M [00:12<00:31, 18.6MB/s]
+425.5s 363 25%|██▍       | 197M/792M [00:12<00:31, 18.6MB/s] 25%|██▌       | 201M/792M [00:12<00:31, 18.5MB/s]
+425.7s 364 25%|██▌       | 201M/792M [00:12<00:31, 18.5MB/s] 26%|██▌       | 205M/792M [00:12<00:31, 18.6MB/s]
+425.9s 365 26%|██▌       | 205M/792M [00:12<00:31, 18.6MB/s] 26%|██▋       | 209M/792M [00:12<00:31, 18.6MB/s]
+426.1s 366 26%|██▋       | 209M/792M [00:12<00:31, 18.6MB/s] 27%|██▋       | 213M/792M [00:13<00:31, 18.6MB/s]
+426.3s 367 27%|██▋       | 213M/792M [00:13<00:31, 18.6MB/s] 27%|██▋       | 218M/792M [00:13<00:30, 18.6MB/s]
+426.6s 368 27%|██▋       | 218M/792M [00:13<00:30, 18.6MB/s] 28%|██▊       | 222M/792M [00:13<00:30, 18.5MB/s]
+426.8s 369 28%|██▊       | 222M/792M [00:13<00:30, 18.5MB/s] 28%|██▊       | 226M/792M [00:13<00:30, 18.4MB/s]
+427.0s 370 28%|██▊       | 226M/792M [00:13<00:30, 18.4MB/s] 29%|██▉       | 230M/792M [00:14<00:30, 18.4MB/s]
+427.2s 371 29%|██▉       | 230M/792M [00:14<00:30, 18.4MB/s] 30%|██▉       | 234M/792M [00:14<00:30, 18.5MB/s]
+427.4s 372 30%|██▉       | 234M/792M [00:14<00:30, 18.5MB/s] 30%|███       | 238M/792M [00:14<00:29, 18.5MB/s]
+427.7s 373 30%|███       | 238M/792M [00:14<00:29, 18.5MB/s] 31%|███       | 242M/792M [00:14<00:29, 18.6MB/s]
+427.9s 374 31%|███       | 242M/792M [00:14<00:29, 18.6MB/s] 31%|███       | 246M/792M [00:14<00:29, 18.5MB/s]
+428.1s 375 31%|███       | 246M/792M [00:14<00:29, 18.5MB/s] 31%|███▏      | 249M/792M [00:15<00:30, 17.9MB/s]
+428.3s 376 31%|███▏      | 249M/792M [00:15<00:30, 17.9MB/s] 32%|███▏      | 253M/792M [00:15<00:29, 18.2MB/s]
+428.5s 377 32%|███▏      | 253M/792M [00:15<00:29, 18.2MB/s] 33%|███▎      | 257M/792M [00:15<00:29, 18.3MB/s]
+428.7s 378 33%|███▎      | 257M/792M [00:15<00:29, 18.3MB/s] 33%|███▎      | 261M/792M [00:15<00:29, 18.3MB/s]
+429.0s 379 33%|███▎      | 261M/792M [00:15<00:29, 18.3MB/s] 34%|███▎      | 265M/792M [00:16<00:28, 18.4MB/s]
+429.2s 380 34%|███▎      | 265M/792M [00:16<00:28, 18.4MB/s] 34%|███▍      | 269M/792M [00:16<00:28, 18.5MB/s]
+429.4s 381 34%|███▍      | 269M/792M [00:16<00:28, 18.5MB/s] 35%|███▍      | 274M/792M [00:16<00:28, 18.5MB/s]
+429.6s 382 35%|███▍      | 274M/792M [00:16<00:28, 18.5MB/s] 35%|███▌      | 278M/792M [00:16<00:27, 18.4MB/s]
+429.8s 383 35%|███▌      | 278M/792M [00:16<00:27, 18.4MB/s] 36%|███▌      | 282M/792M [00:16<00:27, 18.5MB/s]
+430.0s 384 36%|███▌      | 282M/792M [00:16<00:27, 18.5MB/s] 36%|███▌      | 286M/792M [00:17<00:27, 18.6MB/s]
+430.3s 385 36%|███▌      | 286M/792M [00:17<00:27, 18.6MB/s] 37%|███▋      | 290M/792M [00:17<00:26, 18.7MB/s]
+430.5s 386 37%|███▋      | 290M/792M [00:17<00:26, 18.7MB/s] 37%|███▋      | 294M/792M [00:17<00:26, 18.8MB/s]
+430.7s 387 37%|███▋      | 294M/792M [00:17<00:26, 18.8MB/s] 38%|███▊      | 298M/792M [00:17<00:26, 18.6MB/s]
+430.9s 388 38%|███▊      | 298M/792M [00:17<00:26, 18.6MB/s] 38%|███▊      | 301M/792M [00:17<00:27, 17.7MB/s]
+431.1s 389 38%|███▊      | 301M/792M [00:17<00:27, 17.7MB/s] 39%|███▊      | 305M/792M [00:18<00:27, 18.0MB/s]
+431.3s 390 39%|███▊      | 305M/792M [00:18<00:27, 18.0MB/s] 39%|███▉      | 309M/792M [00:18<00:26, 18.1MB/s]
+431.6s 391 39%|███▉      | 309M/792M [00:18<00:26, 18.1MB/s] 40%|███▉      | 313M/792M [00:18<00:26, 18.2MB/s]
+431.8s 392 40%|███▉      | 313M/792M [00:18<00:26, 18.2MB/s] 40%|████      | 317M/792M [00:18<00:25, 18.3MB/s]
+432.0s 393 40%|████      | 317M/792M [00:18<00:25, 18.3MB/s] 41%|████      | 321M/792M [00:19<00:25, 18.3MB/s]
+432.2s 394 41%|████      | 321M/792M [00:19<00:25, 18.3MB/s] 41%|████      | 325M/792M [00:19<00:25, 18.4MB/s]
+432.4s 395 41%|████      | 325M/792M [00:19<00:25, 18.4MB/s] 42%|████▏     | 329M/792M [00:19<00:25, 18.4MB/s]
+432.6s 396 42%|████▏     | 329M/792M [00:19<00:25, 18.4MB/s] 42%|████▏     | 333M/792M [00:19<00:24, 18.4MB/s]
+432.9s 397 42%|████▏     | 333M/792M [00:19<00:24, 18.4MB/s] 43%|████▎     | 337M/792M [00:19<00:24, 18.5MB/s]
+433.1s 398 43%|████▎     | 337M/792M [00:19<00:24, 18.5MB/s] 43%|████▎     | 341M/792M [00:20<00:24, 18.6MB/s]
+433.3s 399 43%|████▎     | 341M/792M [00:20<00:24, 18.6MB/s] 44%|████▎     | 345M/792M [00:20<00:24, 18.4MB/s]
+433.5s 400 44%|████▎     | 345M/792M [00:20<00:24, 18.4MB/s] 44%|████▍     | 349M/792M [00:20<00:24, 18.3MB/s]
+433.7s 401 44%|████▍     | 349M/792M [00:20<00:24, 18.3MB/s] 45%|████▍     | 353M/792M [00:20<00:23, 18.5MB/s]
+434.0s 402 45%|████▍     | 353M/792M [00:20<00:23, 18.5MB/s] 45%|████▌     | 357M/792M [00:21<00:23, 18.5MB/s]
+434.2s 403 45%|████▌     | 357M/792M [00:21<00:23, 18.5MB/s] 46%|████▌     | 361M/792M [00:21<00:23, 18.6MB/s]
+434.4s 404 46%|████▌     | 361M/792M [00:21<00:23, 18.6MB/s] 46%|████▌     | 366M/792M [00:21<00:23, 18.4MB/s]
+434.6s 405 46%|████▌     | 366M/792M [00:21<00:23, 18.4MB/s] 47%|████▋     | 370M/792M [00:21<00:22, 18.5MB/s]
+434.8s 406 47%|████▋     | 370M/792M [00:21<00:22, 18.5MB/s] 47%|████▋     | 374M/792M [00:21<00:22, 18.5MB/s]
+435.0s 407 47%|████▋     | 374M/792M [00:21<00:22, 18.5MB/s] 48%|████▊     | 378M/792M [00:22<00:22, 18.7MB/s]
+435.3s 408 48%|████▊     | 378M/792M [00:22<00:22, 18.7MB/s] 48%|████▊     | 382M/792M [00:22<00:21, 18.7MB/s]
+435.5s 409 48%|████▊     | 382M/792M [00:22<00:21, 18.7MB/s] 49%|████▊     | 386M/792M [00:22<00:21, 18.6MB/s]
+435.7s 410 49%|████▊     | 386M/792M [00:22<00:21, 18.6MB/s] 49%|████▉     | 390M/792M [00:22<00:21, 18.6MB/s]
+435.9s 411 49%|████▉     | 390M/792M [00:22<00:21, 18.6MB/s] 50%|████▉     | 394M/792M [00:22<00:21, 18.6MB/s]
+436.1s 412 50%|████▉     | 394M/792M [00:22<00:21, 18.6MB/s] 50%|█████     | 398M/792M [00:23<00:21, 18.6MB/s]
+436.3s 413 50%|█████     | 398M/792M [00:23<00:21, 18.6MB/s] 51%|█████     | 402M/792M [00:23<00:20, 18.6MB/s]
+436.6s 414 51%|█████     | 402M/792M [00:23<00:20, 18.6MB/s] 51%|█████▏    | 406M/792M [00:23<00:20, 18.6MB/s]
+436.8s 415 51%|█████▏    | 406M/792M [00:23<00:20, 18.6MB/s] 52%|█████▏    | 410M/792M [00:23<00:20, 18.6MB/s]
+437.0s 416 52%|█████▏    | 410M/792M [00:23<00:20, 18.6MB/s] 52%|█████▏    | 414M/792M [00:24<00:20, 18.6MB/s]
+437.2s 417 52%|█████▏    | 414M/792M [00:24<00:20, 18.6MB/s] 53%|█████▎    | 418M/792M [00:24<00:20, 18.7MB/s]
+437.4s 418 53%|█████▎    | 418M/792M [00:24<00:20, 18.7MB/s] 53%|█████▎    | 422M/792M [00:24<00:20, 18.5MB/s]
+437.6s 419 53%|█████▎    | 422M/792M [00:24<00:20, 18.5MB/s] 54%|█████▍    | 426M/792M [00:24<00:19, 18.6MB/s]
+437.9s 420 54%|█████▍    | 426M/792M [00:24<00:19, 18.6MB/s] 54%|█████▍    | 430M/792M [00:24<00:19, 18.6MB/s]
+438.1s 421 54%|█████▍    | 430M/792M [00:24<00:19, 18.6MB/s] 55%|█████▍    | 434M/792M [00:25<00:19, 18.7MB/s]
+438.3s 422 55%|█████▍    | 434M/792M [00:25<00:19, 18.7MB/s] 55%|█████▌    | 438M/792M [00:25<00:18, 18.7MB/s]
+438.5s 423 55%|█████▌    | 438M/792M [00:25<00:18, 18.7MB/s] 56%|█████▌    | 442M/792M [00:25<00:18, 18.6MB/s]
+438.7s 424 56%|█████▌    | 442M/792M [00:25<00:18, 18.6MB/s] 56%|█████▋    | 446M/792M [00:25<00:18, 18.6MB/s]
+438.9s 425 56%|█████▋    | 446M/792M [00:25<00:18, 18.6MB/s] 57%|█████▋    | 450M/792M [00:26<00:18, 18.6MB/s]
+439.2s 426 57%|█████▋    | 450M/792M [00:26<00:18, 18.6MB/s] 57%|█████▋    | 455M/792M [00:26<00:17, 18.8MB/s]
+439.4s 427 57%|█████▋    | 455M/792M [00:26<00:17, 18.8MB/s] 58%|█████▊    | 459M/792M [00:26<00:17, 18.6MB/s]
+439.6s 428 58%|█████▊    | 459M/792M [00:26<00:17, 18.6MB/s] 58%|█████▊    | 463M/792M [00:26<00:17, 18.6MB/s]
+439.8s 429 58%|█████▊    | 463M/792M [00:26<00:17, 18.6MB/s] 59%|█████▉    | 467M/792M [00:26<00:17, 18.6MB/s]
+440.0s 430 59%|█████▉    | 467M/792M [00:26<00:17, 18.6MB/s] 59%|█████▉    | 471M/792M [00:27<00:17, 18.7MB/s]
+440.3s 431 59%|█████▉    | 471M/792M [00:27<00:17, 18.7MB/s] 60%|█████▉    | 475M/792M [00:27<00:17, 18.6MB/s]
+440.5s 432 60%|█████▉    | 475M/792M [00:27<00:17, 18.6MB/s] 60%|██████    | 479M/792M [00:27<00:16, 18.6MB/s]
+440.7s 433 60%|██████    | 479M/792M [00:27<00:16, 18.6MB/s] 61%|██████    | 483M/792M [00:27<00:16, 18.7MB/s]
+440.9s 434 61%|██████    | 483M/792M [00:27<00:16, 18.7MB/s] 61%|██████▏   | 487M/792M [00:27<00:16, 18.7MB/s]
+441.1s 435 61%|██████▏   | 487M/792M [00:27<00:16, 18.7MB/s] 62%|██████▏   | 491M/792M [00:28<00:15, 18.8MB/s]
+441.3s 436 62%|██████▏   | 491M/792M [00:28<00:15, 18.8MB/s] 63%|██████▎   | 495M/792M [00:28<00:15, 18.7MB/s]
+441.5s 437 63%|██████▎   | 495M/792M [00:28<00:15, 18.7MB/s] 63%|██████▎   | 498M/792M [00:28<00:16, 17.9MB/s]
+441.8s 438 63%|██████▎   | 498M/792M [00:28<00:16, 17.9MB/s] 63%|██████▎   | 503M/792M [00:28<00:15, 18.2MB/s]
+442.0s 439 63%|██████▎   | 503M/792M [00:28<00:15, 18.2MB/s] 64%|██████▍   | 507M/792M [00:29<00:15, 18.3MB/s]
+442.2s 440 64%|██████▍   | 507M/792M [00:29<00:15, 18.3MB/s] 64%|██████▍   | 511M/792M [00:29<00:15, 18.3MB/s]
+442.4s 441 64%|██████▍   | 511M/792M [00:29<00:15, 18.3MB/s] 65%|██████▍   | 515M/792M [00:29<00:15, 18.4MB/s]
+442.6s 442 65%|██████▍   | 515M/792M [00:29<00:15, 18.4MB/s] 65%|██████▌   | 519M/792M [00:29<00:14, 18.5MB/s]
+442.9s 443 65%|██████▌   | 519M/792M [00:29<00:14, 18.5MB/s] 66%|██████▌   | 523M/792M [00:29<00:14, 18.6MB/s]
+443.1s 444 66%|██████▌   | 523M/792M [00:29<00:14, 18.6MB/s] 67%|██████▋   | 527M/792M [00:30<00:14, 18.6MB/s]
+443.3s 445 67%|██████▋   | 527M/792M [00:30<00:14, 18.6MB/s] 67%|██████▋   | 531M/792M [00:30<00:14, 18.4MB/s]
+443.5s 446 67%|██████▋   | 531M/792M [00:30<00:14, 18.4MB/s] 68%|██████▊   | 535M/792M [00:30<00:14, 18.2MB/s]
+443.7s 447 68%|██████▊   | 535M/792M [00:30<00:14, 18.2MB/s] 68%|██████▊   | 539M/792M [00:30<00:13, 18.4MB/s]
+443.9s 448 68%|██████▊   | 539M/792M [00:30<00:13, 18.4MB/s] 69%|██████▊   | 543M/792M [00:31<00:13, 18.5MB/s]
+444.2s 449 69%|██████▊   | 543M/792M [00:31<00:13, 18.5MB/s] 69%|██████▉   | 547M/792M [00:31<00:13, 18.6MB/s]
+444.4s 450 69%|██████▉   | 547M/792M [00:31<00:13, 18.6MB/s] 70%|██████▉   | 551M/792M [00:31<00:13, 18.4MB/s]
+444.6s 451 70%|██████▉   | 551M/792M [00:31<00:13, 18.4MB/s] 70%|███████   | 555M/792M [00:31<00:12, 18.5MB/s]
+444.8s 452 70%|███████   | 555M/792M [00:31<00:12, 18.5MB/s] 71%|███████   | 559M/792M [00:31<00:12, 18.5MB/s]
+445.0s 453 71%|███████   | 559M/792M [00:31<00:12, 18.5MB/s] 71%|███████   | 563M/792M [00:32<00:12, 18.6MB/s]
+445.2s 454 71%|███████   | 563M/792M [00:32<00:12, 18.6MB/s] 72%|███████▏  | 567M/792M [00:32<00:12, 18.6MB/s]
+445.5s 455 72%|███████▏  | 567M/792M [00:32<00:12, 18.6MB/s] 72%|███████▏  | 571M/792M [00:32<00:11, 18.7MB/s]
+445.7s 456 72%|███████▏  | 571M/792M [00:32<00:11, 18.7MB/s] 73%|███████▎  | 575M/792M [00:32<00:11, 18.7MB/s]
+445.9s 457 73%|███████▎  | 575M/792M [00:32<00:11, 18.7MB/s] 73%|███████▎  | 579M/792M [00:32<00:11, 18.6MB/s]
+446.1s 458 73%|███████▎  | 579M/792M [00:32<00:11, 18.6MB/s] 74%|███████▎  | 583M/792M [00:33<00:11, 18.7MB/s]
+446.3s 459 74%|███████▎  | 583M/792M [00:33<00:11, 18.7MB/s] 74%|███████▍  | 587M/792M [00:33<00:10, 18.6MB/s]
+446.5s 460 74%|███████▍  | 587M/792M [00:33<00:10, 18.6MB/s] 75%|███████▍  | 591M/792M [00:33<00:10, 18.7MB/s]
+446.8s 461 75%|███████▍  | 591M/792M [00:33<00:10, 18.7MB/s] 75%|███████▌  | 595M/792M [00:33<00:10, 18.7MB/s]
+447.0s 462 75%|███████▌  | 595M/792M [00:33<00:10, 18.7MB/s] 76%|███████▌  | 599M/792M [00:34<00:10, 18.7MB/s]
+447.2s 463 76%|███████▌  | 599M/792M [00:34<00:10, 18.7MB/s] 76%|███████▌  | 603M/792M [00:34<00:10, 18.6MB/s]
+447.4s 464 76%|███████▌  | 603M/792M [00:34<00:10, 18.6MB/s] 77%|███████▋  | 607M/792M [00:34<00:09, 18.5MB/s]
+447.6s 465 77%|███████▋  | 607M/792M [00:34<00:09, 18.5MB/s] 77%|███████▋  | 611M/792M [00:34<00:09, 18.6MB/s]
+447.8s 466 77%|███████▋  | 611M/792M [00:34<00:09, 18.6MB/s] 78%|███████▊  | 615M/792M [00:34<00:09, 18.6MB/s]
+448.1s 467 78%|███████▊  | 615M/792M [00:34<00:09, 18.6MB/s] 78%|███████▊  | 619M/792M [00:35<00:09, 18.6MB/s]
+448.3s 468 78%|███████▊  | 619M/792M [00:35<00:09, 18.6MB/s] 79%|███████▊  | 623M/792M [00:35<00:09, 18.6MB/s]
+448.5s 469 79%|███████▊  | 623M/792M [00:35<00:09, 18.6MB/s] 79%|███████▉  | 628M/792M [00:35<00:08, 18.6MB/s]
+448.7s 470 79%|███████▉  | 628M/792M [00:35<00:08, 18.6MB/s] 80%|███████▉  | 632M/792M [00:35<00:08, 18.7MB/s]
+448.9s 471 80%|███████▉  | 632M/792M [00:35<00:08, 18.7MB/s] 80%|████████  | 636M/792M [00:36<00:08, 18.7MB/s]
+449.1s 472 80%|████████  | 636M/792M [00:36<00:08, 18.7MB/s] 81%|████████  | 640M/792M [00:36<00:08, 18.7MB/s]
+449.4s 473 81%|████████  | 640M/792M [00:36<00:08, 18.7MB/s] 81%|████████▏ | 644M/792M [00:36<00:07, 18.7MB/s]
+449.6s 474 81%|████████▏ | 644M/792M [00:36<00:07, 18.7MB/s] 82%|████████▏ | 648M/792M [00:36<00:07, 18.7MB/s]
+449.8s 475 82%|████████▏ | 648M/792M [00:36<00:07, 18.7MB/s] 82%|████████▏ | 652M/792M [00:36<00:07, 18.7MB/s]
+450.0s 476 82%|████████▏ | 652M/792M [00:36<00:07, 18.7MB/s] 83%|████████▎ | 656M/792M [00:37<00:07, 18.6MB/s]
+450.2s 477 83%|████████▎ | 656M/792M [00:37<00:07, 18.6MB/s] 83%|████████▎ | 660M/792M [00:37<00:07, 18.6MB/s]
+450.5s 478 83%|████████▎ | 660M/792M [00:37<00:07, 18.6MB/s] 84%|████████▍ | 664M/792M [00:37<00:06, 18.5MB/s]
+450.7s 479 84%|████████▍ | 664M/792M [00:37<00:06, 18.5MB/s] 84%|████████▍ | 668M/792M [00:37<00:06, 18.6MB/s]
+450.9s 480 84%|████████▍ | 668M/792M [00:37<00:06, 18.6MB/s] 85%|████████▍ | 672M/792M [00:37<00:06, 18.5MB/s]
+451.1s 481 85%|████████▍ | 672M/792M [00:37<00:06, 18.5MB/s] 85%|████████▌ | 676M/792M [00:38<00:06, 18.6MB/s]
+451.3s 482 85%|████████▌ | 676M/792M [00:38<00:06, 18.6MB/s] 86%|████████▌ | 680M/792M [00:38<00:05, 18.7MB/s]
+451.5s 483 86%|████████▌ | 680M/792M [00:38<00:05, 18.7MB/s] 86%|████████▋ | 684M/792M [00:38<00:05, 18.8MB/s]
+451.8s 484 86%|████████▋ | 684M/792M [00:38<00:05, 18.8MB/s] 87%|████████▋ | 688M/792M [00:38<00:05, 18.7MB/s]
+452.0s 485 87%|████████▋ | 688M/792M [00:38<00:05, 18.7MB/s] 87%|████████▋ | 692M/792M [00:39<00:05, 18.7MB/s]
+452.2s 486 87%|████████▋ | 692M/792M [00:39<00:05, 18.7MB/s] 88%|████████▊ | 696M/792M [00:39<00:05, 18.7MB/s]
+452.4s 487 88%|████████▊ | 696M/792M [00:39<00:05, 18.7MB/s] 88%|████████▊ | 700M/792M [00:39<00:04, 18.7MB/s]
+452.6s 488 88%|████████▊ | 700M/792M [00:39<00:04, 18.7MB/s] 89%|████████▉ | 705M/792M [00:39<00:04, 18.8MB/s]
+452.8s 489 89%|████████▉ | 705M/792M [00:39<00:04, 18.8MB/s] 89%|████████▉ | 709M/792M [00:39<00:04, 18.6MB/s]
+453.1s 490 89%|████████▉ | 709M/792M [00:39<00:04, 18.6MB/s] 90%|████████▉ | 713M/792M [00:40<00:04, 18.7MB/s]
+453.3s 491 90%|████████▉ | 713M/792M [00:40<00:04, 18.7MB/s] 91%|█████████ | 717M/792M [00:40<00:04, 18.7MB/s]
+453.5s 492 91%|█████████ | 717M/792M [00:40<00:04, 18.7MB/s] 91%|█████████ | 721M/792M [00:40<00:03, 18.7MB/s]
+453.7s 493 91%|█████████ | 721M/792M [00:40<00:03, 18.7MB/s] 92%|█████████▏| 725M/792M [00:40<00:03, 18.5MB/s]
+453.9s 494 92%|█████████▏| 725M/792M [00:40<00:03, 18.5MB/s] 92%|█████████▏| 729M/792M [00:41<00:03, 18.6MB/s]
+454.1s 495 92%|█████████▏| 729M/792M [00:41<00:03, 18.6MB/s] 93%|█████████▎| 733M/792M [00:41<00:03, 18.5MB/s]
+454.4s 496 93%|█████████▎| 733M/792M [00:41<00:03, 18.5MB/s] 93%|█████████▎| 737M/792M [00:41<00:02, 18.6MB/s]
+454.6s 497 93%|█████████▎| 737M/792M [00:41<00:02, 18.6MB/s] 94%|█████████▎| 741M/792M [00:41<00:02, 18.7MB/s]
+454.8s 498 94%|█████████▎| 741M/792M [00:41<00:02, 18.7MB/s] 94%|█████████▍| 745M/792M [00:41<00:02, 18.6MB/s]
+455.0s 499 94%|█████████▍| 745M/792M [00:41<00:02, 18.6MB/s] 95%|█████████▍| 749M/792M [00:42<00:02, 18.5MB/s]
+455.2s 500 95%|█████████▍| 749M/792M [00:42<00:02, 18.5MB/s] 95%|█████████▌| 753M/792M [00:42<00:02, 18.6MB/s]
+455.5s 501 95%|█████████▌| 753M/792M [00:42<00:02, 18.6MB/s] 96%|█████████▌| 757M/792M [00:42<00:01, 18.6MB/s]
+455.7s 502 96%|█████████▌| 757M/792M [00:42<00:01, 18.6MB/s] 96%|█████████▌| 761M/792M [00:42<00:01, 18.6MB/s]
+455.9s 503 96%|█████████▌| 761M/792M [00:42<00:01, 18.6MB/s] 97%|█████████▋| 765M/792M [00:42<00:01, 18.7MB/s]
+456.1s 504 97%|█████████▋| 765M/792M [00:42<00:01, 18.7MB/s] 97%|█████████▋| 769M/792M [00:43<00:01, 18.6MB/s]
+456.3s 505 97%|█████████▋| 769M/792M [00:43<00:01, 18.6MB/s] 98%|█████████▊| 773M/792M [00:43<00:00, 18.7MB/s]
+456.5s 506 98%|█████████▊| 773M/792M [00:43<00:00, 18.7MB/s] 98%|█████████▊| 777M/792M [00:43<00:00, 18.7MB/s]
+456.8s 507 98%|█████████▊| 777M/792M [00:43<00:00, 18.7MB/s] 99%|█████████▊| 782M/792M [00:43<00:00, 18.6MB/s]
+457.0s 508 99%|█████████▊| 782M/792M [00:43<00:00, 18.6MB/s] 99%|█████████▉| 786M/792M [00:44<00:00, 18.6MB/s]
+457.2s 509 99%|█████████▉| 786M/792M [00:44<00:00, 18.6MB/s]100%|█████████▉| 790M/792M [00:44<00:00, 18.6MB/s]
+457.2s 510 100%|█████████▉| 790M/792M [00:44<00:00, 18.6MB/s]100%|██████████| 792M/792M [00:44<00:00, 17.9MB/s]
+457.4s 511 100%|██████████| 792M/792M [00:44<00:00, 17.9MB/s]
+457.4s 512 
+457.4s 513 
+467.4s 514 0%|          | 0.00/19.2M [00:00<?, ?B/s]
+467.7s 515 0%|          | 0.00/19.2M [00:00<?, ?B/s]  0%|          | 32.8k/19.2M [00:00<02:03, 155kB/s]
+467.9s 516 0%|          | 32.8k/19.2M [00:00<02:03, 155kB/s]  0%|          | 65.5k/19.2M [00:00<02:03, 155kB/s]
+468.1s 517 0%|          | 65.5k/19.2M [00:00<02:03, 155kB/s]  1%|          | 98.3k/19.2M [00:00<02:03, 155kB/s]
+468.3s 518 1%|          | 98.3k/19.2M [00:00<02:03, 155kB/s]  1%|          | 131k/19.2M [00:00<02:03, 154kB/s]
+468.5s 519 1%|          | 131k/19.2M [00:00<02:03, 154kB/s]   1%|          | 164k/19.2M [00:01<02:03, 154kB/s]
+468.7s 520 1%|          | 164k/19.2M [00:01<02:03, 154kB/s]  1%|          | 229k/19.2M [00:01<01:31, 207kB/s]
+468.9s 521 1%|          | 229k/19.2M [00:01<01:31, 207kB/s]  2%|▏         | 295k/19.2M [00:01<01:18, 240kB/s]
+469.1s 522 2%|▏         | 295k/19.2M [00:01<01:18, 240kB/s]  2%|▏         | 426k/19.2M [00:01<00:52, 360kB/s]
+469.4s 523 2%|▏         | 426k/19.2M [00:01<00:52, 360kB/s]  4%|▍         | 721k/19.2M [00:01<00:27, 681kB/s]
+469.6s 524 4%|▍         | 721k/19.2M [00:01<00:27, 681kB/s]  7%|▋         | 1.34M/19.2M [00:02<00:12, 1.38MB/s]
+469.8s 525 7%|▋         | 1.34M/19.2M [00:02<00:12, 1.38MB/s] 12%|█▏        | 2.39M/19.2M [00:02<00:06, 2.47MB/s]
+470.0s 526 12%|█▏        | 2.39M/19.2M [00:02<00:06, 2.47MB/s] 24%|██▍       | 4.62M/19.2M [00:02<00:02, 4.91MB/s]
+470.2s 527 24%|██▍       | 4.62M/19.2M [00:02<00:02, 4.91MB/s] 45%|████▍     | 8.62M/19.2M [00:02<00:01, 9.07MB/s]
+470.4s 528 45%|████▍     | 8.62M/19.2M [00:02<00:01, 9.07MB/s] 66%|██████▌   | 12.7M/19.2M [00:02<00:00, 12.0MB/s]
+470.6s 529 66%|██████▌   | 12.7M/19.2M [00:02<00:00, 12.0MB/s] 87%|████████▋ | 16.7M/19.2M [00:03<00:00, 14.0MB/s]
+470.6s 530 87%|████████▋ | 16.7M/19.2M [00:03<00:00, 14.0MB/s]100%|██████████| 19.2M/19.2M [00:03<00:00, 5.98MB/s]
+470.8s 531 100%|██████████| 19.2M/19.2M [00:03<00:00, 5.98MB/s]
+470.8s 532 
+470.8s 533 
+477.5s 534 pets        {'status': 'loaded', 'images': 7349, 'classes': 37, 'licence': 'see https://www.robots.ox.ac.uk/~vgg/data/pets/; verify before redistribution', 'seconds': 69.7}
+477.6s 535 LandCover.ai not needed in this session (every unit that reads it is complete)
+483.9s 536 assumption                                                    measured threshold verdict
+483.9s 537 A3 spectral non-degeneracy (share of A2 images with Var > 0 at t in {0, 16, 256}) min share 1.000 over 10 data sources loaded in this session       > 0    PASS
+483.9s 538 A4 independent units (disjoint A1/A2/B; disjoint orthophoto splits)                                                    disjoint  disjoint    PASS
+483.9s 539 A2-vs-B class balance (TV distance of class marginals)                                                   max 0.000  reported    PASS
+483.9s 540 A6 label-free code path (permuted target labels change only the truth)                                       identical predictions identical    PASS
+483.9s 541 A3 per dataset: {'resisc45': 1.0, 'ucm': 1.0, 'patternnet': 1.0, 'whu_rs19': 1.0, 'rsscn7': 1.0, 'optimal31': 1.0, 'clrs': 1.0, 'imagenette': 1.0, 'dtd': 1.0, 'pets': 1.0}
+487.0s 542 NR metrics: spectral VoL = pixel-domain VoL within 2.1e-05 (relative); both calibration curves decrease with s
+487.0s 543 corruptions: 9 families x 5 severities, deterministic per keyed stream; glass-blur backend numba; 4 threads
+487.0s 544 Gaussian-equivalent PSF variance (px^2): gaussian_blur: 1.00, 4.00, 9.00, 16.00, 36.00; defocus_blur: 2.34, 4.13, 9.22, 16.13, 25.76
+510.9s 545 reference check against imagecorruptions 1.1.2: {'status': 'identical', 'n': 45, 'n_identical': 45, 'max_abs_diff': 0.0, 'seconds': 24.1}
+820.9s 546 SpaceNet MVOI: {'files': 1296, 'MB': 2102.3, 'status': 'loaded', 'views': 27, 'tiles': 48, 'crops': 768, 'labels': 'ok', 'label_note': 'median share of footprint vertices inside their tile 1.000 (need >= 0.9)', 'building_share_A1': 0.559, 'seconds': 309.8, 'licence': 'CC BY-SA 4.0 (SpaceNet, https://spacenet.ai/ and the AWS Open Data registry)'}
+821.2s 547 unit block  est_h   state
+821.2s 548 B1_theory    B1  0.010    done
+821.2s 549 B2_physics    B2  0.300    done
+821.2s 550 B3_ucm_s0    B3  0.443    done
+821.2s 551 B3_whu_rs19_s0    B3  0.270    done
+821.2s 552 B3_optimal31_s0    B3  0.411    done
+821.2s 553 B3_clrs_s0    B3  0.411    done
+821.2s 554 B3_rsscn7_s0    B3  0.443    done
+821.2s 555 B3_patternnet_s0    B3  0.547    done
+821.2s 556 B3_dtd_s0    B3  0.638    done
+821.2s 557 B3_pets_s0    B3  0.536    done
+821.2s 558 B3_resisc45_s0    B3  0.927    done
+821.2s 559 B3_imagenette_s0    B3  0.846    done
+821.2s 560 B4_resisc45_to_ucm    B4  0.361    done
+821.2s 561 B4_ucm_to_resisc45    B4  0.188    done
+821.2s 562 B4_patternnet_to_resisc45    B4  0.224    done
+821.2s 563 B4_resisc45_to_patternnet    B4  0.361    done
+821.2s 564 B4_lcai25_to_lcai50    B4  0.248    done
+821.2s 565 B5_dinov2_s14    B5  0.008    done
+821.2s 566 B5_dinov2_b14    B5  0.023    done
+821.2s 567 B5_dino_s16    B5  0.008    done
+821.2s 568 B5_r50_barlow    B5  0.011    done
+821.2s 569 B5_swav_r50    B5  0.011    done
+821.2s 570 B5_vicreg_r50    B5  0.011    done
+821.2s 571 B5_deit3_s16    B5  0.008    done
+821.2s 572 B5_deit3_b16    B5  0.023    done
+821.2s 573 B5_mae_b16    B5  0.023    done
+821.2s 574 B5_mae_l16    B5  0.072    done
+821.2s 575 B5_clip_b16    B5  0.023    done
+821.2s 576 B5_clip_l14    B5  0.090    done
+821.2s 577 B5_r50_sup    B5  0.011    done
+821.2s 578 B5_deit_s16    B5  0.008    done
+821.2s 579 B5_deit_b16    B5  0.023    done
+821.2s 580 B5_ijepa_h14    B5  0.194    done
+821.2s 581 B5_satlas_swinb    B5  0.056    done
+821.2s 582 B3_ucm_s1    B6  0.331    done
+821.2s 583 B3_ucm_s2    B6  0.331    done
+821.2s 584 B3_whu_rs19_s1    B6  0.198    done
+821.2s 585 B3_whu_rs19_s2    B6  0.198    done
+821.2s 586 B3_optimal31_s1    B6  0.305    done
+821.2s 587 B3_optimal31_s2    B6  0.305    done
+821.2s 588 B3_clrs_s1    B6  0.305    done
+821.2s 589 B3_clrs_s2    B6  0.305    done
+821.2s 590 B10_ucm   B10  0.019 pending
+821.2s 591 B10_whu_rs19   B10  0.008 pending
+821.2s 592 B10_optimal31   B10  0.017 pending
+821.2s 593 B10_clrs   B10  0.017 pending
+821.2s 594 B10_rsscn7   B10  0.019 pending
+821.2s 595 B10_patternnet   B10  0.025 pending
+821.2s 596 B10_dtd   B10  0.031 pending
+821.2s 597 B10_pets   B10  0.025 pending
+821.2s 598 B10_resisc45   B10  0.050 pending
+821.2s 599 B10_imagenette   B10  0.044 pending
+821.2s 600 B11_mvoi   B11  0.232 pending
+821.2s 601 B9_ucm    B9  0.899 pending
+821.2s 602 B9_whu_rs19    B9  0.473 pending
+821.2s 603 B9_optimal31    B9  0.843 pending
+821.2s 604 B9_clrs    B9  0.848 pending
+821.2s 605 B9_rsscn7    B9  0.899 pending
+821.2s 606 B9_patternnet    B9  0.901 pending
+821.2s 607 B9_dtd    B9  0.903 pending
+821.2s 608 B9_pets    B9  0.901 pending
+821.2s 609 B9_resisc45    B9  0.912 pending
+821.2s 610 B9_imagenette    B9  0.914 pending
+821.2s 611 elapsed 0.23 h | compute stop 10.75 h | remaining compute estimate 8.98 h
+823.4s 612 Downloading: "https://github.com/facebookresearch/dinov2/zipball/main" to /tmp/redeg_data/torch/hub/main.zip
+824.7s 613 Downloading: "https://dl.fbaipublicfiles.com/dinov2/dinov2_vits14/dinov2_vits14_pretrain.pth" to /tmp/redeg_data/torch/hub/checkpoints/dinov2_vits14_pretrain.pth
+824.7s 614 0%|          | 0.00/84.2M [00:00<?, ?B/s]
+824.8s 615 0%|          | 0.00/84.2M [00:00<?, ?B/s] 41%|████▏     | 34.8M/84.2M [00:00<00:00, 364MB/s]
+824.9s 616 41%|████▏     | 34.8M/84.2M [00:00<00:00, 364MB/s] 85%|████████▌ | 71.9M/84.2M [00:00<00:00, 377MB/s]
+825.0s 617 85%|████████▌ | 71.9M/84.2M [00:00<00:00, 377MB/s]100%|██████████| 84.2M/84.2M [00:00<00:00, 374MB/s]
+825.0s 618 100%|██████████| 84.2M/84.2M [00:00<00:00, 374MB/s]
+825.0s 619 
+825.0s 620 
+828.3s 621 self-check: {'pixel_bitwise': True, 'fp16_max_abs_diff': 0.0, 'probe_predictions_identical': True, 'fp32_psi_max_abs_diff': 0.0, 'rng_streams_identical': True, 'torch_streams_identical': True, 'frozen_encoder': True} (7s)
+828.3s 622 self-check PASSED: pixel identification bitwise identical, fp16 features within 1e-3, fp32 psi within 1e-5, streams reproducible
+828.6s 623 addendum v3 units ready: B10 (no-reference identification), B11 (SpaceNet MVOI), B9 (standard corruptions, 46 conditions per dataset incl. clean)
+828.8s 624 unit  status start_h end_h             note
+828.8s 625 B2_physics resumed    None  None checkpoint found
+834.5s 626 -> B3_ucm_s0: resumed checkpoint found | elapsed 0.23 h of 11 h
+834.5s 627 -> B3_whu_rs19_s0: resumed checkpoint found | elapsed 0.23 h of 11 h
+834.5s 628 -> B3_optimal31_s0: resumed checkpoint found | elapsed 0.23 h of 11 h
+834.5s 629 -> B3_clrs_s0: resumed checkpoint found | elapsed 0.23 h of 11 h
+834.5s 630 -> B3_rsscn7_s0: resumed checkpoint found | elapsed 0.23 h of 11 h
+834.5s 631 -> B3_patternnet_s0: resumed checkpoint found | elapsed 0.23 h of 11 h
+834.5s 632 -> B3_dtd_s0: resumed checkpoint found | elapsed 0.23 h of 11 h
+834.5s 633 -> B3_pets_s0: resumed checkpoint found | elapsed 0.23 h of 11 h
+834.5s 634 -> B3_resisc45_s0: resumed checkpoint found | elapsed 0.23 h of 11 h
+834.5s 635 -> B3_imagenette_s0: resumed checkpoint found | elapsed 0.23 h of 11 h
+834.5s 636 unit  status start_h end_h             note
+834.5s 637 B3_clrs_s0 resumed    None  None checkpoint found
+834.5s 638 B3_clrs_s1 resumed    None  None checkpoint found
+834.5s 639 B3_clrs_s2 resumed    None  None checkpoint found
+834.5s 640 B3_dtd_s0 resumed    None  None checkpoint found
+834.5s 641 B3_imagenette_s0 resumed    None  None checkpoint found
+834.5s 642 B3_optimal31_s0 resumed    None  None checkpoint found
+834.5s 643 B3_optimal31_s1 resumed    None  None checkpoint found
+834.5s 644 B3_optimal31_s2 resumed    None  None checkpoint found
+834.5s 645 B3_patternnet_s0 resumed    None  None checkpoint found
+834.5s 646 B3_pets_s0 resumed    None  None checkpoint found
+834.5s 647 B3_resisc45_s0 resumed    None  None checkpoint found
+834.5s 648 B3_rsscn7_s0 resumed    None  None checkpoint found
+834.5s 649 B3_ucm_s0 resumed    None  None checkpoint found
+834.5s 650 B3_ucm_s1 resumed    None  None checkpoint found
+834.5s 651 B3_ucm_s2 resumed    None  None checkpoint found
+834.5s 652 B3_whu_rs19_s0 resumed    None  None checkpoint found
+834.5s 653 B3_whu_rs19_s1 resumed    None  None checkpoint found
+834.5s 654 B3_whu_rs19_s2 resumed    None  None checkpoint found
+837.1s 655 -> B4_resisc45_to_ucm: resumed checkpoint found | elapsed 0.23 h of 11 h
+837.1s 656 -> B4_ucm_to_resisc45: resumed checkpoint found | elapsed 0.23 h of 11 h
+837.1s 657 -> B4_patternnet_to_resisc45: resumed checkpoint found | elapsed 0.23 h of 11 h
+837.1s 658 -> B4_resisc45_to_patternnet: resumed checkpoint found | elapsed 0.23 h of 11 h
+837.1s 659 -> B4_lcai25_to_lcai50: resumed checkpoint found | elapsed 0.23 h of 11 h
+837.1s 660 unit  status start_h end_h             note
+837.1s 661 B4_lcai25_to_lcai50 resumed    None  None checkpoint found
+837.1s 662 B4_patternnet_to_resisc45 resumed    None  None checkpoint found
+837.1s 663 B4_resisc45_to_patternnet resumed    None  None checkpoint found
+837.1s 664 B4_resisc45_to_ucm resumed    None  None checkpoint found
+837.1s 665 B4_ucm_to_resisc45 resumed    None  None checkpoint found
+837.5s 666 -> B5_dinov2_s14: resumed checkpoint found | elapsed 0.23 h of 11 h
+837.5s 667 -> B5_dinov2_b14: resumed checkpoint found | elapsed 0.23 h of 11 h
+837.5s 668 -> B5_dino_s16: resumed checkpoint found | elapsed 0.23 h of 11 h
+837.5s 669 -> B5_r50_barlow: resumed checkpoint found | elapsed 0.23 h of 11 h
+837.5s 670 -> B5_swav_r50: resumed checkpoint found | elapsed 0.23 h of 11 h
+837.5s 671 -> B5_vicreg_r50: resumed checkpoint found | elapsed 0.23 h of 11 h
+837.5s 672 -> B5_deit3_s16: resumed checkpoint found | elapsed 0.23 h of 11 h
+837.5s 673 -> B5_deit3_b16: resumed checkpoint found | elapsed 0.23 h of 11 h
+837.5s 674 -> B5_mae_b16: resumed checkpoint found | elapsed 0.23 h of 11 h
+837.5s 675 -> B5_mae_l16: resumed checkpoint found | elapsed 0.23 h of 11 h
+837.5s 676 -> B5_clip_b16: resumed checkpoint found | elapsed 0.23 h of 11 h
+837.5s 677 -> B5_clip_l14: resumed checkpoint found | elapsed 0.23 h of 11 h
+837.5s 678 -> B5_r50_sup: resumed checkpoint found | elapsed 0.23 h of 11 h
+837.5s 679 -> B5_deit_s16: resumed checkpoint found | elapsed 0.23 h of 11 h
+837.5s 680 -> B5_deit_b16: resumed checkpoint found | elapsed 0.23 h of 11 h
+837.5s 681 -> B5_ijepa_h14: resumed checkpoint found | elapsed 0.23 h of 11 h
+837.5s 682 -> B5_satlas_swinb: resumed checkpoint found | elapsed 0.23 h of 11 h
+837.5s 683 unit  status start_h end_h             note
+837.5s 684 B5_clip_b16 resumed    None  None checkpoint found
+837.5s 685 B5_clip_l14 resumed    None  None checkpoint found
+837.5s 686 B5_deit3_b16 resumed    None  None checkpoint found
+837.5s 687 B5_deit3_s16 resumed    None  None checkpoint found
+837.5s 688 B5_deit_b16 resumed    None  None checkpoint found
+837.5s 689 B5_deit_s16 resumed    None  None checkpoint found
+837.5s 690 B5_dino_s16 resumed    None  None checkpoint found
+837.5s 691 B5_dinov2_b14 resumed    None  None checkpoint found
+837.5s 692 B5_dinov2_s14 resumed    None  None checkpoint found
+837.5s 693 B5_ijepa_h14 resumed    None  None checkpoint found
+837.5s 694 B5_mae_b16 resumed    None  None checkpoint found
+837.5s 695 B5_mae_l16 resumed    None  None checkpoint found
+837.5s 696 B5_r50_barlow resumed    None  None checkpoint found
+837.5s 697 B5_r50_sup resumed    None  None checkpoint found
+837.5s 698 B5_satlas_swinb resumed    None  None checkpoint found
+837.5s 699 B5_swav_r50 resumed    None  None checkpoint found
+837.5s 700 B5_vicreg_r50 resumed    None  None checkpoint found
+841.6s 701 -> B3_ucm_s1: resumed checkpoint found | elapsed 0.23 h of 11 h
+841.6s 702 -> B3_ucm_s2: resumed checkpoint found | elapsed 0.23 h of 11 h
+841.6s 703 -> B3_whu_rs19_s1: resumed checkpoint found | elapsed 0.23 h of 11 h
+841.6s 704 -> B3_whu_rs19_s2: resumed checkpoint found | elapsed 0.23 h of 11 h
+841.6s 705 -> B3_optimal31_s1: resumed checkpoint found | elapsed 0.23 h of 11 h
+842.0s 706 -> B3_optimal31_s2: resumed checkpoint found | elapsed 0.23 h of 11 h
+842.0s 707 -> B3_clrs_s1: resumed checkpoint found | elapsed 0.23 h of 11 h
+842.0s 708 -> B3_clrs_s2: resumed checkpoint found | elapsed 0.23 h of 11 h
+842.0s 709 unit  status  start_h  end_h                                       note
+842.0s 710 B1_theory resumed      NaN  0.010                           checkpoint found
+842.0s 711 B2_physics resumed      NaN    NaN                           checkpoint found
+842.0s 712 B3_clrs_s0 resumed      NaN    NaN                           checkpoint found
+842.0s 713 B3_clrs_s1 resumed      NaN    NaN                           checkpoint found
+842.0s 714 B3_clrs_s2 resumed      NaN    NaN                           checkpoint found
+842.0s 715 B3_dtd_s0 resumed      NaN    NaN                           checkpoint found
+842.0s 716 B3_imagenette_s0 resumed      NaN    NaN                           checkpoint found
+842.0s 717 B3_optimal31_s0 resumed      NaN    NaN                           checkpoint found
+842.0s 718 B3_optimal31_s1 resumed      NaN    NaN                           checkpoint found
+842.0s 719 B3_optimal31_s2 resumed      NaN    NaN                           checkpoint found
+842.0s 720 B3_patternnet_s0 resumed      NaN    NaN                           checkpoint found
+842.0s 721 B3_pets_s0 resumed      NaN    NaN                           checkpoint found
+842.0s 722 B3_resisc45_s0 resumed      NaN    NaN                           checkpoint found
+842.0s 723 B3_rsscn7_s0 resumed      NaN    NaN                           checkpoint found
+842.0s 724 B3_ucm_s0 resumed      NaN    NaN                           checkpoint found
+842.0s 725 B3_ucm_s1 resumed      NaN    NaN                           checkpoint found
+842.0s 726 B3_ucm_s2 resumed      NaN    NaN                           checkpoint found
+842.0s 727 B3_whu_rs19_s0 resumed      NaN    NaN                           checkpoint found
+842.0s 728 B3_whu_rs19_s1 resumed      NaN    NaN                           checkpoint found
+842.0s 729 B3_whu_rs19_s2 resumed      NaN    NaN                           checkpoint found
+842.0s 730 B4_lcai25_to_lcai50 resumed      NaN    NaN                           checkpoint found
+842.0s 731 B4_patternnet_to_resisc45 resumed      NaN    NaN                           checkpoint found
+842.0s 732 B4_resisc45_to_patternnet resumed      NaN    NaN                           checkpoint found
+842.0s 733 B4_resisc45_to_ucm resumed      NaN    NaN                           checkpoint found
+842.0s 734 B4_ucm_to_resisc45 resumed      NaN    NaN                           checkpoint found
+842.0s 735 B5_clip_b16 resumed      NaN    NaN                           checkpoint found
+842.0s 736 B5_clip_l14 resumed      NaN    NaN                           checkpoint found
+842.0s 737 B5_deit3_b16 resumed      NaN    NaN                           checkpoint found
+842.0s 738 B5_deit3_s16 resumed      NaN    NaN                           checkpoint found
+842.0s 739 B5_deit_b16 resumed      NaN    NaN                           checkpoint found
+842.0s 740 B5_deit_s16 resumed      NaN    NaN                           checkpoint found
+842.0s 741 B5_dino_s16 resumed      NaN    NaN                           checkpoint found
+842.0s 742 B5_dinov2_b14 resumed      NaN    NaN                           checkpoint found
+842.0s 743 B5_dinov2_s14 resumed      NaN    NaN                           checkpoint found
+842.0s 744 B5_ijepa_h14 resumed      NaN    NaN                           checkpoint found
+842.0s 745 B5_mae_b16 resumed      NaN    NaN                           checkpoint found
+842.0s 746 B5_mae_l16 resumed      NaN    NaN                           checkpoint found
+842.0s 747 B5_r50_barlow resumed      NaN    NaN                           checkpoint found
+842.0s 748 B5_r50_sup resumed      NaN    NaN                           checkpoint found
+842.0s 749 B5_satlas_swinb resumed      NaN    NaN                           checkpoint found
+842.0s 750 B5_swav_r50 resumed      NaN    NaN                           checkpoint found
+842.0s 751 B5_vicreg_r50 resumed      NaN    NaN                           checkpoint found
+842.0s 752 B0_setup    done      0.0  0.228 installs, downloads, integrity, self-check
+842.7s 753 [progress] 2026-10-13T22:27:58	0.232h	B10_ucm	running
+877.2s 754 B10 ucm: 25 conditions; recomputed median knees identical to B3 in 100% of conditions
+877.2s 755 [progress] 2026-10-13T22:28:33	0.241h	B10_ucm	done	0.6 min
+877.2s 756 -> B10_ucm: done 0.6 min | elapsed 0.24 h of 11 h
+877.3s 757 [progress] 2026-10-13T22:28:33	0.241h	B10_whu_rs19	running
+881.5s 758 RUNTIME DECISION: whu_rs19: dropped 1 degenerate images (a channel with std < 0.5 DN)
+895.0s 759 B10 whu_rs19: 25 conditions; recomputed median knees identical to B3 in 100% of conditions
+895.0s 760 [progress] 2026-10-13T22:28:50	0.246h	B10_whu_rs19	done	0.3 min
+895.0s 761 -> B10_whu_rs19: done 0.3 min | elapsed 0.25 h of 11 h
+895.2s 762 [progress] 2026-10-13T22:28:51	0.246h	B10_optimal31	running
+924.3s 763 B10 optimal31: 25 conditions; recomputed median knees identical to B3 in 100% of conditions
+924.3s 764 [progress] 2026-10-13T22:29:20	0.254h	B10_optimal31	done	0.5 min
+924.3s 765 -> B10_optimal31: done 0.5 min | elapsed 0.25 h of 11 h
+924.4s 766 [progress] 2026-10-13T22:29:20	0.255h	B10_clrs	running
+953.4s 767 B10 clrs: 25 conditions; recomputed median knees identical to B3 in 100% of conditions
+953.4s 768 [progress] 2026-10-13T22:29:49	0.263h	B10_clrs	done	0.5 min
+953.4s 769 -> B10_clrs: done 0.5 min | elapsed 0.26 h of 11 h
+953.6s 770 [progress] 2026-10-13T22:29:49	0.263h	B10_rsscn7	running
+990.7s 771 B10 rsscn7: 25 conditions; recomputed median knees identical to B3 in 100% of conditions
+990.7s 772 [progress] 2026-10-13T22:30:26	0.273h	B10_rsscn7	done	0.6 min
+990.7s 773 -> B10_rsscn7: done 0.6 min | elapsed 0.27 h of 11 h
+990.8s 774 [progress] 2026-10-13T22:30:27	0.273h	B10_patternnet	running
+1035.9s 775 B10 patternnet: 25 conditions; recomputed median knees identical to B3 in 100% of conditions
+1035.9s 776 [progress] 2026-10-13T22:31:11	0.285h	B10_patternnet	done	0.7 min
+1035.9s 777 -> B10_patternnet: done 0.7 min | elapsed 0.29 h of 11 h
+1036.0s 778 [progress] 2026-10-13T22:31:12	0.286h	B10_dtd	running
+1048.1s 779 RUNTIME DECISION: dtd: dropped 1 degenerate images (a channel with std < 0.5 DN)
+1098.5s 780 B10 dtd: 25 conditions; recomputed median knees identical to B3 in 100% of conditions
+1098.5s 781 [progress] 2026-10-13T22:32:14	0.303h	B10_dtd	done	1.0 min
+1098.5s 782 -> B10_dtd: done 1.0 min | elapsed 0.30 h of 11 h
+1098.6s 783 [progress] 2026-10-13T22:32:14	0.303h	B10_pets	running
+1147.0s 784 B10 pets: 25 conditions; recomputed median knees identical to B3 in 100% of conditions
+1147.0s 785 [progress] 2026-10-13T22:33:02	0.316h	B10_pets	done	0.8 min
+1147.0s 786 -> B10_pets: done 0.8 min | elapsed 0.32 h of 11 h
+1147.0s 787 [progress] 2026-10-13T22:33:03	0.316h	B10_resisc45	running
+1225.0s 788 B10 resisc45: 25 conditions; recomputed median knees identical to B3 in 100% of conditions
+1225.0s 789 [progress] 2026-10-13T22:34:20	0.338h	B10_resisc45	done	1.3 min
+1225.0s 790 -> B10_resisc45: done 1.3 min | elapsed 0.34 h of 11 h
+1225.1s 791 [progress] 2026-10-13T22:34:21	0.338h	B10_imagenette	running
+1309.8s 792 B10 imagenette: 25 conditions; recomputed median knees identical to B3 in 100% of conditions
+1309.8s 793 [progress] 2026-10-13T22:35:45	0.362h	B10_imagenette	done	1.4 min
+1309.8s 794 -> B10_imagenette: done 1.4 min | elapsed 0.36 h of 11 h
+1309.8s 795 unit status  start_h  end_h    note
+1309.8s 796 B10_ucm   done    0.232  0.241 0.6 min
+1309.8s 797 B10_whu_rs19   done    0.241  0.246 0.3 min
+1309.8s 798 B10_optimal31   done    0.246  0.254 0.5 min
+1309.8s 799 B10_clrs   done    0.255  0.263 0.5 min
+1309.8s 800 B10_rsscn7   done    0.263  0.273 0.6 min
+1309.8s 801 B10_patternnet   done    0.273  0.285 0.7 min
+1309.8s 802 B10_dtd   done    0.286  0.303 1.0 min
+1309.8s 803 B10_pets   done    0.303  0.316 0.8 min
+1309.8s 804 B10_resisc45   done    0.316  0.338 1.3 min
+1309.8s 805 B10_imagenette   done    0.338  0.362 1.4 min
+1310.3s 806 [progress] 2026-10-13T22:35:46	0.362h	B11_mvoi	running
+1433.8s 807 B11 physics: 27 views; identified level (v2) from 0.00 to 1.88 px^2; Spearman rho with the off-nadir angle 0.99
+1434.1s 808 Using cache found in /tmp/redeg_data/torch/hub/facebookresearch_dinov2_main
+1434.1s 809 
+1434.1s 810 Using cache found in /tmp/redeg_data/torch/hub/facebookresearch_dinov2_main
+1479.7s 811 Downloading: "https://github.com/facebookresearch/barlowtwins/zipball/main" to /tmp/redeg_data/torch/hub/main.zip
+1480.6s 812 Downloading: "https://dl.fbaipublicfiles.com/barlowtwins/ep1000_bs2048_lrw0.2_lrb0.0048_lambd0.0051/resnet50.pth" to /tmp/redeg_data/torch/hub/checkpoints/barlowtwins_resnet50.pth
+1481.1s 813 0%|          | 0.00/90.0M [00:00<?, ?B/s]
+1481.3s 814 0%|          | 0.00/90.0M [00:00<?, ?B/s]  0%|          | 128k/90.0M [00:00<03:11, 491kB/s]
+1481.5s 815 0%|          | 128k/90.0M [00:00<03:11, 491kB/s]  0%|          | 384k/90.0M [00:00<01:23, 1.12MB/s]
+1481.6s 816 0%|          | 384k/90.0M [00:00<01:23, 1.12MB/s]  1%|          | 768k/90.0M [00:00<00:46, 2.00MB/s]
+1481.7s 817 1%|          | 768k/90.0M [00:00<00:46, 2.00MB/s]  2%|▏         | 1.50M/90.0M [00:00<00:24, 3.80MB/s]
+1481.8s 818 2%|▏         | 1.50M/90.0M [00:00<00:24, 3.80MB/s]  4%|▍         | 3.38M/90.0M [00:00<00:10, 8.62MB/s]
+1481.9s 819 4%|▍         | 3.38M/90.0M [00:00<00:10, 8.62MB/s]  8%|▊         | 6.88M/90.0M [00:00<00:05, 17.1MB/s]
+1482.0s 820 8%|▊         | 6.88M/90.0M [00:00<00:05, 17.1MB/s] 12%|█▏        | 10.6M/90.0M [00:00<00:03, 23.8MB/s]
+1482.1s 821 12%|█▏        | 10.6M/90.0M [00:00<00:03, 23.8MB/s] 16%|█▌        | 14.5M/90.0M [00:00<00:02, 28.8MB/s]
+1482.2s 822 16%|█▌        | 14.5M/90.0M [00:00<00:02, 28.8MB/s] 19%|█▉        | 17.5M/90.0M [00:01<00:02, 27.2MB/s]
+1482.3s 823 19%|█▉        | 17.5M/90.0M [00:01<00:02, 27.2MB/s] 23%|██▎       | 20.9M/90.0M [00:01<00:02, 29.5MB/s]
+1482.4s 824 23%|██▎       | 20.9M/90.0M [00:01<00:02, 29.5MB/s] 28%|██▊       | 24.8M/90.0M [00:01<00:02, 31.9MB/s]
+1482.5s 825 28%|██▊       | 24.8M/90.0M [00:01<00:02, 31.9MB/s] 32%|███▏      | 28.8M/90.0M [00:01<00:01, 34.0MB/s]
+1482.7s 826 32%|███▏      | 28.8M/90.0M [00:01<00:01, 34.0MB/s] 36%|███▌      | 32.1M/90.0M [00:01<00:02, 29.5MB/s]
+1482.8s 827 36%|███▌      | 32.1M/90.0M [00:01<00:02, 29.5MB/s] 39%|███▉      | 35.4M/90.0M [00:01<00:01, 30.7MB/s]
+1482.9s 828 39%|███▉      | 35.4M/90.0M [00:01<00:01, 30.7MB/s] 43%|████▎     | 38.9M/90.0M [00:01<00:01, 32.3MB/s]
+1483.0s 829 43%|████▎     | 38.9M/90.0M [00:01<00:01, 32.3MB/s] 47%|████▋     | 42.1M/90.0M [00:01<00:01, 32.8MB/s]
+1483.1s 830 47%|████▋     | 42.1M/90.0M [00:01<00:01, 32.8MB/s] 50%|█████     | 45.4M/90.0M [00:02<00:01, 28.5MB/s]
+1483.2s 831 50%|█████     | 45.4M/90.0M [00:02<00:01, 28.5MB/s] 54%|█████▍    | 49.0M/90.0M [00:02<00:01, 30.4MB/s]
+1483.3s 832 54%|█████▍    | 49.0M/90.0M [00:02<00:01, 30.4MB/s] 59%|█████▊    | 52.8M/90.0M [00:02<00:01, 32.7MB/s]
+1483.4s 833 59%|█████▊    | 52.8M/90.0M [00:02<00:01, 32.7MB/s] 63%|██████▎   | 56.6M/90.0M [00:02<00:01, 34.7MB/s]
+1483.6s 834 63%|██████▎   | 56.6M/90.0M [00:02<00:01, 34.7MB/s] 67%|██████▋   | 60.1M/90.0M [00:02<00:01, 29.1MB/s]
+1483.7s 835 67%|██████▋   | 60.1M/90.0M [00:02<00:01, 29.1MB/s] 71%|███████   | 63.9M/90.0M [00:02<00:00, 31.4MB/s]
+1483.8s 836 71%|███████   | 63.9M/90.0M [00:02<00:00, 31.4MB/s] 75%|███████▌  | 67.9M/90.0M [00:02<00:00, 34.0MB/s]
+1483.9s 837 75%|███████▌  | 67.9M/90.0M [00:02<00:00, 34.0MB/s] 80%|███████▉  | 71.8M/90.0M [00:02<00:00, 35.7MB/s]
+1484.1s 838 80%|███████▉  | 71.8M/90.0M [00:02<00:00, 35.7MB/s] 84%|████████▍ | 75.4M/90.0M [00:03<00:00, 30.7MB/s]
+1484.2s 839 84%|████████▍ | 75.4M/90.0M [00:03<00:00, 30.7MB/s] 88%|████████▊ | 78.9M/90.0M [00:03<00:00, 31.9MB/s]
+1484.3s 840 88%|████████▊ | 78.9M/90.0M [00:03<00:00, 31.9MB/s] 92%|█████████▏| 82.9M/90.0M [00:03<00:00, 34.4MB/s]
+1484.4s 841 92%|█████████▏| 82.9M/90.0M [00:03<00:00, 34.4MB/s] 96%|█████████▋| 86.8M/90.0M [00:03<00:00, 36.0MB/s]
+1484.4s 842 96%|█████████▋| 86.8M/90.0M [00:03<00:00, 36.0MB/s]100%|██████████| 90.0M/90.0M [00:03<00:00, 28.3MB/s]
+1484.5s 843 100%|██████████| 90.0M/90.0M [00:03<00:00, 28.3MB/s]
+1484.5s 844 
+1484.5s 845 
+1744.7s 846 Downloading: "https://hf.co/torchgeo/satlas/resolve/081d6607431bf36bdb59c223777cbb267131b8f2/aerial_swinb_si-e4169eb1.pth" to /tmp/redeg_data/torch/hub/checkpoints/aerial_swinb_si-e4169eb1.pth
+1745.6s 847 0%|          | 0.00/336M [00:00<?, ?B/s]
+1747.0s 848 0%|          | 0.00/336M [00:00<?, ?B/s]  0%|          | 128k/336M [00:01<1:05:07, 90.2kB/s]
+1747.1s 849 0%|          | 128k/336M [00:01<1:05:07, 90.2kB/s]  0%|          | 640k/336M [00:01<10:38, 552kB/s]
+1747.2s 850 0%|          | 640k/336M [00:01<10:38, 552kB/s]     1%|          | 2.75M/336M [00:01<01:56, 3.01MB/s]
+1747.3s 851 1%|          | 2.75M/336M [00:01<01:56, 3.01MB/s]  3%|▎         | 9.50M/336M [00:01<00:28, 12.1MB/s]
+1747.5s 852 3%|▎         | 9.50M/336M [00:01<00:28, 12.1MB/s]  5%|▍         | 16.1M/336M [00:01<00:15, 21.1MB/s]
+1747.6s 853 5%|▍         | 16.1M/336M [00:01<00:15, 21.1MB/s]  7%|▋         | 22.9M/336M [00:02<00:11, 29.3MB/s]
+1747.7s 854 7%|▋         | 22.9M/336M [00:02<00:11, 29.3MB/s]  9%|▉         | 29.6M/336M [00:02<00:08, 36.9MB/s]
+1747.8s 855 9%|▉         | 29.6M/336M [00:02<00:08, 36.9MB/s] 11%|█         | 36.4M/336M [00:02<00:07, 42.6MB/s]
+1747.9s 856 11%|█         | 36.4M/336M [00:02<00:07, 42.6MB/s] 13%|█▎        | 43.0M/336M [00:02<00:06, 47.7MB/s]
+1748.0s 857 13%|█▎        | 43.0M/336M [00:02<00:06, 47.7MB/s] 15%|█▍        | 49.8M/336M [00:02<00:05, 51.0MB/s]
+1748.1s 858 15%|█▍        | 49.8M/336M [00:02<00:05, 51.0MB/s] 17%|█▋        | 56.5M/336M [00:02<00:05, 54.4MB/s]
+1748.3s 859 17%|█▋        | 56.5M/336M [00:02<00:05, 54.4MB/s] 19%|█▉        | 63.2M/336M [00:02<00:05, 56.0MB/s]
+1748.4s 860 19%|█▉        | 63.2M/336M [00:02<00:05, 56.0MB/s] 21%|██        | 69.9M/336M [00:02<00:04, 57.8MB/s]
+1748.5s 861 21%|██        | 69.9M/336M [00:02<00:04, 57.8MB/s] 23%|██▎       | 76.6M/336M [00:02<00:04, 58.4MB/s]
+1748.6s 862 23%|██▎       | 76.6M/336M [00:02<00:04, 58.4MB/s] 25%|██▍       | 83.4M/336M [00:03<00:04, 60.0MB/s]
+1748.7s 863 25%|██▍       | 83.4M/336M [00:03<00:04, 60.0MB/s] 27%|██▋       | 90.1M/336M [00:03<00:04, 59.8MB/s]
+1748.8s 864 27%|██▋       | 90.1M/336M [00:03<00:04, 59.8MB/s] 29%|██▉       | 96.8M/336M [00:03<00:04, 60.7MB/s]
+1749.0s 865 29%|██▉       | 96.8M/336M [00:03<00:04, 60.7MB/s] 31%|███       | 104M/336M [00:03<00:04, 60.3MB/s]
+1749.1s 866 31%|███       | 104M/336M [00:03<00:04, 60.3MB/s]  33%|███▎      | 110M/336M [00:03<00:03, 61.4MB/s]
+1749.2s 867 33%|███▎      | 110M/336M [00:03<00:03, 61.4MB/s] 35%|███▍      | 117M/336M [00:03<00:03, 60.8MB/s]
+1749.3s 868 35%|███▍      | 117M/336M [00:03<00:03, 60.8MB/s] 37%|███▋      | 124M/336M [00:03<00:03, 61.4MB/s]
+1754.3s 869 37%|███▋      | 124M/336M [00:03<00:03, 61.4MB/s] 39%|███▊      | 130M/336M [00:08<00:50, 4.26MB/s]
+1754.5s 870 39%|███▊      | 130M/336M [00:08<00:50, 4.26MB/s] 41%|████      | 137M/336M [00:08<00:33, 6.15MB/s]
+1754.6s 871 41%|████      | 137M/336M [00:08<00:33, 6.15MB/s] 43%|████▎     | 144M/336M [00:09<00:23, 8.56MB/s]
+1754.7s 872 43%|████▎     | 144M/336M [00:09<00:23, 8.56MB/s] 45%|████▍     | 150M/336M [00:09<00:17, 11.2MB/s]
+1754.8s 873 45%|████▍     | 150M/336M [00:09<00:17, 11.2MB/s] 47%|████▋     | 158M/336M [00:09<00:12, 15.3MB/s]
+1754.9s 874 47%|████▋     | 158M/336M [00:09<00:12, 15.3MB/s] 49%|████▉     | 164M/336M [00:09<00:09, 19.1MB/s]
+1755.0s 875 49%|████▉     | 164M/336M [00:09<00:09, 19.1MB/s] 51%|█████     | 171M/336M [00:09<00:07, 24.3MB/s]
+1755.1s 876 51%|█████     | 171M/336M [00:09<00:07, 24.3MB/s] 53%|█████▎    | 177M/336M [00:09<00:05, 29.6MB/s]
+1755.3s 877 53%|█████▎    | 177M/336M [00:09<00:05, 29.6MB/s] 54%|█████▍    | 183M/336M [00:09<00:04, 33.5MB/s]
+1755.4s 878 54%|█████▍    | 183M/336M [00:09<00:04, 33.5MB/s] 56%|█████▋    | 190M/336M [00:09<00:03, 39.8MB/s]
+1755.5s 879 56%|█████▋    | 190M/336M [00:09<00:03, 39.8MB/s] 58%|█████▊    | 196M/336M [00:09<00:03, 43.5MB/s]
+1755.6s 880 58%|█████▊    | 196M/336M [00:09<00:03, 43.5MB/s] 60%|██████    | 203M/336M [00:10<00:02, 49.2MB/s]
+1755.7s 881 60%|██████    | 203M/336M [00:10<00:02, 49.2MB/s] 62%|██████▏   | 210M/336M [00:10<00:02, 50.8MB/s]
+1755.8s 882 62%|██████▏   | 210M/336M [00:10<00:02, 50.8MB/s] 64%|██████▍   | 216M/336M [00:10<00:02, 55.2MB/s]
+1756.0s 883 64%|██████▍   | 216M/336M [00:10<00:02, 55.2MB/s] 66%|██████▋   | 223M/336M [00:10<00:02, 55.1MB/s]
+1756.1s 884 66%|██████▋   | 223M/336M [00:10<00:02, 55.1MB/s] 68%|██████▊   | 230M/336M [00:10<00:01, 58.9MB/s]
+1756.2s 885 68%|██████▊   | 230M/336M [00:10<00:01, 58.9MB/s] 70%|███████   | 237M/336M [00:10<00:01, 57.5MB/s]
+1756.3s 886 70%|███████   | 237M/336M [00:10<00:01, 57.5MB/s] 72%|███████▏  | 244M/336M [00:10<00:01, 61.2MB/s]
+1756.4s 887 72%|███████▏  | 244M/336M [00:10<00:01, 61.2MB/s] 74%|███████▍  | 250M/336M [00:10<00:01, 58.5MB/s]
+1756.5s 888 74%|███████▍  | 250M/336M [00:10<00:01, 58.5MB/s] 76%|███████▋  | 257M/336M [00:10<00:01, 61.6MB/s]
+1756.6s 889 76%|███████▋  | 257M/336M [00:10<00:01, 61.6MB/s] 78%|███████▊  | 264M/336M [00:11<00:01, 59.1MB/s]
+1756.7s 890 78%|███████▊  | 264M/336M [00:11<00:01, 59.1MB/s] 80%|████████  | 270M/336M [00:11<00:01, 62.1MB/s]
+1756.9s 891 80%|████████  | 270M/336M [00:11<00:01, 62.1MB/s] 82%|████████▏ | 277M/336M [00:11<00:01, 59.4MB/s]
+1757.0s 892 82%|████████▏ | 277M/336M [00:11<00:01, 59.4MB/s] 84%|████████▍ | 284M/336M [00:11<00:00, 62.7MB/s]
+1757.1s 893 84%|████████▍ | 284M/336M [00:11<00:00, 62.7MB/s] 86%|████████▋ | 290M/336M [00:11<00:00, 59.7MB/s]
+1757.2s 894 86%|████████▋ | 290M/336M [00:11<00:00, 59.7MB/s] 88%|████████▊ | 297M/336M [00:11<00:00, 62.9MB/s]
+1757.3s 895 88%|████████▊ | 297M/336M [00:11<00:00, 62.9MB/s] 90%|█████████ | 304M/336M [00:11<00:00, 59.6MB/s]
+1757.4s 896 90%|█████████ | 304M/336M [00:11<00:00, 59.6MB/s] 92%|█████████▏| 311M/336M [00:11<00:00, 62.8MB/s]
+1757.6s 897 92%|█████████▏| 311M/336M [00:11<00:00, 62.8MB/s] 94%|█████████▍| 317M/336M [00:11<00:00, 59.9MB/s]
+1757.7s 898 94%|█████████▍| 317M/336M [00:11<00:00, 59.9MB/s] 96%|█████████▋| 324M/336M [00:12<00:00, 63.4MB/s]
+1757.8s 899 96%|█████████▋| 324M/336M [00:12<00:00, 63.4MB/s] 98%|█████████▊| 331M/336M [00:12<00:00, 59.6MB/s]
+1757.9s 900 98%|█████████▊| 331M/336M [00:12<00:00, 59.6MB/s]100%|██████████| 336M/336M [00:12<00:00, 28.6MB/s]
+1758.0s 901 100%|██████████| 336M/336M [00:12<00:00, 28.6MB/s]
+1758.0s 902 
+1758.0s 903 
+1962.8s 904 [progress] 2026-10-13T22:46:38	0.543h	B11_mvoi	done	10.9 min
+1963.2s 905 -> B11_mvoi: done 10.9 min | elapsed 0.54 h of 11 h
+1963.2s 906 unit status  start_h  end_h     note
+1963.2s 907 B11_mvoi   done    0.362  0.543 10.9 min
+1963.8s 908 [progress] 2026-10-13T22:46:40	0.543h	B9_ucm	running
+4485.9s 909 [progress] 2026-10-13T23:28:42	1.244h	B9_ucm	done	42.0 min
+4487.1s 910 -> B9_ucm: done 42.0 min | elapsed 1.24 h of 11 h
+4487.1s 911 [progress] 2026-10-13T23:28:43	1.244h	B9_whu_rs19	running
+4497.8s 912 RUNTIME DECISION: whu_rs19: dropped 1 degenerate images (a channel with std < 0.5 DN)
+5835.8s 913 [progress] 2026-10-13T23:51:11	1.619h	B9_whu_rs19	done	22.5 min
+5837.1s 914 -> B9_whu_rs19: done 22.5 min | elapsed 1.62 h of 11 h
+5837.1s 915 [progress] 2026-10-13T23:51:13	1.619h	B9_optimal31	running
+8263.3s 916 [progress] 2026-10-14T00:31:39	2.293h	B9_optimal31	done	40.4 min
+8264.5s 917 -> B9_optimal31: done 40.4 min | elapsed 2.29 h of 11 h
+8264.5s 918 [progress] 2026-10-14T00:31:40	2.293h	B9_clrs	running
+10689.6s 919 [progress] 2026-10-14T01:12:05	2.967h	B9_clrs	done	40.4 min
+10690.9s 920 -> B9_clrs: done 40.4 min | elapsed 2.97 h of 11 h
+10690.9s 921 [progress] 2026-10-14T01:12:07	2.967h	B9_rsscn7	running
+13244.2s 922 [progress] 2026-10-14T01:54:40	3.677h	B9_rsscn7	done	42.6 min
+13245.4s 923 -> B9_rsscn7: done 42.6 min | elapsed 3.68 h of 11 h
+13245.4s 924 [progress] 2026-10-14T01:54:41	3.677h	B9_patternnet	running
+15793.3s 925 [progress] 2026-10-14T02:37:09	4.385h	B9_patternnet	done	42.5 min
+15794.7s 926 -> B9_patternnet: done 42.5 min | elapsed 4.39 h of 11 h
+15794.7s 927 [progress] 2026-10-14T02:37:10	4.385h	B9_dtd	running
+15807.8s 928 RUNTIME DECISION: dtd: dropped 3 degenerate images (a channel with std < 0.5 DN)
+15820.6s 929 RUNTIME DECISION: dtd: dropped 1 degenerate images (a channel with std < 0.5 DN)
+18395.4s 930 [progress] 2026-10-14T03:20:31	5.108h	B9_dtd	done	43.3 min
+18396.7s 931 -> B9_dtd: done 43.3 min | elapsed 5.11 h of 11 h
+18396.7s 932 [progress] 2026-10-14T03:20:32	5.108h	B9_pets	running
+21041.1s 933 [progress] 2026-10-14T04:04:37	5.842h	B9_pets	done	44.1 min
+21042.6s 934 -> B9_pets: done 44.1 min | elapsed 5.84 h of 11 h
+21042.6s 935 [progress] 2026-10-14T04:04:38	5.843h	B9_resisc45	running
+23725.6s 936 [progress] 2026-10-14T04:49:21	6.588h	B9_resisc45	done	44.7 min
+23727.0s 937 -> B9_resisc45: done 44.7 min | elapsed 6.59 h of 11 h
+23727.0s 938 [progress] 2026-10-14T04:49:23	6.589h	B9_imagenette	running
+26420.7s 939 [progress] 2026-10-14T05:34:16	7.337h	B9_imagenette	done	44.9 min
+26422.5s 940 -> B9_imagenette: done 44.9 min | elapsed 7.34 h of 11 h
+26422.5s 941 unit status  start_h  end_h     note
+26422.5s 942 B9_ucm   done    0.543  1.244 42.0 min
+26422.5s 943 B9_whu_rs19   done    1.244  1.619 22.5 min
+26422.5s 944 B9_optimal31   done    1.619  2.293 40.4 min
+26422.5s 945 B9_clrs   done    2.293  2.967 40.4 min
+26422.5s 946 B9_rsscn7   done    2.967  3.677 42.6 min
+26422.5s 947 B9_patternnet   done    3.677  4.385 42.5 min
+26422.5s 948 B9_dtd   done    4.385  5.108 43.3 min
+26422.5s 949 B9_pets   done    5.108  5.842 44.1 min
+26422.5s 950 B9_resisc45   done    5.843  6.588 44.7 min
+26422.5s 951 B9_imagenette   done    6.589  7.337 44.9 min
+26423.3s 952 ==============================================================================================================
+26423.3s 953 ALL 63 COMPUTE UNITS ARE COMPLETE (7.34 h into this session). The analyses, figures and tables run next.
+26423.3s 954 ==============================================================================================================
+26426.0s 955 units: {'complete': 41}
+26426.0s 956 cells: 2700 within-dataset rows, 90 real-shift rows; datasets with seed 0: ['clrs', 'dtd', 'imagenette', 'optimal31', 'patternnet', 'pets', 'resisc45', 'rsscn7', 'ucm', 'whu_rs19']
+26426.9s 957 R0   PASS         | max error 1.4e-13
+26426.9s 958 R2   PASS         | max deviation 1.4e-14
+26426.9s 959 R3   PASS         | 4680 cases, max drift/bound 0.632
+26426.9s 960 R1   PASS         | median rel. error 2.1e-07 (200 tiles x 13 eta)
+26427.4s 961 R4   PASS         | slope 1.040 [1.003, 1.090]
+26427.9s 962 R5   PASS         | gamma 1.075 [1.000, 1.175]
+26428.8s 963 R6   PASS         | FWHM 0.448 m vs 0.842 m; ratio 1.88 [1.66, 2.20]
+26428.8s 964 R10  PASS         | median log2 ratio -0.030 over 200 tiles
+26429.9s 965 F1   PASS         | 10/10 datasets; pooled p = 1.6e-34 (10/10 datasets, encoders per dataset [6])
+26429.9s 966 F2   PASS         | 10/10 datasets
+26429.9s 967 F3   PASS         | MAE 0.0505 vs 0.1212; p = 2.9e-23 (540 cells)
+26429.9s 968 F4   PASS         | 10/10 datasets; range 0.011-0.039
+26429.9s 969 F5   PARTIAL      | 9/10 datasets; clean flags [0.0, 0.0, 0.0, 0.0, 0.0, 0.125, 0.0, 0.0, 0.0, 0.0]
+26430.4s 970 F6   PASS         | 4/4 complete datasets pass (0 without 3 seeds)
+26430.4s 971 F7   PASS         | 10/10 datasets; encoders per dataset [6, 6, 6, 6, 6, 6, 6, 6, 6, 6]
+26430.4s 972 F8   REPORTED     | MAE ATC@s_hat 0.0570; best baseline AE 0.0647; oracle ATC 0.0317
+26430.4s 973 F9   REPORTED     | lcai25_to_lcai50: ours 0.056 vs best 0.044; patternnet_to_resisc45: ours 0.144 vs best 0.081; resisc45_to_patternnet: ours 0.055 vs best 0.025; resisc45_to_ucm: ours 0.061 vs best 0.025; ucm_to_resisc45: ours 0.107 vs best 0.061
+26430.6s 974 R7   PASS         | 0.976 of 960 cells
+26430.6s 975 R8   PASS         | min coverage 1.000 over 1344 configurations (EB min 1.000)
+26430.6s 976 R9   FAIL         | 2/10 datasets; rho [0.02, -0.02, -0.11, -0.12, 0.04, 0.07, -0.12, -0.05, -0.31, -0.07]
+26812.6s 977 M1   PASS         | landcoverai: median 0.48 (blur aug.) vs 0.92 (no blur), p=5.4e-04, Cliff's delta 0.91, median gap 95% CI [0.12, 0.54]; resisc45: median 0.42 (blur aug.) vs 0.93 (no blur), p=3.1e-04, Cliff's delta 0.94, median gap 95% CI [0.18, 0.68]
+26812.6s 978 M2   FAIL         | deit_s16-deit3_s16|landcoverai: +0.12, deit_s16-deit3_s16|resisc45: +0.20, deit_b16-deit3_b16|landcoverai: +0.03, deit_b16-deit3_b16|resisc45: +0.06
+26812.6s 979 M3   FAIL         | SSL max 0.57; no-blur min 0.56
+26812.6s 980 M4   REPORTED     | rho 0.68 / 0.56: inconclusive
+26816.6s 981 P1   PASS         | 6/6 pairs; ATC: 22.7->2.1 (p=6.9e-101); ATC_NE: 22.1->2.1 (p=3.1e-97); DoC: 27.2->1.7 (p=2.8e-121); COT: 6.6->1.4 (p=1.6e-112); COTT: 3.2->1.6 (p=8.5e-41); AE_LS: 5.5->4.0 (p=1.0e-19) | fresh subset: PASS
+26816.6s 982 P2   PASS         | 5/6 pairs; ATC: 18.6->5.1 (p=2.7e-68); ATC_NE: 18.6->5.2 (p=8.6e-61); DoC: 21.9->5.4 (p=3.7e-88); COT: 22.1->22.4 (p=0.469); COTT: 23.7->23.3 (p=5.3e-06); AE_LS: 8.2->7.1 (p=9.6e-08) | fresh subset: PASS
+26816.6s 983 P3   FAIL         | 2/6 pairs; ATC: +1.1 [+0.1, +2.4]; ATC_NE: +0.6 [-0.3, +1.5]; DoC: -0.1 [-0.4, +0.2]; COT: -0.1 [-2.2, +2.1]; COTT: +0.2 [-0.2, +0.6]; AE_LS: +6.0 [+1.0, +10.9] | fresh subset: FAIL
+26816.6s 984 P4   PARTIAL      | 3/6 pairs; ATC: 17.9->8.2 (p=2.3e-04); ATC_NE: 17.3->7.5 (p=0.001); DoC: 23.8->10.0 (p=2.1e-09); COT: 7.8->7.4 (p=0.285); COTT: 5.8->6.4 (p=0.512); AE_LS: 10.5->9.6 (p=0.793) | fresh subset: PARTIAL
+26816.6s 985 N1   PASS         | 10/10 datasets; median rel. err. 0.023-0.064 | fresh subset: PASS
+26816.6s 986 N2   PASS         | ATC@s_hat v2 2.3 pp vs COTT 3.2 pp; p = 2.5e-11 (864 cells) | fresh subset: FAIL
+26816.6s 987 N3   PASS         | 9/10 datasets; v2 flag rates [0.0, 0.0, 0.0, 0.0, 0.12, 0.0, 0.0, 0.0, 0.0, 0.0] | fresh subset: PASS
+26816.6s 988 G1   REPORTED     | MAE ATC@GSD 5.3 vs ATC@s_hat 5.1 vs ATC 3.3 pp (best baseline NucNorm 2.4); ATC@GSD better in 3/6 cells; chain check flags 0%
+26817.0s 989 
+26817.0s 990 METHOD VERDICT (frozen v1.0): CONFIRMED
+26817.0s 991 MECHANISM VERDICT: GROUP SPLIT ONLY
+26817.0s 992 THEORY/PHYSICS: R0=PASS, R1=PASS, R2=PASS, R3=PASS, R4=PASS, R5=PASS, R6=PASS, R7=PASS, R8=PASS, R9=FAIL, R10=PASS
+26817.0s 993 ADDENDUM (v2): P1=PASS, P2=PASS, P3=FAIL, P4=PARTIAL, N1=PASS, N2=PASS, N3=PASS, G1=REPORTED
+26818.2s 994 addendum v3 units: {'complete': 21} | corruption cells: 2760 on 10 datasets
+26818.2s 995 corruption reference check (imagecorruptions 1.1.2): {'status': 'identical', 'n': 45, 'n_identical': 45, 'max_abs_diff': 0.0, 'seconds': 24.1}
+26818.6s 996 C1   PASS         | 6/6 pairs on 600 cells; ATC: 18.1->4.1 (p=1.8e-51); ATC_NE: 18.6->4.3 (p=2.0e-45); DoC: 22.1->3.4 (p=5.3e-82); COT: 6.8->2.1 (p=1.2e-75); COTT: 3.8->2.6 (p=7.6e-20); AE_LS: 5.6->4.8 (p=0.010)
+26819.4s 997 C2   PASS         | 4/6 pairs on 1500 cells; ATC: 13.6->11.3 (p=3.5e-13); ATC_NE: 12.4->10.7 (p=1.0e-05); DoC: 19.0->15.5 (p=4.8e-65); COT: 6.7->4.0 (p=7.7e-87); COTT: 3.6->3.6 (p=1.000); AE_LS: 7.7->12.5 (p=1.000)
+26819.4s 998 C3   PASS         | MAE 5.5 vs 21.7 pp; p = 3.8e-31 (300 cells)
+26819.4s 999 C4   PASS         | share 1.00 of 30 conditions; MAE v2 2.0 vs ATC 2.0 pp (diff +0.00)
+26820.0s 1000 C5   REPORTED     | Gaussian PSF: 4.1 vs COTT 3.8 pp (MATCHED); other blur: 13.3 vs COTT 3.6 pp (BELOW); resolution / compression: 8.3 vs COTT 3.6 pp (BELOW); noise: 5.5 vs COTT 3.5 pp (BELOW); contrast (control): 2.1 vs DoC 1.9 pp (MATCHED)
+26820.4s 1001 C6   REPORTED     | Gaussian blur +0.2; defocus +2.4; motion blur +9.5; zoom blur +13.2; glass blur +8.8; pixelate +6.0; JPEG +5.1; Gaussian noise +3.0; contrast +0.2 pp
+26820.4s 1002 V1   PASS         | rho 0.99 (p = 8.1e-22); v1.0 level rho 1.00; variance of the Laplacian rho 0.98; level 0.00–1.88 px²
+26820.4s 1003 V2   PASS         | level 0.00 px² (v1.0 0.00; flagged False)
+26820.4s 1004 V3   FAIL         | MAE 11.9 vs 12.9 pp; p = 0.293 (48 cells)
+26820.4s 1005 V4   REPORTED     | 11.9 vs COT 3.7 pp, diff +8.2 [+3.0, +14.8] (BELOW)
+26820.4s 1006 I1   REPORTED     | v1.0 knee: 0.026/1.000/0.048; v2 (noise path): 0.026/0.037/0.050; re-blur ratio: 0.015/0.935/0.038; batch matching: 0.071/1.000/0.048; feature regressor: 0.019/0.011/0.026; var. of Laplacian: 0.019/0.962/0.058; spectral slope: 0.002/0.770/0.011 (clean/noisy/label shift)
+26820.4s 1007 I2   PASS         | median rel. error 0.037 vs spectral slope 0.770; p = 1.5e-14 (80 conditions)
+26820.4s 1008 B10 reproducibility: recomputed median knees equal the B3 checkpoints in 100.0% of 250 conditions
+26820.7s 1009 
+26820.7s 1010 ADDENDUM (v3): C1=PASS, C2=PASS, C3=PASS, C4=PASS, C5=REPORTED, C6=REPORTED, V1=PASS, V2=PASS, V3=FAIL, V4=REPORTED, I1=REPORTED, I2=PASS
+26827.9s 1011 baseline  delta_mean  delta_lo  delta_hi  p_wilcoxon  p_wilcoxon_holm  p_signflip  p_signflip_holm   r_rb  wins
+26827.9s 1012 AC     -0.2470   -0.2948   -0.1950         0.0              0.0       0.001           0.0107 0.8937    10
+26827.9s 1013 DoC     -0.2163   -0.2623   -0.1719         0.0              0.0       0.001           0.0107 0.8374    10
+26827.9s 1014 ATC     -0.1780   -0.2265   -0.1317         0.0              0.0       0.001           0.0107 0.8081    10
+26827.9s 1015 ATC_NE     -0.1742   -0.2170   -0.1332         0.0              0.0       0.001           0.0107 0.7356    10
+26827.9s 1016 SAC_ATC     -0.0698   -0.0919   -0.0494         0.0              0.0       0.001           0.0107 0.5872    10
+26827.9s 1017 AE     -0.0296   -0.0408   -0.0183         0.0              0.0       0.001           0.0107 0.5184    10
+26827.9s 1018 AE_LS     -0.0302   -0.0405   -0.0201         0.0              0.0       0.001           0.0107 0.5192    10
+26827.9s 1019 AE_FD     -0.0513   -0.0662   -0.0362         0.0              0.0       0.001           0.0107 0.6933    10
+26827.9s 1020 NucNorm     -0.0682   -0.0977   -0.0412         0.0              0.0       0.001           0.0107 0.6273    10
+26827.9s 1021 COT     -0.1040   -0.1389   -0.0710         0.0              0.0       0.001           0.0107 0.7772    10
+26827.9s 1022 COTT     -0.0935   -0.1322   -0.0577         0.0              0.0       0.001           0.0107 0.6047    10
+26827.9s 1023 strongest single baseline (pooled, unflagged, seed 0): AE
+26828.3s 1024 clean blur           cells   858 | ATC@s_hat v1.0   2.1 | v2   2.1 | strongest baseline COTT   3.2 | v2 - baseline -1.1 [-1.6, -0.6] pp
+26828.7s 1025 noisy blur           cells   864 | ATC@s_hat v1.0   9.9 | v2   2.3 | strongest baseline COTT   3.2 | v2 - baseline -1.0 [-1.4, -0.6] pp
+26829.1s 1026 blur + label shift   cells   972 | ATC@s_hat v1.0   5.1 | v2   5.1 | strongest baseline AE_LS   8.2 | v2 - baseline -3.1 [-3.9, -2.3] pp
+26829.1s 1027 real shift           cells    30 | ATC@s_hat v1.0   9.0 | v2   9.2 | strongest baseline COTT   5.3 | v2 - baseline +3.9 [+1.7, +6.5] pp
+26829.3s 1028 real + blur          cells    60 | ATC@s_hat v1.0   8.2 | v2   8.0 | strongest baseline COTT   5.8 | v2 - baseline +2.2 [-0.5, +4.8] pp
+26898.2s 1029 Section 7 figures: {'fig1_teaser': True, 'fig2_physics': True, 'fig3_mechanism': True, 'fig5_main_results': True, 'fig7_plugin': True, 'figS1_theory_checks': True, 'figS2_certificate': True, 'figS3_statistics_seeds': True, 'figS4_encoder_breakdown': True, 'figS8_accuracy_curves': True, 'figS10_invariance_vs_robustness': True, 'figS11_prediction_scatter': True, 'figS12_gallery': True, 'figS14_regime_map': True, 'figS15_dataset_gallery': True}
+26899.1s 1030 T1_main_results: 11 rows x 13 cols, width 5.12 in of 6.875 in -> fits
+26899.2s 1031 T2_inference: 11 rows x 9 cols, width 5.78 in of 6.875 in -> fits
+26899.2s 1032 T3_identification: 10 rows x 10 cols, width 4.70 in of 6.875 in -> fits
+26899.3s 1033 T4_mechanism: 17 rows x 7 cols, width 6.55 in of 6.875 in -> fits
+26899.8s 1034 T6_seeds: 10 rows x 6 cols, width 3.64 in of 6.875 in -> fits
+26899.9s 1035 T7_physics_theory: 11 rows x 4 cols, width 6.02 in of 6.875 in -> fits
+26900.0s 1036 T8_verdicts: 32 rows x 4 cols, width 6.32 in of 6.875 in -> fits
+26900.0s 1037 T12_regimes: 5 rows x 8 cols, width 6.11 in of 6.875 in -> fits
+26900.0s 1038 T13_plugin: 6 rows x 6 cols, width 4.47 in of 6.875 in -> fits
+26925.6s 1039 T14_corruptions: 10 rows x 9 cols, width 5.60 in of 6.875 in -> fits
+26925.6s 1040 T15_mvoi: 10 rows x 8 cols, width 3.18 in of 3.25 in -> fits
+26925.6s 1041 T16_id_baselines: 7 rows x 5 cols, width 2.87 in of 3.25 in -> fits
+26925.7s 1042 T17_verdicts_v3: 12 rows x 4 cols, width 6.32 in of 6.875 in -> fits
+26929.9s 1043 estimator ablation (pp): {'ATC_s': 3.58, 'PT': 3.95, 'PT_anchor': 3.84, 'DoC_m': 3.45, 'ATC_NE_m': 3.65, 'AE_LS_s': 5.45, 'ATC_m2': 3.58, 'ATC_m_v11': 3.58, 'ATC_m_noGOF': 3.58, 'oracle_ATC': 3.56, 'oracle_PT': 3.86}
+26929.9s 1044 noise-path variants evaluated on 10 datasets with O1: ['resisc45', 'ucm', 'patternnet', 'whu_rs19', 'rsscn7', 'optimal31', 'clrs', 'imagenette', 'dtd', 'pets']
+26929.9s 1045 identification ablation (median over datasets of the per-dataset median relative error): {'v1.0': (0.027, 0.04), 'raw': (0.154, 0.151), 'mean': (0.014, 0.036), 'batch': (0.071, 0.048), 'single': (0.016, 0.037)}
+26929.9s 1046 GOF alpha sensitivity: {'alpha': [0.001, 0.005, 0.01, 0.05], 'frozen': 0.01, 'clean': [0.0, 0.0, 0.0125, 0.0875], 'noisy': [1.0, 1.0, 1.0, 1.0]}
+26929.9s 1047 K sensitivity (median rel. error): {1: 0.034, 4: 0.026, 7: 0.024, 13: 0.027} | n_Q log-log slope: -0.323
+26929.9s 1048 stress test: noise
+26929.9s 1049 sigma    s0  s_joint   s_v11  sig_hat  flag  flag2
+26929.9s 1050 1.5   1.0    0.913   1.007    1.475   1.0    0.0
+26929.9s 1051 1.5   2.0    1.820   2.061    1.482   1.0    0.1
+26929.9s 1052 1.5   4.0    3.600   4.080    1.489   1.0    0.0
+26929.9s 1053 1.5   8.0    6.797   8.190    1.477   1.0    0.0
+26929.9s 1054 1.5  16.0   12.434  16.616    1.488   1.0    0.0
+26929.9s 1055 1.5  32.0   23.041  33.523    1.491   1.0    0.0
+26929.9s 1056 1.5  64.0   37.941  66.362    1.493   1.0    0.0
+26929.9s 1057 1.5 128.0   50.172 129.012    1.494   1.0    0.0
+26929.9s 1058 3.0   1.0    0.839   1.036    2.945   1.0    0.0
+26929.9s 1059 3.0   2.0    1.560   2.104    2.958   1.0    0.0
+26929.9s 1060 3.0   4.0    2.911   4.168    2.963   1.0    0.0
+26929.9s 1061 3.0   8.0    4.760   8.532    2.967   1.0    0.0
+26929.9s 1062 3.0  16.0    8.154  16.775    2.980   1.0    0.0
+26929.9s 1063 3.0  32.0   12.832  33.523    2.987   1.0    0.0
+26929.9s 1064 3.0  64.0   12.832  65.978    2.987   1.0    0.0
+26929.9s 1065 3.0 128.0    1.310 131.293    2.979   1.0    0.0
+26929.9s 1066 6.0   1.0    0.616   1.109    5.863   1.0    0.1
+26929.9s 1067 6.0   2.0    1.092   2.265    5.899   1.0    0.0
+26929.9s 1068 6.0   4.0    1.707   4.211    5.931   1.0    0.0
+26929.9s 1069 6.0   8.0    2.447   8.390    5.952   1.0    0.0
+26929.9s 1070 6.0  16.0    3.049  16.775    5.967   1.0    0.0
+26929.9s 1071 6.0  32.0    0.877  33.523    5.961   1.0    0.0
+26929.9s 1072 6.0  64.0    0.000  65.978    5.941   1.0    0.0
+26929.9s 1073 6.0 128.0    0.000 129.823    5.923   1.0    0.0
+26929.9s 1074 stress test: psf
+26929.9s 1075 family param  truth  s_hat  flag  flag2
+26929.9s 1076 aniso   1/4  2.500  1.674   1.0    0.7
+26929.9s 1077 aniso   2/8  5.000  3.226   1.0    1.0
+26929.9s 1078 aniso  4/16 10.000  6.288   1.0    0.9
+26929.9s 1079 box     2  0.250  0.515   0.5    0.3
+26929.9s 1080 box     3  0.667  1.028   0.0    0.0
+26929.9s 1081 box     4  1.250  1.560   0.6    0.4
+26929.9s 1082 disk   1.0  0.400  0.664   0.0    0.0
+26929.9s 1083 disk   1.5  0.667  1.028   0.0    0.0
+26929.9s 1084 disk   2.0  1.077  1.390   0.3    0.2
+26929.9s 1085 disk   3.0  2.345  2.618   1.0    1.0
+26929.9s 1086 stress test: jpeg
+26929.9s 1087 param  flag  flag2
+26929.9s 1088 30   0.4    0.1
+26929.9s 1089 50   0.6    0.3
+26929.9s 1090 70   0.4    0.4
+26929.9s 1091 90   0.0    0.0
+26941.8s 1092 method  extra_images  extra_gpu_s  unflagged_mae
+26941.8s 1093 AC           0.0       0.0000         0.2828
+26941.8s 1094 COT           0.0       0.0000         0.1398
+26941.8s 1095 DoC         573.2       1.9645         0.2521
+26941.8s 1096 ATC         573.2       1.9645         0.2138
+26941.8s 1097 ATC_NE         573.2       1.9645         0.2100
+26941.8s 1098 COTT         573.2       1.9645         0.1293
+26941.8s 1099 SAC_ATC       11464.0      39.2897         0.1056
+26941.8s 1100 AE        6573.2      22.5264         0.0654
+26941.8s 1101 AE_LS        6573.2      22.5264         0.0660
+26941.8s 1102 AE_FD        6573.2      22.5264         0.0871
+26941.8s 1103 NucNorm        6000.0      20.5619         0.1040
+26941.8s 1104 ATC_s       11896.0      40.7681         0.0358
+26941.8s 1105 PT       11896.0      40.7681         0.0395
+26941.8s 1106 DoC_m       11896.0      40.7681         0.0345
+26941.8s 1107 ATC_NE_m       11896.0      40.7681         0.0365
+26941.8s 1108 PT_anchor       13042.2      44.6964         0.0384
+26941.8s 1109 AE_LS_s        6573.2      22.5264         0.0545
+26941.8s 1110 ATC_m2       16828.7      57.6718         0.0358
+26941.8s 1111 ATC_m_v11       11896.0      40.7681         0.0358
+26941.8s 1112 ATC_m_noGOF       12391.0      42.4639         0.0358
+26960.6s 1113 T5_ablations: 16 rows x 6 cols, width 5.40 in of 6.875 in -> fits
+26960.7s 1114 T10_compute: 38 rows x 5 cols, width 5.29 in of 6.875 in -> fits
+26960.8s 1115 T11_datasets: 12 rows x 7 cols, width 6.19 in of 6.875 in -> fits
+26960.8s 1116 Section 8 figures: {'fig6_limits': True, 'figS5_estimator_ablation': True, 'figS6_identification_sensitivity': True, 'figS7_efficiency': True, 'figS9_real_shifts': True, 'figS13_stress_tests': True}
+26978.3s 1117 metric     ours    target  target_value      diff        lo        hi   status
+26978.3s 1118 Pooled unflagged MAE (pp) 0.035803        AE      0.065359 -0.029556 -0.040914 -0.018324 EXCEEDED
+26978.3s 1119 Mean worst-case-over-encoders MAE (pp) 0.054095     AE_LS      0.115288 -0.061193 -0.090063 -0.036132 EXCEEDED
+26978.3s 1120 Label-shift MAE (pp) 0.050537     AE_LS      0.079907 -0.029370 -0.040598 -0.018094 EXCEEDED
+26978.3s 1121 All-conditions MAE incl. noise (pp) 0.057014        AE      0.064746 -0.007732 -0.020240  0.006014  MATCHED
+26978.3s 1122 Clean blur-identification median rel. error 0.026482 id_single      0.015325  0.011157 -0.001324  0.018800  MATCHED
+26978.3s 1123 Real-shift MAE (pp) 0.084469      COTT      0.056228  0.028241  0.004326  0.048635    BELOW
+26978.3s 1124 Seed-averaged unflagged MAE, multi-seed datasets (pp) 0.041726        AE      0.077880 -0.036154 -0.048811 -0.023680 EXCEEDED
+26978.3s 1125 clean blur MAE, v2 (pp) 0.021008      COTT      0.031820 -0.010812 -0.016105 -0.005826 EXCEEDED
+26978.3s 1126 noisy blur MAE, v2 (pp) 0.022518      COTT      0.032306 -0.009787 -0.014116 -0.005649 EXCEEDED
+26978.3s 1127 blur + label shift MAE, v2 (pp) 0.050815     AE_LS      0.081822 -0.031007 -0.039281 -0.023073 EXCEEDED
+26978.3s 1128 real shift MAE, v2 (pp) 0.092405      COTT      0.052931  0.039474  0.017111  0.064912    BELOW
+26978.3s 1129 real + blur MAE, v2 (pp) 0.079987      COTT      0.057877  0.022111 -0.005076  0.048496  MATCHED
+26978.3s 1130 Real 25->50 cm MAE, ATC@GSD (pp) 0.053333   NucNorm      0.024222  0.029111 -0.002801  0.062544  MATCHED
+26978.3s 1131 Standard corruptions MAE, v2 (pp) 0.080317      COTT      0.036513  0.043804  0.023330  0.066080    BELOW
+26978.3s 1132 Gaussian-PSF corruptions MAE, v2 (pp) 0.040735      COTT      0.037837  0.002898 -0.007508  0.012879  MATCHED
+26978.3s 1133 SpaceNet MVOI off-nadir MAE, v2 (pp) 0.119385       COT      0.037102  0.082283  0.029128  0.147422    BELOW
+26978.3s 1134 Noisy blur-identification median rel. error (v2) 0.037297   id_feat      0.011414  0.025883  0.012061  0.038591    BELOW
+26979.1s 1135 T9_sota: 17 rows x 5 cols, width 6.35 in of 6.875 in -> fits
+27064.4s 1136 standalone regeneration: return code 0; 28/28 figures regenerated
+27064.4s 1137 fig10_mvoi                         identical
+27064.4s 1138 fig1_teaser                        identical
+27064.4s 1139 fig2_physics                       identical
+27064.4s 1140 fig3_mechanism                     identical
+27064.4s 1141 fig4_method                        identical
+27064.4s 1142 fig5_main_results                  identical
+27064.4s 1143 fig6_limits                        identical
+27064.4s 1144 fig7_plugin                        identical
+27064.4s 1145 fig8_real_gsd                      identical
+27064.4s 1146 fig9_corruptions                   identical
+27064.4s 1147 figS10_invariance_vs_robustness    identical
+27064.4s 1148 figS11_prediction_scatter          identical
+27064.4s 1149 figS12_gallery                     identical
+27064.4s 1150 figS13_stress_tests                identical
+27064.4s 1151 figS14_regime_map                  identical
+27064.4s 1152 figS15_dataset_gallery             identical
+27064.4s 1153 figS16_noise_v2                    identical
+27064.4s 1154 figS17_corruption_gallery          identical
+27064.4s 1155 figS18_id_baselines                identical
+27064.4s 1156 figS1_theory_checks                identical
+27064.4s 1157 figS2_certificate                  identical
+27064.4s 1158 figS3_statistics_seeds             identical
+27064.4s 1159 figS4_encoder_breakdown            identical
+27064.4s 1160 figS5_estimator_ablation           identical
+27064.4s 1161 figS6_identification_sensitivity   identical
+27064.4s 1162 figS7_efficiency                   identical
+27064.4s 1163 figS8_accuracy_curves              identical
+27064.4s 1164 figS9_real_shifts                  identical
+27064.4s 1165 files in /kaggle/working/outputs: 212 (budget < 400)
+27067.9s 1166 zip written: /kaggle/working/outputs.zip (29.3 MB, 157 files, integrity checked, anonymity audit passed)
+27068.7s 1167 ==============================================================================================================
+27068.7s 1168 METHOD VERDICT (frozen v1.0) : CONFIRMED
+27068.7s 1169 MECHANISM VERDICT            : GROUP SPLIT ONLY
+27068.7s 1170 THEORY / PHYSICS             : R0=PASS, R1=PASS, R2=PASS, R3=PASS, R4=PASS, R5=PASS, R6=PASS, R7=PASS, R8=PASS, R9=FAIL, R10=PASS
+27068.7s 1171 ADDENDUM (v2)                : P1=PASS, P2=PASS, P3=FAIL, P4=PARTIAL, N1=PASS, N2=PASS, N3=PASS, G1=REPORTED
+27068.7s 1172 ADDENDUM (v3)                : C1=PASS, C2=PASS, C3=PASS, C4=PASS, C5=REPORTED, C6=REPORTED, V1=PASS, V2=PASS, V3=FAIL, V4=REPORTED, I1=REPORTED, I2=PASS
+27068.7s 1173 ==============================================================================================================
+27068.7s 1174 rule                                                            threshold                                                                                                                                                                                                                                                                       measured  verdict
+27068.7s 1175 R0                                                             <= 1e-10                                                                                                                                                                                                                                                              max error 1.4e-13     PASS
+27068.7s 1176 R2                                                             <= 1e-10                                                                                                                                                                                                                                                          max deviation 1.4e-14     PASS
+27068.7s 1177 R3                                                        100% of cases                                                                                                                                                                                                                                              4680 cases, max drift/bound 0.632     PASS
+27068.7s 1178 R1                                           median rel. error <= 0.001                                                                                                                                                                                                                                 median rel. error 2.1e-07 (200 tiles x 13 eta)     PASS
+27068.7s 1179 R4                             95% CI contains 1 or |slope - 1| <= 0.15                                                                                                                                                                                                                                                     slope 1.040 [1.003, 1.090]     PASS
+27068.7s 1180 R5                             95% CI contains 1 or |gamma - 1| <= 0.15                                                                                                                                                                                                                                                     gamma 1.075 [1.000, 1.175]     PASS
+27068.7s 1181 R6                              95% CI contains 2 or |ratio - 2| <= 0.2                                                                                                                                                                                                                               FWHM 0.448 m vs 0.842 m; ratio 1.88 [1.66, 2.20]     PASS
+27068.7s 1182 R10                                 |median log2(eta* gamma / s)| <= 0.5                                                                                                                                                                                                                                        median log2 ratio -0.030 over 200 tiles     PASS
+27068.7s 1183 F1                                        >= 7/10 datasets and p < 0.01                                                                                                                                                                                                  10/10 datasets; pooled p = 1.6e-34 (10/10 datasets, encoders per dataset [6])     PASS
+27068.7s 1184 F2                                                     >= 7/10 datasets                                                                                                                                                                                                                                                                 10/10 datasets     PASS
+27068.7s 1185 F3                                          one-sided Wilcoxon p < 0.05                                                                                                                                                                                                                                  MAE 0.0505 vs 0.1212; p = 2.9e-23 (540 cells)     PASS
+27068.7s 1186 F4                                                  <= 0.15 per dataset                                                                                                                                                                                                                                              10/10 datasets; range 0.011-0.039     PASS
+27068.7s 1187 F5                                      noisy >= 0.90 and clean <= 0.10                                                                                                                                                                                                9/10 datasets; clean flags [0.0, 0.0, 0.0, 0.0, 0.0, 0.125, 0.0, 0.0, 0.0, 0.0]  PARTIAL
+27068.7s 1188 F6                                             every multi-seed dataset                                                                                                                                                                                                                                 4/4 complete datasets pass (0 without 3 seeds)     PASS
+27068.7s 1189 F7                                          >= 4/6 encoders per dataset                                                                                                                                                                                                            10/10 datasets; encoders per dataset [6, 6, 6, 6, 6, 6, 6, 6, 6, 6]     PASS
+27068.7s 1190 F8                                                         no pass/fail                                                                                                                                                                                                               MAE ATC@s_hat 0.0570; best baseline AE 0.0647; oracle ATC 0.0317 REPORTED
+27068.7s 1191 F9                                                         no pass/fail                                           lcai25_to_lcai50: ours 0.056 vs best 0.044; patternnet_to_resisc45: ours 0.144 vs best 0.081; resisc45_to_patternnet: ours 0.055 vs best 0.025; resisc45_to_ucm: ours 0.061 vs best 0.025; ucm_to_resisc45: ours 0.107 vs best 0.061 REPORTED
+27068.7s 1192 R7                                                      >= 90% of cells                                                                                                                                                                                                                                                             0.976 of 960 cells     PASS
+27068.7s 1193 R8                                                   >= 0.88 everywhere                                                                                                                                                                                                                     min coverage 1.000 over 1344 configurations (EB min 1.000)     PASS
+27068.7s 1194 R9                               one-sided p < 0.01 on >= 8/10 datasets                                                                                                                                                                                         2/10 datasets; rho [0.02, -0.02, -0.11, -0.12, 0.04, 0.07, -0.12, -0.05, -0.31, -0.07]     FAIL
+27068.7s 1195 M1                                                        both datasets                                      landcoverai: median 0.48 (blur aug.) vs 0.92 (no blur), p=5.4e-04, Cliff's delta 0.91, median gap 95% CI [0.12, 0.54]; resisc45: median 0.42 (blur aug.) vs 0.93 (no blur), p=3.1e-04, Cliff's delta 0.94, median gap 95% CI [0.18, 0.68]     PASS
+27068.7s 1196 M2                                   >= 0.2 at S and B on both datasets                                                                                                                           deit_s16-deit3_s16|landcoverai: +0.12, deit_s16-deit3_s16|resisc45: +0.20, deit_b16-deit3_b16|landcoverai: +0.03, deit_b16-deit3_b16|resisc45: +0.06     FAIL
+27068.7s 1197 M3                                                        both datasets                                                                                                                                                                                                                                                 SSL max 0.57; no-blur min 0.56     FAIL
+27068.7s 1198 M4                                                  interpretation only                                                                                                                                                                                                                                                  rho 0.68 / 0.56: inconclusive REPORTED
+27068.7s 1199 P1                     >= 6/6 pairs, one-sided Wilcoxon (Holm) p < 0.01                                                                   6/6 pairs; ATC: 22.7->2.1 (p=6.9e-101); ATC_NE: 22.1->2.1 (p=3.1e-97); DoC: 27.2->1.7 (p=2.8e-121); COT: 6.6->1.4 (p=1.6e-112); COTT: 3.2->1.6 (p=8.5e-41); AE_LS: 5.5->4.0 (p=1.0e-19) | fresh subset: PASS     PASS
+27068.7s 1200 P2                               >= 4/6 pairs, Wilcoxon (Holm) p < 0.01                                                                    5/6 pairs; ATC: 18.6->5.1 (p=2.7e-68); ATC_NE: 18.6->5.2 (p=8.6e-61); DoC: 21.9->5.4 (p=3.7e-88); COT: 22.1->22.4 (p=0.469); COTT: 23.7->23.3 (p=5.3e-06); AE_LS: 8.2->7.1 (p=9.6e-08) | fresh subset: PASS     PASS
+27068.7s 1201 P3                         >= 5/6 pairs with upper 95% bound <= +1.0 pp                                                                                          2/6 pairs; ATC: +1.1 [+0.1, +2.4]; ATC_NE: +0.6 [-0.3, +1.5]; DoC: -0.1 [-0.4, +0.2]; COT: -0.1 [-2.2, +2.1]; COTT: +0.2 [-0.2, +0.6]; AE_LS: +6.0 [+1.0, +10.9] | fresh subset: FAIL     FAIL
+27068.7s 1202 P4                                      >= 4/6 pairs, Wilcoxon p < 0.05                                                                         3/6 pairs; ATC: 17.9->8.2 (p=2.3e-04); ATC_NE: 17.3->7.5 (p=0.001); DoC: 23.8->10.0 (p=2.1e-09); COT: 7.8->7.4 (p=0.285); COTT: 5.8->6.4 (p=0.512); AE_LS: 10.5->9.6 (p=0.793) | fresh subset: PARTIAL  PARTIAL
+27068.7s 1203 N1                      median rel. error <= 0.15 on >= 80% of datasets                                                                                                                                                                                                              10/10 datasets; median rel. err. 0.023-0.064 | fresh subset: PASS     PASS
+27068.7s 1204 N2                     one-sided Wilcoxon p < 0.01 and lower pooled MAE                                                                                                                                                                                               ATC@s_hat v2 2.3 pp vs COTT 3.2 pp; p = 2.5e-11 (864 cells) | fresh subset: FAIL     PASS
+27068.7s 1205 N3                           v2 flag rate <= 0.10 on >= 80% of datasets                                                                                                                                                                          9/10 datasets; v2 flag rates [0.0, 0.0, 0.0, 0.0, 0.12, 0.0, 0.0, 0.0, 0.0, 0.0] | fresh subset: PASS     PASS
+27068.7s 1206 G1                                                             reported                                                                                                                                                  MAE ATC@GSD 5.3 vs ATC@s_hat 5.1 vs ATC 3.3 pp (best baseline NucNorm 2.4); ATC@GSD better in 3/6 cells; chain check flags 0% REPORTED
+27068.7s 1207 C1                     >= 5/6 pairs, one-sided Wilcoxon (Holm) p < 0.01                                                                                6/6 pairs on 600 cells; ATC: 18.1->4.1 (p=1.8e-51); ATC_NE: 18.6->4.3 (p=2.0e-45); DoC: 22.1->3.4 (p=5.3e-82); COT: 6.8->2.1 (p=1.2e-75); COTT: 3.8->2.6 (p=7.6e-20); AE_LS: 5.6->4.8 (p=0.010)     PASS
+27068.7s 1208 C2                     >= 4/6 pairs, one-sided Wilcoxon (Holm) p < 0.01                                                                             4/6 pairs on 1500 cells; ATC: 13.6->11.3 (p=3.5e-13); ATC_NE: 12.4->10.7 (p=1.0e-05); DoC: 19.0->15.5 (p=4.8e-65); COT: 6.7->4.0 (p=7.7e-87); COTT: 3.6->3.6 (p=1.000); AE_LS: 7.7->12.5 (p=1.000)     PASS
+27068.7s 1209 C3                                          one-sided Wilcoxon p < 0.01                                                                                                                                                                                                                                    MAE 5.5 vs 21.7 pp; p = 3.8e-31 (300 cells)     PASS
+27068.7s 1210 C4 share of levels ≤ 0.5 px² ≥ 0.8 and absolute MAE difference ≤ 1.0 pp                                                                                                                                                                                                             share 1.00 of 30 conditions; MAE v2 2.0 vs ATC 2.0 pp (diff +0.00)     PASS
+27068.7s 1211 C5                                                             reported                                                  Gaussian PSF: 4.1 vs COTT 3.8 pp (MATCHED); other blur: 13.3 vs COTT 3.6 pp (BELOW); resolution / compression: 8.3 vs COTT 3.6 pp (BELOW); noise: 5.5 vs COTT 3.5 pp (BELOW); contrast (control): 2.1 vs DoC 1.9 pp (MATCHED) REPORTED
+27068.7s 1212 C6                                                             reported                                                                                                                          Gaussian blur +0.2; defocus +2.4; motion blur +9.5; zoom blur +13.2; glass blur +8.8; pixelate +6.0; JPEG +5.1; Gaussian noise +3.0; contrast +0.2 pp REPORTED
+27068.7s 1213 V1                           Spearman rho >= 0.8 and one-sided p < 0.01                                                                                                                                                                           rho 0.99 (p = 8.1e-22); v1.0 level rho 1.00; variance of the Laplacian rho 0.98; level 0.00–1.88 px²     PASS
+27068.7s 1214 V2                                           identified level ≤ 0.5 px²                                                                                                                                                                                                                                      level 0.00 px² (v1.0 0.00; flagged False)     PASS
+27068.7s 1215 V3                                          one-sided Wilcoxon p < 0.05                                                                                                                                                                                                                                      MAE 11.9 vs 12.9 pp; p = 0.293 (48 cells)     FAIL
+27068.7s 1216 V4                                                             reported                                                                                                                                                                                                                            11.9 vs COT 3.7 pp, diff +8.2 [+3.0, +14.8] (BELOW) REPORTED
+27068.7s 1217 I1                                                             reported v1.0 knee: 0.026/1.000/0.048; v2 (noise path): 0.026/0.037/0.050; re-blur ratio: 0.015/0.935/0.038; batch matching: 0.071/1.000/0.048; feature regressor: 0.019/0.011/0.026; var. of Laplacian: 0.019/0.962/0.058; spectral slope: 0.002/0.770/0.011 (clean/noisy/label shift) REPORTED
+27068.7s 1218 I2                                          one-sided Wilcoxon p < 0.01                                                                                                                                                                                                   median rel. error 0.037 vs spectral slope 0.770; p = 1.5e-14 (80 conditions)     PASS
+27068.7s 1219 
+27068.7s 1220 SOTA and regime statuses (target = strongest baseline measured in this run):
+27068.7s 1221 Pooled unflagged MAE (pp)                                  EXCEEDED       ours     3.6 | target AE             6.5 | diff −3.0 [−4.1, −1.8]
+27068.7s 1222 Mean worst-case-over-encoders MAE (pp)                     EXCEEDED       ours     5.4 | target AE_LS         11.5 | diff −6.1 [−9.0, −3.6]
+27068.7s 1223 Label-shift MAE (pp)                                       EXCEEDED       ours     5.1 | target AE_LS          8.0 | diff −2.9 [−4.1, −1.8]
+27068.7s 1224 All-conditions MAE incl. noise (pp)                        MATCHED        ours     5.7 | target AE             6.5 | diff −0.8 [−2.0, 0.6]
+27068.7s 1225 Clean blur-identification median rel. error                MATCHED        ours   0.026 | target id_single    0.015 | diff 0.011 [−0.001, 0.019]
+27068.7s 1226 Real-shift MAE (pp)                                        BELOW          ours     8.4 | target COTT           5.6 | diff 2.8 [0.4, 4.9]
+27068.7s 1227 Seed-averaged unflagged MAE, multi-seed datasets (pp)      EXCEEDED       ours     4.2 | target AE             7.8 | diff −3.6 [−4.9, −2.4]
+27068.7s 1228 clean blur MAE, v2 (pp)                                    EXCEEDED       ours     2.1 | target COTT           3.2 | diff −1.1 [−1.6, −0.6]
+27068.7s 1229 noisy blur MAE, v2 (pp)                                    EXCEEDED       ours     2.3 | target COTT           3.2 | diff −1.0 [−1.4, −0.6]
+27068.7s 1230 blur + label shift MAE, v2 (pp)                            EXCEEDED       ours     5.1 | target AE_LS          8.2 | diff −3.1 [−3.9, −2.3]
+27068.7s 1231 real shift MAE, v2 (pp)                                    BELOW          ours     9.2 | target COTT           5.3 | diff 3.9 [1.7, 6.5]
+27068.7s 1232 real + blur MAE, v2 (pp)                                   MATCHED        ours     8.0 | target COTT           5.8 | diff 2.2 [−0.5, 4.8]
+27068.7s 1233 Real 25->50 cm MAE, ATC@GSD (pp)                           MATCHED        ours     5.3 | target NucNorm        2.4 | diff 2.9 [−0.3, 6.3]
+27068.7s 1234 Standard corruptions MAE, v2 (pp)                          BELOW          ours     8.0 | target COTT           3.7 | diff 4.4 [2.3, 6.6]
+27068.7s 1235 Gaussian-PSF corruptions MAE, v2 (pp)                      MATCHED        ours     4.1 | target COTT           3.8 | diff 0.3 [−0.8, 1.3]
+27068.7s 1236 SpaceNet MVOI off-nadir MAE, v2 (pp)                       BELOW          ours    11.9 | target COT            3.7 | diff 8.2 [2.9, 14.7]
+27068.7s 1237 Noisy blur-identification median rel. error (v2)           BELOW          ours   0.037 | target id_feat      0.011 | diff 0.026 [0.012, 0.039]
+27068.7s 1238 
+27068.7s 1239 Seed coverage achieved: {'resisc45': [0], 'ucm': [0, 1, 2], 'patternnet': [0], 'whu_rs19': [0, 1, 2], 'rsscn7': [0], 'optimal31': [0, 1, 2], 'clrs': [0, 1, 2], 'imagenette': [0], 'dtd': [0], 'pets': [0]}
+27068.7s 1240 Datasets with one seed: ['resisc45', 'patternnet', 'rsscn7', 'imagenette', 'dtd', 'pets']
+27068.7s 1241 Not finished, failed or skipped units: none
+27068.7s 1242 Failed datasets / encoders: none
+27068.7s 1243 Runtime decisions: ['[0.46 h] whu_rs19: dropped 1 degenerate images (a channel with std < 0.5 DN)', '[2.11 h] dtd: dropped 3 degenerate images (a channel with std < 0.5 DN)', '[2.12 h] dtd: dropped 1 degenerate images (a channel with std < 0.5 DN)', '[5.81 h] whu_rs19: dropped 1 degenerate images (a channel with std < 0.5 DN)', '[5.98 h] whu_rs19: dropped 1 degenerate images (a channel with std < 0.5 DN)', '[0.24 h] whu_rs19: dropped 1 degenerate images (a channel with std < 0.5 DN)', '[0.29 h] dtd: dropped 1 degenerate images (a channel with std < 0.5 DN)', '[1.25 h] whu_rs19: dropped 1 degenerate images (a channel with std < 0.5 DN)', '[4.39 h] dtd: dropped 3 degenerate images (a channel with std < 0.5 DN)', '[4.39 h] dtd: dropped 1 degenerate images (a channel with std < 0.5 DN)']
+27068.7s 1244 
+27068.7s 1245 PREREG v1.0 SHA-256 re-check: registered 58594e8ccc059e48... | now 58594e8ccc059e48... -> MATCH
+27068.7s 1246 Addendum v2 SHA-256 re-check: registered 9e3ab0852200bfaa... | now 9e3ab0852200bfaa... -> MATCH
+27068.7s 1247 Addendum v3 SHA-256 re-check: registered 86ab550b0b1a2024... | now 86ab550b0b1a2024... -> MATCH
+27068.7s 1248 
+27068.7s 1249 Outputs: 212 files in /kaggle/working/outputs; the zip carries 157:
+27068.7s 1250 RESUME_README.txt
+27068.7s 1251 checkpoints/B10_clrs.pkl
+27068.7s 1252 checkpoints/B10_dtd.pkl
+27068.7s 1253 checkpoints/B10_imagenette.pkl
+27068.7s 1254 checkpoints/B10_optimal31.pkl
+27068.7s 1255 checkpoints/B10_patternnet.pkl
+27068.7s 1256 checkpoints/B10_pets.pkl
+27068.7s 1257 checkpoints/B10_resisc45.pkl
+27068.7s 1258 checkpoints/B10_rsscn7.pkl
+27068.7s 1259 checkpoints/B10_ucm.pkl
+27068.7s 1260 checkpoints/B10_whu_rs19.pkl
+27068.7s 1261 checkpoints/B11_mvoi.pkl
+27068.7s 1262 checkpoints/B1_theory.pkl
+27068.7s 1263 checkpoints/B2_physics.pkl
+27068.7s 1264 checkpoints/B3_clrs_s0.pkl
+27068.7s 1265 checkpoints/B3_clrs_s1.pkl
+27068.7s 1266 checkpoints/B3_clrs_s2.pkl
+27068.7s 1267 checkpoints/B3_dtd_s0.pkl
+27068.7s 1268 checkpoints/B3_imagenette_s0.pkl
+27068.7s 1269 checkpoints/B3_optimal31_s0.pkl
+27068.7s 1270 checkpoints/B3_optimal31_s1.pkl
+27068.7s 1271 checkpoints/B3_optimal31_s2.pkl
+27068.7s 1272 checkpoints/B3_patternnet_s0.pkl
+27068.7s 1273 checkpoints/B3_pets_s0.pkl
+27068.7s 1274 checkpoints/B3_resisc45_s0.pkl
+27068.7s 1275 checkpoints/B3_rsscn7_s0.pkl
+27068.7s 1276 checkpoints/B3_ucm_s0.pkl
+27068.7s 1277 checkpoints/B3_ucm_s1.pkl
+27068.7s 1278 checkpoints/B3_ucm_s2.pkl
+27068.7s 1279 checkpoints/B3_whu_rs19_s0.pkl
+27068.7s 1280 checkpoints/B3_whu_rs19_s1.pkl
+27068.7s 1281 checkpoints/B3_whu_rs19_s2.pkl
+27068.7s 1282 checkpoints/B4_lcai25_to_lcai50.pkl
+27068.7s 1283 checkpoints/B4_patternnet_to_resisc45.pkl
+27068.7s 1284 checkpoints/B4_resisc45_to_patternnet.pkl
+27068.7s 1285 checkpoints/B4_resisc45_to_ucm.pkl
+27068.7s 1286 checkpoints/B4_ucm_to_resisc45.pkl
+27068.7s 1287 checkpoints/B5_clip_b16.pkl
+27068.7s 1288 checkpoints/B5_clip_l14.pkl
+27068.7s 1289 checkpoints/B5_deit3_b16.pkl
+27068.7s 1290 checkpoints/B5_deit3_s16.pkl
+27068.7s 1291 checkpoints/B5_deit_b16.pkl
+27068.7s 1292 checkpoints/B5_deit_s16.pkl
+27068.7s 1293 checkpoints/B5_dino_s16.pkl
+27068.7s 1294 checkpoints/B5_dinov2_b14.pkl
+27068.7s 1295 checkpoints/B5_dinov2_s14.pkl
+27068.7s 1296 checkpoints/B5_ijepa_h14.pkl
+27068.7s 1297 checkpoints/B5_mae_b16.pkl
+27068.7s 1298 checkpoints/B5_mae_l16.pkl
+27068.7s 1299 checkpoints/B5_r50_barlow.pkl
+27068.7s 1300 checkpoints/B5_r50_sup.pkl
+27068.7s 1301 checkpoints/B5_satlas_swinb.pkl
+27068.7s 1302 checkpoints/B5_swav_r50.pkl
+27068.7s 1303 checkpoints/B5_vicreg_r50.pkl
+27068.7s 1304 checkpoints/B9_clrs.pkl
+27068.7s 1305 checkpoints/B9_dtd.pkl
+27068.7s 1306 checkpoints/B9_imagenette.pkl
+27068.7s 1307 checkpoints/B9_optimal31.pkl
+27068.7s 1308 checkpoints/B9_patternnet.pkl
+27068.7s 1309 checkpoints/B9_pets.pkl
+27068.7s 1310 checkpoints/B9_resisc45.pkl
+27068.7s 1311 checkpoints/B9_rsscn7.pkl
+27068.7s 1312 checkpoints/B9_ucm.pkl
+27068.7s 1313 checkpoints/B9_whu_rs19.pkl
+27068.7s 1314 checkpoints/run_state.pkl
+27068.7s 1315 figures/fig10_mvoi.pdf
+27068.7s 1316 figures/fig10_mvoi.png
+27068.7s 1317 figures/fig1_teaser.pdf
+27068.7s 1318 figures/fig1_teaser.png
+27068.7s 1319 figures/fig2_physics.pdf
+27068.7s 1320 figures/fig2_physics.png
+27068.7s 1321 figures/fig3_mechanism.pdf
+27068.7s 1322 figures/fig3_mechanism.png
+27068.7s 1323 figures/fig4_method.pdf
+27068.7s 1324 figures/fig4_method.png
+27068.7s 1325 figures/fig5_main_results.pdf
+27068.7s 1326 figures/fig5_main_results.png
+27068.7s 1327 figures/fig6_limits.pdf
+27068.7s 1328 figures/fig6_limits.png
+27068.7s 1329 figures/fig7_plugin.pdf
+27068.7s 1330 figures/fig7_plugin.png
+27068.7s 1331 figures/fig8_real_gsd.pdf
+27068.7s 1332 figures/fig8_real_gsd.png
+27068.7s 1333 figures/fig9_corruptions.pdf
+27068.7s 1334 figures/fig9_corruptions.png
+27068.7s 1335 figures/figS10_invariance_vs_robustness.pdf
+27068.7s 1336 figures/figS10_invariance_vs_robustness.png
+27068.7s 1337 figures/figS11_prediction_scatter.pdf
+27068.7s 1338 figures/figS11_prediction_scatter.png
+27068.7s 1339 figures/figS12_gallery.pdf
+27068.7s 1340 figures/figS12_gallery.png
+27068.7s 1341 figures/figS13_stress_tests.pdf
+27068.7s 1342 figures/figS13_stress_tests.png
+27068.7s 1343 figures/figS14_regime_map.pdf
+27068.7s 1344 figures/figS14_regime_map.png
+27068.7s 1345 figures/figS15_dataset_gallery.pdf
+27068.7s 1346 figures/figS15_dataset_gallery.png
+27068.7s 1347 figures/figS16_noise_v2.pdf
+27068.7s 1348 figures/figS16_noise_v2.png
+27068.7s 1349 figures/figS17_corruption_gallery.pdf
+27068.7s 1350 figures/figS17_corruption_gallery.png
+27068.7s 1351 figures/figS18_id_baselines.pdf
+27068.7s 1352 figures/figS18_id_baselines.png
+27068.7s 1353 figures/figS1_theory_checks.pdf
+27068.7s 1354 figures/figS1_theory_checks.png
+27068.7s 1355 figures/figS2_certificate.pdf
+27068.7s 1356 figures/figS2_certificate.png
+27068.7s 1357 figures/figS3_statistics_seeds.pdf
+27068.7s 1358 figures/figS3_statistics_seeds.png
+27068.7s 1359 figures/figS4_encoder_breakdown.pdf
+27068.7s 1360 figures/figS4_encoder_breakdown.png
+27068.7s 1361 figures/figS5_estimator_ablation.pdf
+27068.7s 1362 figures/figS5_estimator_ablation.png
+27068.7s 1363 figures/figS6_identification_sensitivity.pdf
+27068.7s 1364 figures/figS6_identification_sensitivity.png
+27068.7s 1365 figures/figS7_efficiency.pdf
+27068.7s 1366 figures/figS7_efficiency.png
+27068.7s 1367 figures/figS8_accuracy_curves.pdf
+27068.7s 1368 figures/figS8_accuracy_curves.png
+27068.7s 1369 figures/figS9_real_shifts.pdf
+27068.7s 1370 figures/figS9_real_shifts.png
+27068.7s 1371 key_results.txt
+27068.7s 1372 run_manifest.json
+27068.7s 1373 tables/T10_compute.csv
+27068.7s 1374 tables/T10_compute.tex
+27068.7s 1375 tables/T11_datasets.csv
+27068.7s 1376 tables/T11_datasets.tex
+27068.7s 1377 tables/T12_regimes.csv
+27068.7s 1378 tables/T12_regimes.tex
+27068.7s 1379 tables/T13_plugin.csv
+27068.7s 1380 tables/T13_plugin.tex
+27068.7s 1381 tables/T14_corruptions.csv
+27068.7s 1382 tables/T14_corruptions.tex
+27068.7s 1383 tables/T15_mvoi.csv
+27068.7s 1384 tables/T15_mvoi.tex
+27068.7s 1385 tables/T16_id_baselines.csv
+27068.7s 1386 tables/T16_id_baselines.tex
+27068.7s 1387 tables/T17_verdicts_v3.csv
+27068.7s 1388 tables/T17_verdicts_v3.tex
+27068.7s 1389 tables/T1_main_results.csv
+27068.7s 1390 tables/T1_main_results.tex
+27068.7s 1391 tables/T2_inference.csv
+27068.7s 1392 tables/T2_inference.tex
+27068.7s 1393 tables/T3_identification.csv
+27068.7s 1394 tables/T3_identification.tex
+27068.7s 1395 tables/T4_mechanism.csv
+27068.7s 1396 tables/T4_mechanism.tex
+27068.7s 1397 tables/T5_ablations.csv
+27068.7s 1398 tables/T5_ablations.tex
+27068.7s 1399 tables/T6_seeds.csv
+27068.7s 1400 tables/T6_seeds.tex
+27068.7s 1401 tables/T7_physics_theory.csv
+27068.7s 1402 tables/T7_physics_theory.tex
+27068.7s 1403 tables/T8_verdicts.csv
+27068.7s 1404 tables/T8_verdicts.tex
+27068.7s 1405 tables/T9_sota.csv
+27068.7s 1406 tables/T9_sota.tex
+27068.7s 1407 figures 28 (PDF + PNG) | tables 17 | checkpoints 64 | total session runtime 7.52 h of 11 h
+27069.8s 1408 Running on Kaggle: /kaggle/working/outputs.zip is in /kaggle/working/ (right-hand Output panel during the session; the version's Output tab after a commit). The embedded link above keeps working after the session ends.
+27076.9s 1409 /usr/local/lib/python3.13/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\|'
+27076.9s 1410 cells[i][c] = re.sub('\\\\\|', '|', cell)
+27077.1s 1411 /usr/local/lib/python3.13/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\_'
+27077.1s 1412 text = re.sub(r'_', '\_', text) # Escape underscores in display text
+27077.8s 1413 [NbConvertApp] Converting notebook __notebook__.ipynb to notebook
+27078.8s 1414 [NbConvertApp] Writing 45016067 bytes to __notebook__.ipynb
+27081.3s 1415 [NbConvertApp] Converting notebook __notebook__.ipynb to html
+27085.7s 1416 [NbConvertApp] Support files will be in __results___files/
+27085.7s 1417 [NbConvertApp] Making directory __results___files
+27085.7s 1418 [NbConvertApp] Making directory __results___files
+27085.7s 1419 [NbConvertApp] Making directory __results___files
+27085.7s 1420 [NbConvertApp] Making directory __results___files
+27085.7s 1421 [NbConvertApp] Making directory __results___files
+27085.7s 1422 [NbConvertApp] Making directory __results___files
+27085.7s 1423 [NbConvertApp] Making directory __results___files
+27085.7s 1424 [NbConvertApp] Making directory __results___files
+27085.7s 1425 [NbConvertApp] Making directory __results___files
+27085.7s 1426 [NbConvertApp] Making directory __results___files
+27085.7s 1427 [NbConvertApp] Making directory __results___files
+27085.7s 1428 [NbConvertApp] Making directory __results___files
+27085.7s 1429 [NbConvertApp] Making directory __results___files
+27085.7s 1430 [NbConvertApp] Making directory __results___files
+27085.7s 1431 [NbConvertApp] Making directory __results___files
+27085.7s 1432 [NbConvertApp] Making directory __results___files
+27085.7s 1433 [NbConvertApp] Making directory __results___files
+27085.7s 1434 [NbConvertApp] Making directory __results___files
+27085.7s 1435 [NbConvertApp] Making directory __results___files
+27085.7s 1436 [NbConvertApp] Making directory __results___files
+27085.7s 1437 [NbConvertApp] Making directory __results___files
+27085.7s 1438 [NbConvertApp] Making directory __results___files
+27085.7s 1439 [NbConvertApp] Making directory __results___files
+27085.7s 1440 [NbConvertApp] Making directory __results___files
+27085.7s 1441 [NbConvertApp] Making directory __results___files
+27085.7s 1442 [NbConvertApp] Making directory __results___files
+27085.7s 1443 [NbConvertApp] Making directory __results___files
+27085.7s 1444 [NbConvertApp] Making directory __results___files
+27085.7s 1445 [NbConvertApp] Writing 42937179 bytes to __results__.html
