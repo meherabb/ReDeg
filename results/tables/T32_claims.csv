@@ -1,0 +1,7 @@
+claim,statement,rules,verdicts,n_rules,n_pass,n_partial,n_fail,n_other
+Claim 1,"Physics: re-degradation by the exact heat semigroup identifies a calibrated blur level (knee law, half-energy law, effective resolution of real 25 vs 50 cm products)",R0 R1 R2 R3 R4 R5 R6 R10,"R0 PASS, R1 PASS, R2 PASS, R3 PASS, R4 PASS, R5 PASS, R6 PASS, R10 PASS",8,8,0,0,0
+Claim 2,"Identification without labels on blur the method did not generate: standard corruption PSFs, real ground-sample-distance and off-nadir shifts, ImageNet scale, and against blind kernel estimation",K3 L4 L6 V1 V2 Q6 Q12,"K3 PASS, L4 PASS, L6 PASS, V1 PASS, V2 PASS, Q6 PASS, Q12 PASS",7,7,0,0,0
+Claim 3,"Plug-in: calibrating a label-free estimator on the source re-degraded to s_hat lowers its error under blur, also after temperature scaling and at ImageNet scale",P1 C1 K1 L3 Q2 Q3 Q4 Q5 Q11,"P1 PASS, C1 PASS, K1 PARTIAL, L3 PASS, Q2 PARTIAL, Q3 PASS, Q4 PARTIAL, Q5 FAIL, Q11 FAIL",9,4,3,2,0
+Claim 4,No harm by construction: the plug-in is an exact identity when no blur is identified,L1 Q1 L10,"L1 PASS, Q1 PASS, L10 PARTIAL",3,2,1,0,0
+Claim 5,"Attribution: phi estimates without labels how much of an accuracy drop blur explains, and the phi switch keeps the blur gains without harming other shifts",Q7 Q8 Q9,"Q7 PASS, Q8 FAIL, Q9 PASS",3,2,0,1,0
+Claim 6,"Boundaries: on real sensor shifts where blur is a minority of the shift, the plug-in helps confidence-based estimators and not distribution-matching ones",L7 L8 V3 P4 Q10,"L7 PARTIAL, L8 FAIL, V3 FAIL, P4 PARTIAL, Q10 FAIL",5,0,2,3,0

@@ -1,0 +1,12 @@
+rule,statement,threshold,measured,verdict
+R0,"exactness of semigroup, Parseval, constants, commutation, N o A = N",<= 1e-10,max error 1.4e-13,PASS
+R1,sensitivity identity: analytic vs central finite difference,median rel. error <= 0.001,median rel. error 2.1e-07 (200 tiles x 13 eta),PASS
+R2,narrowband obstruction: N T_s x independent of s,<= 1e-10,max deviation 1.4e-14,PASS
+R3,Proposition 5 drift <= bound (synthetic fields and real LandCover.ai tiles),100% of cases,"4680 cases, max drift/bound 0.632",PASS
+R4,knee law: median per-tile slope of s_raw on s0 (high-observability half),95% CI contains 1 or |slope - 1| <= 0.15,"slope 1.040 [1.003, 1.090]",PASS
+R5,half-energy exponent: median per-tile gamma (s0 in 2..16),95% CI contains 1 or |gamma - 1| <= 0.15,"gamma 1.075 [1.000, 1.175]",PASS
+R6,effective vs nominal resolution: FWHM(50 cm) / FWHM(25 cm),95% CI contains 2 or |ratio - 2| <= 0.2,"FWHM 0.448 m vs 0.842 m; ratio 1.88 [1.66, 2.20]",PASS
+R7,"exact transport: oracle gap A_src(s0, sigma) - Acc_target inside its Newcombe 95% interval",>= 90% of cells,0.976 of 960 cells,PASS
+R8,"test-inversion certificate (Hoeffding, delta = 0.1): coverage in every configuration",>= 0.88 everywhere,min coverage 1.000 over 1344 configurations (EB min 1.000),PASS
+R9,"observability predicts identification error: Spearman(O_x, error) < 0",one-sided p < 0.01 on >= 8/10 datasets,"2/10 datasets; rho [0.02, -0.02, -0.11, -0.12, 0.04, 0.07, -0.12, -0.05, -0.31, -0.07]",FAIL
+R10,information-optimal re-blur: eta* vs s_hat / gamma_hat,|median log2(eta* gamma / s)| <= 0.5,median log2 ratio -0.030 over 200 tiles,PASS

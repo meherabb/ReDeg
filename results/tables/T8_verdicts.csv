@@ -1,0 +1,33 @@
+rule,statement,threshold,measured,verdict
+R0,"exactness of semigroup, Parseval, constants, commutation, N o A = N",<= 1e-10,max error 1.4e-13,PASS
+R1,sensitivity identity: analytic vs central finite difference,median rel. error <= 0.001,median rel. error 2.1e-07 (200 tiles x 13 eta),PASS
+R2,narrowband obstruction: N T_s x independent of s,<= 1e-10,max deviation 1.4e-14,PASS
+R3,Proposition 5 drift <= bound (synthetic fields and real LandCover.ai tiles),100% of cases,"4680 cases, max drift/bound 0.632",PASS
+R4,knee law: median per-tile slope of s_raw on s0 (high-observability half),95% CI contains 1 or |slope - 1| <= 0.15,"slope 1.040 [1.003, 1.090]",PASS
+R5,half-energy exponent: median per-tile gamma (s0 in 2..16),95% CI contains 1 or |gamma - 1| <= 0.15,"gamma 1.075 [1.000, 1.175]",PASS
+R6,effective vs nominal resolution: FWHM(50 cm) / FWHM(25 cm),95% CI contains 2 or |ratio - 2| <= 0.2,"FWHM 0.448 m vs 0.842 m; ratio 1.88 [1.66, 2.20]",PASS
+R7,"exact transport: oracle gap A_src(s0, sigma) - Acc_target inside its Newcombe 95% interval",>= 90% of cells,0.976 of 960 cells,PASS
+R8,"test-inversion certificate (Hoeffding, delta = 0.1): coverage in every configuration",>= 0.88 everywhere,min coverage 1.000 over 1344 configurations (EB min 1.000),PASS
+R9,"observability predicts identification error: Spearman(O_x, error) < 0",one-sided p < 0.01 on >= 8/10 datasets,"2/10 datasets; rho [0.02, -0.02, -0.11, -0.12, 0.04, 0.07, -0.12, -0.05, -0.31, -0.07]",FAIL
+R10,information-optimal re-blur: eta* vs s_hat / gamma_hat,|median log2(eta* gamma / s)| <= 0.5,median log2 ratio -0.030 over 200 tiles,PASS
+F1,"unflagged: ATC@s_hat mean MAE below every single baseline, per dataset; pooled Wilcoxon vs best",>= 7/10 datasets and p < 0.01,"10/10 datasets; pooled p = 1.6e-34 (10/10 datasets, encoders per dataset [6])",PASS
+F2,unflagged worst case over encoders: ATC@s_hat below every single baseline,>= 7/10 datasets,10/10 datasets,PASS
+F3,label shift: ATC@s_hat vs SAC-ATC (pixel vs confidence matching),one-sided Wilcoxon p < 0.05,MAE 0.0505 vs 0.1212; p = 2.9e-23 (540 cells),PASS
+F4,identification: median |s_hat - s0| / s0 on clean in-family conditions,<= 0.15 per dataset,10/10 datasets; range 0.011-0.039,PASS
+F5,abstention: GOF flag rates per dataset,noisy >= 0.90 and clean <= 0.10,"9/10 datasets; clean flags [0.0, 0.0, 0.0, 0.0, 0.0, 0.125, 0.0, 0.0, 0.0, 0.0]",PARTIAL
+F6,seed stability on multi-seed datasets: lowest seed-averaged MAE among 12 estimators and >= 2/3 seed wins,every multi-seed dataset,4/4 complete datasets pass (0 without 3 seeds),PASS
+F7,stakes: encoders losing >= 10 points between s = 0 and 64 px^2,>= 4/6 encoders per dataset,"10/10 datasets; encoders per dataset [6, 6, 6, 6, 6, 6, 6, 6, 6, 6]",PASS
+F8,all conditions including sensor noise (reported),no pass/fail,MAE ATC@s_hat 0.0570; best baseline AE 0.0647; oracle ATC 0.0317,REPORTED
+F9,"real shifts (RESISC45 <-> UCM, LandCover.ai 25 -> 50 cm; the addendum adds PatternNet <-> RESISC45)",no pass/fail,lcai25_to_lcai50: ours 0.056 vs best 0.044; patternnet_to_resisc45: ours 0.144 vs best 0.081; resisc45_to_patternnet: ours 0.055 vs best 0.025; resisc45_to_ucm: ours 0.061 vs best 0.025; ucm_to_resisc45: ours 0.107 vs best 0.061,REPORTED
+M1,"group split: median knee rho blur-aug < 0.6, no-blur > 0.8, Mann-Whitney p < 0.05",both datasets,"landcoverai: median 0.48 (blur aug.) vs 0.92 (no blur), p=5.4e-04, Cliff's delta 0.91, median gap 95% CI [0.12, 0.54]; resisc45: median 0.42 (blur aug.) vs 0.93 (no blur), p=3.1e-04, Cliff's delta 0.94, median gap 95% CI [0.18, 0.68]",PASS
+M2,controlled supervised pairs: rho(DeiT) - rho(DeiT III),>= 0.2 at S and B on both datasets,"deit_s16-deit3_s16|landcoverai: +0.12, deit_s16-deit3_s16|resisc45: +0.20, deit_b16-deit3_b16|landcoverai: +0.03, deit_b16-deit3_b16|resisc45: +0.06",FAIL
+M3,perfect separation: every SSL-invariance+blur encoder < 0.6 and every no-blur encoder > 0.8,both datasets,SSL max 0.57; no-blur min 0.56,FAIL
+M4,I-JEPA discriminator (no hand-crafted augmentation),interpretation only,rho 0.68 / 0.56: inconclusive,REPORTED
+P1,plug-in re-degradation lowers the error of every estimator under clean blur,">= 6/6 pairs, one-sided Wilcoxon (Holm) p < 0.01",6/6 pairs; ATC: 22.7->2.1 (p=6.9e-101); ATC_NE: 22.1->2.1 (p=3.1e-97); DoC: 27.2->1.7 (p=2.8e-121); COT: 6.6->1.4 (p=1.6e-112); COTT: 3.2->1.6 (p=8.5e-41); AE_LS: 5.5->4.0 (p=1.0e-19) | fresh subset: PASS,PASS
+P2,plug-in re-degradation under blur + label shift,">= 4/6 pairs, Wilcoxon (Holm) p < 0.01",5/6 pairs; ATC: 18.6->5.1 (p=2.7e-68); ATC_NE: 18.6->5.2 (p=8.6e-61); DoC: 21.9->5.4 (p=3.7e-88); COT: 22.1->22.4 (p=0.469); COTT: 23.7->23.3 (p=5.3e-06); AE_LS: 8.2->7.1 (p=9.6e-08) | fresh subset: PASS,PASS
+P3,"no harm on real shifts without added blur (non-inferiority, margin 1 pp)",>= 5/6 pairs with upper 95% bound <= +1.0 pp,"2/6 pairs; ATC: +1.1 [+0.1, +2.4]; ATC_NE: +0.6 [-0.3, +1.5]; DoC: -0.1 [-0.4, +0.2]; COT: -0.1 [-2.2, +2.1]; COTT: +0.2 [-0.2, +0.6]; AE_LS: +6.0 [+1.0, +10.9] | fresh subset: FAIL",FAIL
+P4,plug-in gain on real shifts with added blur,">= 4/6 pairs, Wilcoxon p < 0.05",3/6 pairs; ATC: 17.9->8.2 (p=2.3e-04); ATC_NE: 17.3->7.5 (p=0.001); DoC: 23.8->10.0 (p=2.1e-09); COT: 7.8->7.4 (p=0.285); COTT: 5.8->6.4 (p=0.512); AE_LS: 10.5->9.6 (p=0.793) | fresh subset: PARTIAL,PARTIAL
+N1,noise-aware identification (v1.1 tail fit) on noisy in-family conditions,median rel. error <= 0.15 on >= 80% of datasets,10/10 datasets; median rel. err. 0.023-0.064 | fresh subset: PASS,PASS
+N2,noise-aware estimation: ATC@s_hat v2 vs the strongest baseline on noisy in-family cells,one-sided Wilcoxon p < 0.01 and lower pooled MAE,ATC@s_hat v2 2.3 pp vs COTT 3.2 pp; p = 2.5e-11 (864 cells) | fresh subset: FAIL,PASS
+N3,v2 abstention stays calibrated on the noise suite (noise-model check),v2 flag rate <= 0.10 on >= 80% of datasets,"9/10 datasets; v2 flag rates [0.0, 0.0, 0.0, 0.0, 0.12, 0.0, 0.0, 0.0, 0.0, 0.0] | fresh subset: PASS",PASS
+G1,"GSD-aware re-degradation on the real 25 -> 50 cm shift (LandCover.ai, no added blur)",reported,MAE ATC@GSD 5.3 vs ATC@s_hat 5.1 vs ATC 3.3 pp (best baseline NucNorm 2.4); ATC@GSD better in 3/6 cells; chain check flags 0%,REPORTED

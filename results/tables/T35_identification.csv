@@ -1,0 +1,11 @@
+benchmark,truth,rho,median_rel_error,n,rule,note
+CIFAR-10-C (official files),PSF variance,0.9908673886137245,0.056113533027931706,10,K3,
+CIFAR-100-C (official files),PSF variance,0.9908673886137245,0.05188054253994334,10,L4,
+"ImageNet-C definitions, JPEG 85 (B18)",PSF variance,0.9999999999999999,0.11964762487800554,10,Q6,
+"ImageNet-C definitions, 8-bit (B24)",PSF variance,0.9999999999999999,0.13620446915151918,10,W15,
+ImageNet-C archive (B18),PSF variance,0.9999999999999999,0.12090030545949065,5,Q6,defocus
+"ImageNet-C archive, fresh images (B24)",PSF variance,0.9999999999999999,0.12090030545949065,5,W15,defocus
+"fMoW, real views (B14)",ground sample distance,0.9827368436007655,,21,L6,
+"SpaceNet MVOI, real views (B11)",off-nadir angle,0.9891764349765079,,26,V1,
+"KernelGAN vs s_hat, LandCover.ai",added blur,,0.370364261971062,40,Q12a,KernelGAN 1.000
+"KernelGAN vs s_hat, fMoW",gsd,0.9390019433403808,,56,Q12b,KernelGAN rho 0.389

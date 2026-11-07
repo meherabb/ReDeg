@@ -1,0 +1,11 @@
+set,n,flag_rate,median_rel_err,median_p,cells
+"Gaussian blur, 8-bit (B)",125,0.72,0.223,3.6458291213603035e-21,25
+"Gaussian blur, 8-bit (B)",250,0.8,0.18,4.6511552418566165e-38,25
+"Gaussian blur, 8-bit (B)",500,0.8,0.18,2.834911891604192e-74,25
+"Gaussian blur, 8-bit (B)",1000,0.8,0.18,9.90412688813556e-116,25
+"Gaussian blur, 8-bit (B)",1999,0.8,0.18,2.9972752888418445e-172,5
+"defocus, archive (fresh)",125,1.0,0.468,2.240915650545515e-78,25
+"defocus, archive (fresh)",250,1.0,0.434,1.232714182679104e-145,25
+"defocus, archive (fresh)",500,1.0,0.468,1.5918441670539114e-260,25
+"defocus, archive (fresh)",1000,1.0,0.468,0.0,25
+"defocus, archive (fresh)",2000,1.0,0.468,0.0,5
