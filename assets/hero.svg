@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 360" width="1200" height="360" role="img" aria-labelledby="t d">
+<title id="t">Blur an image again, and it tells you how blurred it already was</title>
+<desc id="d">Animation: a target tile with an existing blur of 6 px^2 is re-blurred by an increasing variance eta; a dot travels along the response curve rho(eta) = 1 - (1 + eta/s0)^-gamma, which removes half of the gradient energy near eta = s0.</desc>
+<style>
+  .sans { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, 'Helvetica Neue', Helvetica, Arial, 'DejaVu Sans', sans-serif; }
+  .serif { font-family: 'Cambria Math', 'STIX Two Math', 'Latin Modern Math', 'DejaVu Serif', Georgia, 'Times New Roman', serif; }
+  .mono { font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'DejaVu Sans Mono', monospace; }
+  .t { fill: #e6edf3; }
+  .m { fill: #8b949e; }
+  @media (prefers-reduced-motion: reduce) { * { animation: none !important; } }
+
+  .ttl { font: 700 31px -apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, 'Helvetica Neue', Helvetica, Arial, 'DejaVu Sans', sans-serif; fill: #e6edf3; letter-spacing: -0.3px; }
+  .kick { font: 600 12.5px -apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, 'Helvetica Neue', Helvetica, Arial, 'DejaVu Sans', sans-serif; fill: #58a6ff; letter-spacing: 2.4px; }
+  .body { font: 400 16px -apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, 'Helvetica Neue', Helvetica, Arial, 'DejaVu Sans', sans-serif; fill: #8b949e; }
+  .ax { font: 400 14px -apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, 'Helvetica Neue', Helvetica, Arial, 'DejaVu Sans', sans-serif; fill: #8b949e; }
+  .eq { font: italic 400 19px 'Cambria Math', 'STIX Two Math', 'Latin Modern Math', 'DejaVu Serif', Georgia, 'Times New Roman', serif; fill: #e6edf3; }
+  .lab { font: 600 14px -apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, 'Helvetica Neue', Helvetica, Arial, 'DejaVu Sans', sans-serif; }
+  .reveal { animation: rise 1.2s cubic-bezier(.2,.7,.2,1) both; }
+  .d1 { animation-delay: .15s; } .d2 { animation-delay: .35s; } .d3 { animation-delay: .55s; } .d4 { animation-delay: .8s; }
+  @keyframes rise { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+  .pulse { animation: pulse 2.2s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+  @keyframes pulse { 0%,100% { opacity: .35; transform: scale(1); } 50% { opacity: .9; transform: scale(1.35); } }
+</style>
+<defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#0b0f17"/><stop offset="1" stop-color="#161b22"/>
+  </linearGradient>
+  <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+    <feGaussianBlur stdDeviation="3.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+  </filter>
+  <filter id="reblur" x="-25%" y="-25%" width="150%" height="150%">
+    <feGaussianBlur stdDeviation="1.531">
+      <animate attributeName="stdDeviation" values="1.531;1.534;1.537;1.541;1.546;1.551;1.558;1.566;1.576;1.588;1.603;1.620;1.640;1.665;1.694;1.729;1.770;1.819;1.877;1.944;2.023;2.114;2.219;2.341;2.480;2.639;2.819;3.024;3.254;3.513;3.803;4.127;4.489;4.891;5.338;5.834;6.383;6.383;1.531" keyTimes="0.0000;0.0200;0.0400;0.0600;0.0800;0.1000;0.1200;0.1400;0.1600;0.1800;0.2000;0.2200;0.2400;0.2600;0.2800;0.3000;0.3200;0.3400;0.3600;0.3800;0.4000;0.4200;0.4400;0.4600;0.4800;0.5000;0.5200;0.5400;0.5600;0.5800;0.6000;0.6200;0.6400;0.6600;0.6800;0.7000;0.7200;0.9000;1.0000" dur="9.0s" repeatCount="indefinite"/>
+    </feGaussianBlur>
+  </filter>
+  <clipPath id="disc"><circle cx="660" cy="176" r="92"/></clipPath>
+  <linearGradient id="curveg" x1="0" x2="1"><stop offset="0" stop-color="#f0883e"/><stop offset="1" stop-color="#58a6ff"/></linearGradient>
+</defs>
+<rect x="1" y="1" width="1198" height="358" rx="18" fill="url(#bg)" stroke="#30363d" stroke-width="1.5"/>
+<g class="sans">
+  <text class="kick reveal" x="48" y="62">GAUSSIAN BLURS ADD IN VARIANCE</text>
+  <text class="ttl reveal d1" x="48" y="108">Blur an image again,</text>
+  <text class="ttl reveal d2" x="48" y="148">and it tells you how blurred</text>
+  <text class="ttl reveal d2" x="48" y="188">it already was.</text>
+  <g class="reveal d3">
+    <rect x="48" y="214" width="320" height="44" rx="10" fill="#161b22" stroke="#30363d"/>
+    <text class="eq" x="64" y="243">ρ(η) = 1 − (1 + η/s<tspan dy="5" font-size="14">0</tspan><tspan dy="-5">)</tspan><tspan dy="-9" font-size="14">−γ</tspan></text>
+  </g>
+  <text class="body reveal d4" x="48" y="290">A known re-blur <tspan font-style="italic">η</tspan> removes a share <tspan font-style="italic">ρ</tspan> of the gradient</text>
+  <text class="body reveal d4" x="48" y="313">energy; half of it is gone near <tspan font-style="italic">η</tspan> = <tspan font-style="italic">s</tspan><tspan dy="4" font-size="12">0</tspan><tspan dy="-4">, the blur</tspan></text>
+  <text class="body reveal d4" x="48" y="336">the image already carries.</text>
+</g>
+<!-- target tile, re-blurred live -->
+<g>
+  <circle cx="660" cy="176" r="99" fill="none" stroke="#30363d" stroke-width="1.5"/>
+  <g clip-path="url(#disc)">
+    <rect x="568" y="84" width="184" height="184" fill="#f2f4f8"/>
+    <path d="M660,176 L752.00,176.00 A92,92 0 0 1 750.60,191.98 Z M660,176 L746.45,207.47 A92,92 0 0 1 739.67,222.00 Z M660,176 L730.48,235.14 A92,92 0 0 1 719.14,246.48 Z M660,176 L706.00,255.67 A92,92 0 0 1 691.47,262.45 Z M660,176 L675.98,266.60 A92,92 0 0 1 660.00,268.00 Z M660,176 L644.02,266.60 A92,92 0 0 1 628.53,262.45 Z M660,176 L614.00,255.67 A92,92 0 0 1 600.86,246.48 Z M660,176 L589.52,235.14 A92,92 0 0 1 580.33,222.00 Z M660,176 L573.55,207.47 A92,92 0 0 1 569.40,191.98 Z M660,176 L568.00,176.00 A92,92 0 0 1 569.40,160.02 Z M660,176 L573.55,144.53 A92,92 0 0 1 580.33,130.00 Z M660,176 L589.52,116.86 A92,92 0 0 1 600.86,105.52 Z M660,176 L614.00,96.33 A92,92 0 0 1 628.53,89.55 Z M660,176 L644.02,85.40 A92,92 0 0 1 660.00,84.00 Z M660,176 L675.98,85.40 A92,92 0 0 1 691.47,89.55 Z M660,176 L706.00,96.33 A92,92 0 0 1 719.14,105.52 Z M660,176 L730.48,116.86 A92,92 0 0 1 739.67,130.00 Z M660,176 L746.45,144.53 A92,92 0 0 1 750.60,160.02 Z" fill="#11151c" filter="url(#reblur)"/>
+  </g>
+  <text class="ax sans" x="660" y="298" text-anchor="middle">target tile, existing blur <tspan font-style="italic">s</tspan><tspan dy="4" font-size="11">0</tspan><tspan dy="-4"> = 6 px²</tspan></text>
+  <text class="ax sans" x="660" y="66" text-anchor="middle" style="fill:#f0883e">re-blurred by <tspan font-style="italic">η</tspan> →</text>
+</g>
+<!-- response curve -->
+<g class="sans">
+  <rect x="868" y="92" width="286" height="184" fill="none" stroke="#30363d"/>
+  <line x1="868.0" y1="276" x2="868.0" y2="281" stroke="#484f58"/><text class="ax" x="868.0" y="296" text-anchor="middle">0.1</text><line x1="963.3" y1="276" x2="963.3" y2="281" stroke="#484f58"/><text class="ax" x="963.3" y="296" text-anchor="middle">1</text><line x1="1058.7" y1="276" x2="1058.7" y2="281" stroke="#484f58"/><text class="ax" x="1058.7" y="296" text-anchor="middle">10</text><line x1="1154.0" y1="276" x2="1154.0" y2="281" stroke="#484f58"/><text class="ax" x="1154.0" y="296" text-anchor="middle">100</text><line x1="863" y1="276.0" x2="868" y2="276.0" stroke="#484f58"/><text class="ax" x="858" y="280.0" text-anchor="end">0</text><line x1="863" y1="184.0" x2="868" y2="184.0" stroke="#484f58"/><text class="ax" x="858" y="188.0" text-anchor="end">½</text><line x1="863" y1="92.0" x2="868" y2="92.0" stroke="#484f58"/><text class="ax" x="858" y="96.0" text-anchor="end">1</text>
+  <text class="ax" x="1011.0" y="318" text-anchor="middle">re-blur <tspan font-style="italic">η</tspan> (px², log scale)</text>
+  <text class="ax" x="868" y="78">share of gradient energy removed, <tspan font-style="italic">ρ</tspan>(<tspan font-style="italic">η</tspan>)</text>
+  <path d="M868.00,272.98 L869.79,272.85 L871.58,272.72 L873.36,272.57 L875.15,272.43 L876.94,272.27 L878.73,272.11 L880.51,271.94 L882.30,271.77 L884.09,271.59 L885.88,271.40 L887.66,271.20 L889.45,270.99 L891.24,270.78 L893.02,270.55 L894.81,270.32 L896.60,270.08 L898.39,269.83 L900.17,269.56 L901.96,269.29 L903.75,269.00 L905.54,268.71 L907.33,268.40 L909.11,268.08 L910.90,267.74 L912.69,267.40 L914.48,267.04 L916.26,266.66 L918.05,266.27 L919.84,265.87 L921.62,265.44 L923.41,265.01 L925.20,264.55 L926.99,264.08 L928.77,263.59 L930.56,263.08 L932.35,262.55 L934.14,262.00 L935.92,261.43 L937.71,260.84 L939.50,260.23 L941.29,259.60 L943.08,258.94 L944.86,258.26 L946.65,257.56 L948.44,256.83 L950.23,256.08 L952.01,255.30 L953.80,254.49 L955.59,253.65 L957.38,252.79 L959.16,251.90 L960.95,250.98 L962.74,250.04 L964.52,249.06 L966.31,248.05 L968.10,247.01 L969.89,245.94 L971.67,244.84 L973.46,243.71 L975.25,242.54 L977.04,241.34 L978.83,240.11 L980.61,238.85 L982.40,237.55 L984.19,236.22 L985.98,234.86 L987.76,233.46 L989.55,232.04 L991.34,230.58 L993.12,229.08 L994.91,227.56 L996.70,226.00 L998.49,224.41 L1000.27,222.80 L1002.06,221.15 L1003.85,219.47 L1005.64,217.77 L1007.42,216.04 L1009.21,214.28 L1011.00,212.49 L1012.79,210.69 L1014.58,208.86 L1016.36,207.01 L1018.15,205.13 L1019.94,203.24 L1021.73,201.34 L1023.51,199.41 L1025.30,197.48 L1027.09,195.53 L1028.88,193.57 L1030.66,191.60 L1032.45,189.62 L1034.24,187.64 L1036.03,185.66 L1037.81,183.67 L1039.60,181.69 L1041.39,179.70 L1043.17,177.72 L1044.96,175.75 L1046.75,173.78 L1048.54,171.83 L1050.33,169.88 L1052.11,167.95 L1053.90,166.03 L1055.69,164.13 L1057.47,162.25 L1059.26,160.38 L1061.05,158.54 L1062.84,156.71 L1064.62,154.91 L1066.41,153.14 L1068.20,151.39 L1069.99,149.67 L1071.78,147.97 L1073.56,146.30 L1075.35,144.67 L1077.14,143.06 L1078.92,141.48 L1080.71,139.93 L1082.50,138.42 L1084.29,136.94 L1086.08,135.49 L1087.86,134.07 L1089.65,132.69 L1091.44,131.33 L1093.22,130.02 L1095.01,128.73 L1096.80,127.48 L1098.59,126.26 L1100.38,125.07 L1102.16,123.91 L1103.95,122.79 L1105.74,121.70 L1107.53,120.64 L1109.31,119.61 L1111.10,118.61 L1112.89,117.65 L1114.67,116.71 L1116.46,115.80 L1118.25,114.92 L1120.04,114.07 L1121.83,113.24 L1123.61,112.44 L1125.40,111.67 L1127.19,110.93 L1128.97,110.21 L1130.76,109.51 L1132.55,108.84 L1134.34,108.19 L1136.12,107.56 L1137.91,106.96 L1139.70,106.38 L1141.49,105.81 L1143.28,105.27 L1145.06,104.75 L1146.85,104.25 L1148.64,103.76 L1150.42,103.30 L1152.21,102.85 L1154.00,102.42" fill="none" stroke="url(#curveg)" stroke-width="2.6" stroke-linecap="round"/>
+  <g opacity="0">
+    <animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;0.4268;0.4568;0.94;1" dur="9.0s" repeatCount="indefinite"/>
+    <line x1="868" y1="184.0" x2="1037.5" y2="184.0" stroke="#3fb950" stroke-dasharray="4 4"/>
+    <line x1="1037.5" y1="184.0" x2="1037.5" y2="276" stroke="#3fb950" stroke-dasharray="4 4"/>
+    <circle cx="1037.5" cy="184.0" r="5" fill="none" stroke="#3fb950" stroke-width="2"/>
+    <text class="lab" x="876" y="175.0" fill="#3fb950">half the energy</text>
+    <text class="lab" x="1045.5" y="266" fill="#3fb950">η = s<tspan dy="4" font-size="11">0</tspan></text>
+  </g>
+  <line x1="868.0" y1="92" x2="868.0" y2="276" stroke="#58a6ff" stroke-opacity=".35">
+    <animate attributeName="x1" values="868.00;875.94;883.89;891.83;899.78;907.72;915.67;923.61;931.56;939.50;947.44;955.39;963.33;971.28;979.22;987.17;995.11;1003.06;1011.00;1018.94;1026.89;1034.83;1042.78;1050.72;1058.67;1066.61;1074.56;1082.50;1090.44;1098.39;1106.33;1114.28;1122.22;1130.17;1138.11;1146.06;1154.00;1154.00;868.00" keyTimes="0.0000;0.0200;0.0400;0.0600;0.0800;0.1000;0.1200;0.1400;0.1600;0.1800;0.2000;0.2200;0.2400;0.2600;0.2800;0.3000;0.3200;0.3400;0.3600;0.3800;0.4000;0.4200;0.4400;0.4600;0.4800;0.5000;0.5200;0.5400;0.5600;0.5800;0.6000;0.6200;0.6400;0.6600;0.6800;0.7000;0.7200;0.9000;1.0000" dur="9.0s" repeatCount="indefinite"/>
+    <animate attributeName="x2" values="868.00;875.94;883.89;891.83;899.78;907.72;915.67;923.61;931.56;939.50;947.44;955.39;963.33;971.28;979.22;987.17;995.11;1003.06;1011.00;1018.94;1026.89;1034.83;1042.78;1050.72;1058.67;1066.61;1074.56;1082.50;1090.44;1098.39;1106.33;1114.28;1122.22;1130.17;1138.11;1146.06;1154.00;1154.00;868.00" keyTimes="0.0000;0.0200;0.0400;0.0600;0.0800;0.1000;0.1200;0.1400;0.1600;0.1800;0.2000;0.2200;0.2400;0.2600;0.2800;0.3000;0.3200;0.3400;0.3600;0.3800;0.4000;0.4200;0.4400;0.4600;0.4800;0.5000;0.5200;0.5400;0.5600;0.5800;0.6000;0.6200;0.6400;0.6600;0.6800;0.7000;0.7200;0.9000;1.0000" dur="9.0s" repeatCount="indefinite"/>
+  </line>
+  <circle r="11" fill="#58a6ff" class="pulse" cx="868.0" cy="273.0">
+    <animate attributeName="cx" values="868.00;875.94;883.89;891.83;899.78;907.72;915.67;923.61;931.56;939.50;947.44;955.39;963.33;971.28;979.22;987.17;995.11;1003.06;1011.00;1018.94;1026.89;1034.83;1042.78;1050.72;1058.67;1066.61;1074.56;1082.50;1090.44;1098.39;1106.33;1114.28;1122.22;1130.17;1138.11;1146.06;1154.00;1154.00;868.00" keyTimes="0.0000;0.0200;0.0400;0.0600;0.0800;0.1000;0.1200;0.1400;0.1600;0.1800;0.2000;0.2200;0.2400;0.2600;0.2800;0.3000;0.3200;0.3400;0.3600;0.3800;0.4000;0.4200;0.4400;0.4600;0.4800;0.5000;0.5200;0.5400;0.5600;0.5800;0.6000;0.6200;0.6400;0.6600;0.6800;0.7000;0.7200;0.9000;1.0000" dur="9.0s" repeatCount="indefinite"/>
+    <animate attributeName="cy" values="272.98;272.36;271.61;270.70;269.62;268.33;266.79;264.96;262.79;260.23;257.24;253.75;249.71;245.09;239.83;233.93;227.39;220.22;212.49;204.30;195.74;186.98;178.16;169.45;161.00;152.94;145.39;138.42;132.08;126.39;121.34;116.91;113.06;109.74;106.89;104.47;102.42;102.42;272.98" keyTimes="0.0000;0.0200;0.0400;0.0600;0.0800;0.1000;0.1200;0.1400;0.1600;0.1800;0.2000;0.2200;0.2400;0.2600;0.2800;0.3000;0.3200;0.3400;0.3600;0.3800;0.4000;0.4200;0.4400;0.4600;0.4800;0.5000;0.5200;0.5400;0.5600;0.5800;0.6000;0.6200;0.6400;0.6600;0.6800;0.7000;0.7200;0.9000;1.0000" dur="9.0s" repeatCount="indefinite"/>
+  </circle>
+  <circle r="5.5" fill="#ffffff" stroke="#58a6ff" stroke-width="2.5" cx="868.0" cy="273.0">
+    <animate attributeName="cx" values="868.00;875.94;883.89;891.83;899.78;907.72;915.67;923.61;931.56;939.50;947.44;955.39;963.33;971.28;979.22;987.17;995.11;1003.06;1011.00;1018.94;1026.89;1034.83;1042.78;1050.72;1058.67;1066.61;1074.56;1082.50;1090.44;1098.39;1106.33;1114.28;1122.22;1130.17;1138.11;1146.06;1154.00;1154.00;868.00" keyTimes="0.0000;0.0200;0.0400;0.0600;0.0800;0.1000;0.1200;0.1400;0.1600;0.1800;0.2000;0.2200;0.2400;0.2600;0.2800;0.3000;0.3200;0.3400;0.3600;0.3800;0.4000;0.4200;0.4400;0.4600;0.4800;0.5000;0.5200;0.5400;0.5600;0.5800;0.6000;0.6200;0.6400;0.6600;0.6800;0.7000;0.7200;0.9000;1.0000" dur="9.0s" repeatCount="indefinite"/>
+    <animate attributeName="cy" values="272.98;272.36;271.61;270.70;269.62;268.33;266.79;264.96;262.79;260.23;257.24;253.75;249.71;245.09;239.83;233.93;227.39;220.22;212.49;204.30;195.74;186.98;178.16;169.45;161.00;152.94;145.39;138.42;132.08;126.39;121.34;116.91;113.06;109.74;106.89;104.47;102.42;102.42;272.98" keyTimes="0.0000;0.0200;0.0400;0.0600;0.0800;0.1000;0.1200;0.1400;0.1600;0.1800;0.2000;0.2200;0.2400;0.2600;0.2800;0.3000;0.3200;0.3400;0.3600;0.3800;0.4000;0.4200;0.4400;0.4600;0.4800;0.5000;0.5200;0.5400;0.5600;0.5800;0.6000;0.6200;0.6400;0.6600;0.6800;0.7000;0.7200;0.9000;1.0000" dur="9.0s" repeatCount="indefinite"/>
+  </circle>
+</g>
+</svg>

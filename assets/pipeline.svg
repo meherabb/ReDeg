@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" width="1200" height="800" role="img" aria-labelledby="t d">
+<title id="t">Pipeline (paper, Fig. 2), animated</title>
+<desc id="d">Orange: unlabelled target images are re-blurred, their knees fitted and the storage read from their files. Blue: the labelled source is re-degraded to the identified level and storage. Green: the frozen classifier yields the attribution score phi, the calibrated estimator X@s-hat and, from the source alone, the floor-sensitivity index.</desc>
+<style>
+  .sans { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, 'Helvetica Neue', Helvetica, Arial, 'DejaVu Sans', sans-serif; }
+  .serif { font-family: 'Cambria Math', 'STIX Two Math', 'Latin Modern Math', 'DejaVu Serif', Georgia, 'Times New Roman', serif; }
+  .mono { font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'DejaVu Sans Mono', monospace; }
+  .t { fill: #e6edf3; }
+  .m { fill: #8b949e; }
+  @media (prefers-reduced-motion: reduce) { * { animation: none !important; } }
+
+  .bx { stroke-width: 1.6; }
+  .o { fill: rgba(240,136,62,.10); stroke: #f0883e; }
+  .b { fill: rgba(88,166,255,.10); stroke: #58a6ff; }
+  .g { fill: rgba(63,185,80,.10); stroke: #3fb950; }
+  .h1 { font: 600 17px -apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, 'Helvetica Neue', Helvetica, Arial, 'DejaVu Sans', sans-serif; fill: #e6edf3; }
+  .h2 { font: 400 15.5px -apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, 'Helvetica Neue', Helvetica, Arial, 'DejaVu Sans', sans-serif; fill: #8b949e; }
+  .mt { font-family: 'Cambria Math', 'STIX Two Math', 'Latin Modern Math', 'DejaVu Serif', Georgia, 'Times New Roman', serif; font-style: italic; }
+  .arr { fill: none; stroke: #8b949e; stroke-width: 1.6; stroke-dasharray: 7 6; animation: flow 1.1s linear infinite; }
+  .arr.dash { stroke-dasharray: 3 7; }
+  @keyframes flow { from { stroke-dashoffset: 26; } to { stroke-dashoffset: 0; } }
+  .st1, .st2, .st3 { animation: stage 6s ease-in-out infinite; }
+  .st2 { animation-delay: 2s; } .st3 { animation-delay: 4s; }
+  @keyframes stage { 0%,100% { stroke-width: 1.6; filter: none; } 12%,26% { stroke-width: 3; filter: url(#glow); } 40% { stroke-width: 1.6; filter: none; } }
+  .leg { font: 500 14.5px -apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, 'Helvetica Neue', Helvetica, Arial, 'DejaVu Sans', sans-serif; fill: #8b949e; }
+  .tag { font: 600 14px -apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, 'Helvetica Neue', Helvetica, Arial, 'DejaVu Sans', sans-serif; fill: #8b949e; }
+</style>
+<defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#0b0f17"/><stop offset="1" stop-color="#161b22"/>
+  </linearGradient>
+  <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+    <feGaussianBlur stdDeviation="3.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+  </filter>
+  <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+    <path d="M0,0 L10,5 L0,10 z" fill="#8b949e"/>
+  </marker>
+</defs>
+<rect x="1" y="1" width="1198" height="798" rx="18" fill="url(#bg)" stroke="#30363d" stroke-width="1.5"/>
+<g transform="translate(40,34)"><circle cx="6" cy="-4" r="6" fill="#f0883e"/><text class="leg" x="18" y="0">pixels and file headers only, same for every classifier</text><circle cx="482" cy="-4" r="6" fill="#58a6ff"/><text class="leg" x="494" y="0">labelled source, stored like the target</text><circle cx="822" cy="-4" r="6" fill="#3fb950"/><text class="leg" x="834" y="0">what the frozen classifier is used for</text></g>
+<g>
+  <path class="arr" d="M600,134 L600,168" marker-end="url(#ah)"/>
+  <path class="arr" d="M600,248 L600,284" marker-end="url(#ah)"/>
+  <path class="arr" d="M340,332 L378,332" marker-end="url(#ah)"/>
+  <path class="arr" d="M600,378 L600,450" marker-end="url(#ah)"/>
+  <path class="arr" d="M190,378 L190,638" marker-end="url(#ah)"/>
+  <path class="arr" d="M190,498 L378,498" marker-end="url(#ah)"/>
+  <path class="arr" d="M860,498 L822,498" marker-end="url(#ah)"/>
+  <path class="arr dash" d="M820,102 L1010,102 L1010,450" marker-end="url(#ah)"/>
+  <path class="arr" d="M600,544 L600,638" marker-end="url(#ah)"/>
+  <path class="arr" d="M700,544 L700,590 L1010,590 L1010,626" marker-end="url(#ah)"/>
+</g>
+<g>
+  <rect class="bx o st1" x="380" y="70" width="440" height="64" rx="12"/>
+  <text class="h1 sans" x="600.0" y="108.0" text-anchor="middle">unlabelled target images <tspan class="mt">x′</tspan></text>
+  <rect class="bx o st1" x="380" y="170" width="440" height="78" rx="12"/>
+  <text class="h1 sans" x="600.0" y="203.0" text-anchor="middle">re-blur by <tspan class="mt">η</tspan> (one DCT per image)</text>
+  <text class="h2 sans" x="600.0" y="227.0" text-anchor="middle">response <tspan class="mt">ρ</tspan><tspan dy="4" font-size="11">x′</tspan><tspan dy="-4">(<tspan class="mt">η</tspan>) at 13 levels</tspan></text>
+  <rect class="bx b st2" x="40" y="286" width="300" height="92" rx="12"/>
+  <text class="h1 sans" x="190.0" y="326.0" text-anchor="middle">labelled source <tspan class="mt">P</tspan></text>
+  <text class="h2 sans" x="190.0" y="350.0" text-anchor="middle">CAL(<tspan class="mt">s</tspan>): median knee of <tspan class="mt">T</tspan><tspan dy="4" font-size="11">s</tspan><tspan dy="-4"><tspan class="mt">P</tspan></tspan></text>
+  <rect class="bx o st1" x="380" y="286" width="440" height="92" rx="12"/>
+  <text class="h1 sans" x="600.0" y="326.0" text-anchor="middle">knee fit, <tspan class="mt">ŝ</tspan> = CAL⁻¹(median knee)</text>
+  <text class="h2 sans" x="600.0" y="350.0" text-anchor="middle">fit check, noise level <tspan class="mt">σ̂</tspan></text>
+  <rect class="bx b st2" x="380" y="452" width="440" height="92" rx="12"/>
+  <text class="h1 sans" x="600.0" y="492.0" text-anchor="middle">re-degraded source</text>
+  <text class="h2 sans" x="600.0" y="516.0" text-anchor="middle"><tspan class="mt">D</tspan>(<tspan class="mt">x</tspan>) = JPEG<tspan dy="4" font-size="11">q,c</tspan><tspan dy="-4">(<tspan class="mt">Q</tspan>₈(<tspan class="mt">T</tspan><tspan dy="4" font-size="11">ŝ</tspan><tspan dy="-4"><tspan class="mt">x</tspan> + <tspan class="mt">σ̂ξ</tspan>))</tspan></tspan></text>
+  <rect class="bx o st1" x="860" y="452" width="300" height="92" rx="12"/>
+  <text class="h1 sans" x="1010.0" y="492.0" text-anchor="middle">storage read from target files</text>
+  <text class="h2 sans" x="1010.0" y="516.0" text-anchor="middle">8 bit, JPEG <tspan class="mt">q</tspan>, chroma <tspan class="mt">c</tspan></text>
+  <rect class="bx g st3" x="40" y="640" width="300" height="92" rx="12"/>
+  <text class="h1 sans" x="190.0" y="680.0" text-anchor="middle">FSI: floor sensitivity</text>
+  <text class="h2 sans" x="190.0" y="704.0" text-anchor="middle">from <tspan class="mt">P</tspan> alone, no target data</text>
+  <rect class="bx g st3" x="380" y="640" width="440" height="92" rx="12"/>
+  <text class="h1 sans" x="600.0" y="680.0" text-anchor="middle"><tspan class="mt">φ</tspan>: share of the confidence drop</text>
+  <text class="h2 sans" x="600.0" y="704.0" text-anchor="middle">that is due to blur</text>
+  <rect class="bx g st3" x="860" y="628" width="300" height="116" rx="12"/>
+  <text class="h1 sans" x="1010.0" y="680.0" text-anchor="middle"><tspan class="mt">X</tspan>@<tspan class="mt">ŝ</tspan>: estimator calibrated</text>
+  <text class="h2 sans" x="1010.0" y="704.0" text-anchor="middle">on <tspan class="mt">D</tspan>(<tspan class="mt">P</tspan>); switch if <tspan class="mt">φ</tspan> ≥ 0.5</text>
+</g>
+<text class="tag" x="614" y="421"><tspan class="mt">ŝ</tspan>, <tspan class="mt">σ̂</tspan></text><text class="tag" x="1022" y="300">file headers</text>
+<g>
+  <circle r="4.5" fill="#f0883e" filter="url(#glow)" opacity="0"><animateMotion dur="6.0s" repeatCount="indefinite" calcMode="linear" path="M600,134 L600,168" keyPoints="0;0;1;1" keyTimes="0;0.0000;0.1500;1"/><animate attributeName="opacity" dur="6.0s" repeatCount="indefinite" values="0;0;1;1;0;0" keyTimes="0;0.0000;0.0150;0.1350;0.1500;1"/></circle>
+  <circle r="4.5" fill="#f0883e" filter="url(#glow)" opacity="0"><animateMotion dur="6.0s" repeatCount="indefinite" calcMode="linear" path="M600,248 L600,284" keyPoints="0;0;1;1" keyTimes="0;0.1500;0.3000;1"/><animate attributeName="opacity" dur="6.0s" repeatCount="indefinite" values="0;0;1;1;0;0" keyTimes="0;0.1500;0.1650;0.2850;0.3000;1"/></circle>
+  <circle r="4.5" fill="#f0883e" filter="url(#glow)" opacity="0"><animateMotion dur="6.0s" repeatCount="indefinite" calcMode="linear" path="M600,378 L600,450" keyPoints="0;0;1;1" keyTimes="0;0.3000;0.4667;1"/><animate attributeName="opacity" dur="6.0s" repeatCount="indefinite" values="0;0;1;1;0;0" keyTimes="0;0.3000;0.3150;0.4517;0.4667;1"/></circle>
+  <circle r="4.5" fill="#f0883e" filter="url(#glow)" opacity="0"><animateMotion dur="6.0s" repeatCount="indefinite" calcMode="linear" path="M820,102 L1010,102 L1010,450" keyPoints="0;0;1;1" keyTimes="0;0.0000;0.3333;1"/><animate attributeName="opacity" dur="6.0s" repeatCount="indefinite" values="0;0;1;1;0;0" keyTimes="0;0.0000;0.0150;0.3183;0.3333;1"/></circle>
+  <circle r="4.5" fill="#f0883e" filter="url(#glow)" opacity="0"><animateMotion dur="6.0s" repeatCount="indefinite" calcMode="linear" path="M860,498 L822,498" keyPoints="0;0;1;1" keyTimes="0;0.3333;0.4500;1"/><animate attributeName="opacity" dur="6.0s" repeatCount="indefinite" values="0;0;1;1;0;0" keyTimes="0;0.3333;0.3483;0.4350;0.4500;1"/></circle>
+  <circle r="4.5" fill="#58a6ff" filter="url(#glow)" opacity="0"><animateMotion dur="6.0s" repeatCount="indefinite" calcMode="linear" path="M340,332 L378,332" keyPoints="0;0;1;1" keyTimes="0;0.0667;0.1833;1"/><animate attributeName="opacity" dur="6.0s" repeatCount="indefinite" values="0;0;1;1;0;0" keyTimes="0;0.0667;0.0817;0.1683;0.1833;1"/></circle>
+  <circle r="4.5" fill="#58a6ff" filter="url(#glow)" opacity="0"><animateMotion dur="6.0s" repeatCount="indefinite" calcMode="linear" path="M190,498 L378,498" keyPoints="0;0;1;1" keyTimes="0;0.1833;0.3500;1"/><animate attributeName="opacity" dur="6.0s" repeatCount="indefinite" values="0;0;1;1;0;0" keyTimes="0;0.1833;0.1983;0.3350;0.3500;1"/></circle>
+  <circle r="4.5" fill="#58a6ff" filter="url(#glow)" opacity="0"><animateMotion dur="6.0s" repeatCount="indefinite" calcMode="linear" path="M190,378 L190,638" keyPoints="0;0;1;1" keyTimes="0;0.1000;0.4667;1"/><animate attributeName="opacity" dur="6.0s" repeatCount="indefinite" values="0;0;1;1;0;0" keyTimes="0;0.1000;0.1150;0.4517;0.4667;1"/></circle>
+  <circle r="4.5" fill="#3fb950" filter="url(#glow)" opacity="0"><animateMotion dur="6.0s" repeatCount="indefinite" calcMode="linear" path="M600,544 L600,638" keyPoints="0;0;1;1" keyTimes="0;0.4833;0.6500;1"/><animate attributeName="opacity" dur="6.0s" repeatCount="indefinite" values="0;0;1;1;0;0" keyTimes="0;0.4833;0.4983;0.6350;0.6500;1"/></circle>
+  <circle r="4.5" fill="#3fb950" filter="url(#glow)" opacity="0"><animateMotion dur="6.0s" repeatCount="indefinite" calcMode="linear" path="M700,544 L700,590 L1010,590 L1010,626" keyPoints="0;0;1;1" keyTimes="0;0.4833;0.7500;1"/><animate attributeName="opacity" dur="6.0s" repeatCount="indefinite" values="0;0;1;1;0;0" keyTimes="0;0.4833;0.4983;0.7350;0.7500;1"/></circle>
+</g>
+</svg>
